@@ -1,0 +1,45 @@
+# ec.Evolve
+# one thread
+evalthreads = 				6
+breedthreads = 				6
+
+# ECJ used to use this as its initial random seed by default.  No longer, now
+# it's assumed to be the wall clock time by default.
+#seed.0 =				time
+seed.0 =				time
+seed.1 =				time
+seed.2 =				time
+seed.3 =				time
+seed.4 =				time
+seed.5 =                                time
+seed.6 =                                time
+seed.7 =                                time
+seed.8 =                                time
+seed.9 =                                time
+seed.10 =                                time
+seed.11 =                                time
+seed.12 =                                time
+seed.13 =                                time
+seed.14 =                                time
+seed.15 =                                time
+seed.16 =                                time
+seed.17 =                                time
+seed.18 =                                time
+seed.19 =                                time
+seed.20 =                                time
+seed.21 =                                time
+seed.22 =                                time
+seed.23 =                                time
+seed.24 =                                time
+seed.25 =                                time
+seed.26 =                                time
+seed.27 =                                time
+seed.28 =                                time
+seed.29 =                                time
+#seed.5 =				time
+# ec.EvolutionState
+# We're not writing checkpoint files.  If we were, we'd do it every
+# generation, and the prefix to all the files would be "ec.*"
+checkpoint =				false
+checkpoint-modulo =			1
+checkpoint-prefix =			ecec

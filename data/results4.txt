@@ -1,0 +1,12 @@
+C101_20_02 302.0 Feasible
+C101_20_08 312.0 Feasible
+C101_40_02 648.0 Feasible
+C101_40_08 734.0000000000057 Feasible
+R101_20_02 333.0 Feasible
+R101_20_08 343.0 Feasible
+R101_40_02 2052.0 Feasible
+R101_40_08 857.0 Feasible
+RC101_20_02 428.0 Feasible
+RC101_20_08 490.0 Feasible
+RC101_40_02 1057.0 Feasible
+RC101_40_08 1102.0 Feasible

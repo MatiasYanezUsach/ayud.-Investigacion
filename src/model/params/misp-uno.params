@@ -1,0 +1,102 @@
+parent.0 = koza.params
+
+# We have one function set, of class GPFunctionSet
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+
+# We'll call the function set "f0".
+gp.fs.0.name = f0
+
+## We have five functions in the function set.  They are:
+gp.fs.0.size =2
+
+
+#Terminals
+#gp.fs.0.func.0 = terminals.AddFreeVert_FewerFreeNeighbors
+#gp.fs.0.func.0.nc = nc0
+#gp.fs.0.func.1 = terminals.AddFreeVert_FewerNeighbors
+#gp.fs.0.func.1.nc = nc0
+#gp.fs.0.func.2 = terminals.RmvSolVert_More1TightNeighbors
+#gp.fs.0.func.2.nc = nc0
+#gp.fs.0.func.3 = terminals.RmvSolVert_MoreNeighbors
+#gp.fs.0.func.3.nc = nc0
+#gp.fs.0.func.4 = terminals.Improvement_2
+#gp.fs.0.func.4.nc = nc0
+#gp.fs.0.func.5 = terminals.Improvement_3
+#gp.fs.0.func.5.nc = nc0
+#gp.fs.0.func.6 = terminals.AllImprovements2and3_Maximal
+#gp.fs.0.func.6.nc = nc0
+gp.fs.0.func.0 = terminals.Builder_BFS
+gp.fs.0.func.0.nc = nc0
+
+#gp.fs.0.func.0 = terminals.Builder_FewerFreeNeighbors
+#gp.fs.0.func.0.nc = nc0
+#gp.fs.0.func.8 = terminals.Builder_FewerNeighbors
+#gp.fs.0.func.8.nc = nc0
+#gp.fs.0.func.8 = terminals.OneImprovements2or3_Maximal
+#gp.fs.0.func.8.nc = nc0
+
+#gp.fs.0.func.8 = terminals.Meta_ILS
+#gp.fs.0.func.8.nc = nc0
+
+#gp.fs.0.func.9 = terminals.Meta_ILS
+#gp.fs.0.func.9.nc = nc0
+#gp.fs.0.func.7 = terminals.RmvSolVert_Random
+#gp.fs.0.func.7.nc = nc0
+#gp.fs.0.func.2 = terminals.AddFreeVert_MoreNeighbors
+#gp.fs.0.func.2.nc = nc0
+#gp.fs.0.func.4 = terminals.RmvSolVert_FewerNeighbors
+#gp.fs.0.func.4.nc = nc0
+#gp.fs.0.func.9 = terminals.IsVoidSol
+#gp.fs.0.func.9.nc = nc0
+#gp.fs.0.func.10 = terminals.AllImprovement2_Maximal
+#gp.fs.0.func.10.nc = nc0
+#gp.fs.0.func.11 = terminals.AllImprovement3_Maximal
+#gp.fs.0.func.11.nc = nc0
+#gp.fs.0.func.12 = terminals.Improvement2_NoMaximal
+#gp.fs.0.func.12.nc = nc0
+#gp.fs.0.func.13 = terminals.Improvement3_NoMaximal
+#gp.fs.0.func.13.nc = nc0
+#gp.fs.0.func.11 = terminals.Builder_MoreNeighbors
+#gp.fs.0.func.11.nc = nc0
+
+#Functions
+gp.fs.0.func.1 = functions.Or
+gp.fs.0.func.1.nc = nc2
+#gp.fs.0.func.10 = functions.And
+#gp.fs.0.func.10.nc = nc2
+#gp.fs.0.func.11 = functions.DoWhile
+#gp.fs.0.func.11.nc = nc5
+#gp.fs.0.func.12 = functions.IfThen
+#gp.fs.0.func.12.nc = nc3
+#gp.fs.0.func.13 = terminals.RmvALLVert_More1TightNeighbors
+#gp.fs.0.func.13.nc = nc0
+
+#gp.fs.0.func.14 = terminals.AddFreeVert_Random
+#gp.fs.0.func.14.nc = nc0
+
+#gp.fs.0.func.14 = functions.IfThenElse
+#gp.fs.0.func.14.nc = nc4
+
+
+#gp.fs.0.func.14 = terminals.IsMaximalSol
+#gp.fs.0.func.14.nc = nc0
+#gp.fs.0.func.18 = terminals.Builder_Random
+#gp.fs.0.func.18.nc = nc0
+#gp.fs.0.func.15 = functions.Equal
+#gp.fs.0.func.15.nc = nc2
+#gp.fs.0.func.16 = functions.Exec2
+#gp.fs.0.func.16.nc = nc2
+
+
+#gp.fs.0.func.18 = functions.Not
+#gp.fs.0.func.18.nc = nc1
+#gp.fs.0.func.25 = functions.Repeat
+#gp.fs.0.func.25.nc = nc7
+
+
+eval.problem = model.MISProblemEvo
+#	Reevaluate individuals even if their evaluated flag has been set
+#eval.problem.reevaluate = false
+eval.problem.data = model.MISPData
+

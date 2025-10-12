@@ -1,0 +1,262 @@
+\item \textbf{add\_nearest\_neighbor\_last\_node}: Este terminal agrega el nodo de menor costo al final de la ruta mas cercana. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos al final de una ruta cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:add_nearest_neighbor_last_node}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo add\_nearest\_neighbor\_last\_node.}
+    	\label{alg:add_nearest_neighbor_last_node}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE mejorCosto <- $\infty$ //Se guarda el mejor costo, inicialmente infinito
+    	\STATE mejorRutas //Se guarda la mejor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutasCopia}
+        		    \STATE agregar nodo al final de rutasCopia
+        		    \STATE costoActual <- calcular costo
+        		    \IF{ruta cumple restricciones y costoActual < mejorCosto}
+        		        \STATE mejorRutas <- rutasCopia
+        		        \STATE mejorCosto <- costoActual
+        		    \ENDIF
+        		    rutasCopia <- rutas
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró mejor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- mejorRutas
+        		\STATE costo <- mejorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF
+    	
+
+    	
+    	\end{algorithmic}
+    \end{algorithm}
+    
+    \item \textbf{add\_farthest\_neighbor\_last\_node}: Este terminal agrega el nodo de mayor costo al final de la ruta mas cercana. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos al final de una ruta cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:add_farthest_neighbor_last_node}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo add\_farthest\_neighbor\_last\_node.}
+    	\label{alg:add_farthest_neighbor_last_node}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE peorCosto <- 0 //Se guarda el peor costo, inicialmente 0
+    	\STATE peorRutas //Se guarda la peor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutaCopia}
+        		    \STATE agregar nodo al final de rutaCopia
+        		    \STATE costoActual <- calcular costo
+        		    \IF{ruta cumple restricciones y costoActual > mejorCosto}
+        		        \STATE peorRutas <- rutasCopia
+        		        \STATE peorCosto <- costoActual
+        		    \ENDIF
+        		    rutasCopia <- rutas
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró peor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- peorRutas
+        		\STATE costo <- peorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF
+    	
+
+    	
+    	\end{algorithmic}
+    \end{algorithm}
+    
+    \item \textbf{nearest\_insertion}: Este terminal agrega un nodo en la posicion de menos costo de algunas de las rutas. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos a algunas de las rutas cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:nearest_insertion}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo nearest\_insertion.}
+    	\label{alg:nearest_insertion}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE mejorCosto <- $\infty$ //Se guarda el mejor costo, inicialmente infinito
+    	\STATE mejorRutas //Se guarda la mejor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutaCopia}
+        	        \FOR{cada posicion de la ruta}
+            		    \STATE agregar nodo a ruta en la posicion
+            		    \STATE costoActual <- calcular costo
+            		    \IF{ruta cumple restricciones y costoActual < mejorCosto}
+            		        \STATE mejorRutas <- rutasCopia
+            		        \STATE mejorCosto <- costoActual
+            		    \ENDIF
+            		    rutasCopia <- rutas
+            		\ENDFOR
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró mejor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- mejorRutas
+        		\STATE costo <- mejorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF
+    	
+
+    	
+    	\end{algorithmic}
+    \end{algorithm}
+    
+    \item \textbf{nearest\_insertion}: Este terminal agrega un nodo en la posicion de menos costo de algunas de las rutas. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos a algunas de las rutas cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:nearest_insertion}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo nearest\_insertion.}
+    	\label{alg:nearest_insertion}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE mejorCosto <- $\infty$ //Se guarda el mejor costo, inicialmente infinito
+    	\STATE mejorRutas //Se guarda la mejor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutaCopia}
+        	        \FOR{cada posicion de la ruta}
+            		    \STATE agregar nodo a ruta en la posicion
+            		    \STATE costoActual <- calcular costo
+            		    \IF{ruta cumple restricciones y costoActual < mejorCosto}
+            		        \STATE mejorRutas <- rutasCopia
+            		        \STATE mejorCosto <- costoActual
+            		    \ENDIF
+            		    rutasCopia <- rutas
+            		\ENDFOR
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró mejor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- mejorRutas
+        		\STATE costo <- mejorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF
+    	
+
+    	
+    	\end{algorithmic}
+    \end{algorithm}
+        
+    \item \textbf{farthest\_insertion}: Este terminal agrega un nodo en la posición de mas costo de algunas de las rutas. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos a algunas de las rutas cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:farthest_insertion}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo farthest\_insertion.}
+    	\label{alg:farthest_insertion}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE peorCosto <- 0 //Se guarda el peor costo, inicialmente 0
+    	\STATE peorRutas //Se guarda la paor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutaCopia}
+        	        \FOR{cada posicion de la ruta}
+            		    \STATE agregar nodo a ruta en la posición
+            		    \STATE costoActual <- calcular costo
+            		    \IF{ruta cumple restricciones y costoActual > mejorCosto}
+            		        \STATE peorRutas <- rutasCopia
+            		        \STATE peorCosto <- costoActual
+            		    \ENDIF
+            		    rutasCopia <- rutas
+            		\ENDFOR
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró mejor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- peorRutas
+        		\STATE costo <- peorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF
+    \end{algorithmic}
+\end{algorithm}
+    	
+
+    	
+    	\end{algorithmic}
+    \end{algorithm}
+    
+    \item \textbf{farthest\_insertion}: Este terminal agrega un nodo en la posición de mas costo de algunas de las rutas. Si logra agregar el nodo, el terminal retorna verdadero, en caso contrario retorna falso (no quedan nodos sin visitar, o no quedan nodos que al agregarlos a algunas de las rutas cumplan con las restricciones de peso). Se puede ver el pseudocódigo en el algoritmo \ref{alg:farthest_insertion}.
+    
+    \begin{algorithm}[!ht]
+    	\caption{Algoritmo farthest\_insertion.}
+    	\label{alg:farthest_insertion}
+    	\begin{algorithmic}[1]
+    	\STATE rutas //Lista de lista con la rutas
+    	\STATE costo //Costo actual de las rutas armadas
+    	\STATE rutasCopia <- rutas //Copia de rutas
+    	\STATE nodosSinVisitar  //Lista con nodos sin visitar
+    	\STATE peorCosto <- 0 //Se guarda el peor costo, inicialmente 0
+    	\STATE peorRutas //Se guarda la paor ruta, inicialmente vacia
+    	
+    	\IF {hay nodos sin visitar}
+    	    \FOR{cada nodo sin visitar}
+    	        \FOR{cada ruta en rutaCopia}
+        	        \FOR{cada posicion de la ruta}
+            		    \STATE agregar nodo a ruta en la posición
+            		    \STATE costoActual <- calcular costo
+            		    \IF{ruta cumple restricciones y costoActual > mejorCosto}
+            		        \STATE peorRutas <- rutasCopia
+            		        \STATE peorCosto <- costoActual
+            		    \ENDIF
+            		    rutasCopia <- rutas
+            		\ENDFOR
+        		\ENDFOR
+    		\ENDFOR
+    		\IF{se encontró mejor ruta}
+        		\STATE actualizar restricciones
+        		\STATE rutas <- peorRutas
+        		\STATE costo <- peorCosto
+        		\STATE remover nodo agregado de no visitados
+    		    \RETURN verdadero
+            \ELSE
+                \RETURN falso
+            \ENDIF
+    	\ELSE
+    		\RETURN falso
+    	\ENDIF

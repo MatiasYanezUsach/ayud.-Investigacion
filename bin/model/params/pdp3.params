@@ -1,0 +1,93 @@
+parent.0 = koza.params
+
+# We have one function set, of class GPFunctionSet
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+
+# We'll call the function set "f0".
+gp.fs.0.name = f0
+
+## We have five functions in the function set.  They are:
+gp.fs.0.size = 14
+
+#Terminals
+gp.fs.0.func.0 = terminals.NearestNeighbor
+gp.fs.0.func.0.nc = nc0
+gp.fs.0.func.1 = terminals.BestMove
+gp.fs.0.func.1.nc = nc0
+gp.fs.0.func.2 = terminals.FarthestNeighbor
+gp.fs.0.func.2.nc = nc0
+gp.fs.0.func.3 = terminals.NearestInsertion
+gp.fs.0.func.3.nc = nc0
+gp.fs.0.func.4 = terminals.NearestFirstNode
+gp.fs.0.func.4.nc = nc0
+gp.fs.0.func.5 = terminals.FarthestInsertion
+gp.fs.0.func.5.nc = nc0
+
+gp.fs.0.func.6 = terminals.WorstMove
+gp.fs.0.func.6.nc = nc0
+#gp.fs.0.func.6 = terminals.RandomMove
+#gp.fs.0.func.6.nc = nc0
+#gp.fs.0.func.6 = terminals.CplexTerminal
+#gp.fs.0.func.6.nc = nc0
+
+gp.fs.0.func.7 = terminals.FarthestFirstNode
+gp.fs.0.func.7.nc = nc0
+
+#Functions
+
+gp.fs.0.func.8 = functions.IfThenElse
+gp.fs.0.func.8.nc = nc4
+gp.fs.0.func.9 = functions.IfThen
+gp.fs.0.func.9.nc = nc3
+gp.fs.0.func.10 = functions.DoWhile
+gp.fs.0.func.10.nc = nc5
+gp.fs.0.func.11 = functions.And
+gp.fs.0.func.11.nc = nc2
+gp.fs.0.func.12 = functions.Or
+gp.fs.0.func.12.nc = nc2
+gp.fs.0.func.13 = functions.Equal
+gp.fs.0.func.13.nc = nc2
+
+
+
+#gp.fs.0.func.3 = functions.Not
+#gp.fs.0.func.3.nc = nc1
+
+
+
+
+#Functions
+#gp.fs.0.func.11 = functions.Or
+#gp.fs.0.func.11.nc = nc2
+#gp.fs.0.func.12 = functions.And
+#gp.fs.0.func.12.nc = nc2
+#gp.fs.0.func.13 = functions.DoWhile
+#gp.fs.0.func.13.nc = nc5
+#gp.fs.0.func.14 = functions.IfThen
+#gp.fs.0.func.14.nc = nc3
+
+
+
+#gp.fs.0.func.14 = functions.IfThenElse
+#gp.fs.0.func.14.nc = nc4
+
+
+
+#gp.fs.0.func.15 = functions.Equal
+#gp.fs.0.func.15.nc = nc2
+#gp.fs.0.func.16 = functions.Exec2
+#gp.fs.0.func.16.nc = nc2
+
+
+#gp.fs.0.func.18 = functions.Not
+#gp.fs.0.func.18.nc = nc1
+#gp.fs.0.func.25 = functions.Repeat
+#gp.fs.0.func.25.nc = nc7
+
+
+eval.problem = model.PDPProblemEvo
+#	Reevaluate individuals even if their evaluated flag has been set
+#eval.problem.reevaluate = false
+eval.problem.data = model.PDPData
+

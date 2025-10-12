@@ -1,0 +1,8 @@
+Mitra-1-01 210.0 Optimal
+Mitra-1-02 290.0 Optimal
+Mitra-1-06 290.0 Optimal
+Mitra-1-16 290.0 Optimal
+Mitra-2-01 244.0 Optimal
+Mitra-2-02 461.0 Optimal
+Mitra-2-06 461.0 Optimal
+Mitra-2-16 461.0 Optimal
