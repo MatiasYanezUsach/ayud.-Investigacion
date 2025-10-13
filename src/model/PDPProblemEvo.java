@@ -74,7 +74,7 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             File evofolder = new File(Outputpath+PDPProblemEvo.JOB_NUMBER+"/");//carpeta de archivos de la evolución
             evofolder.mkdir();
             RESULTS_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/"+RESULTS_namefile);
-            DOT_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/"+DOT_namefile);
+            DOT_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/job."+PDPProblemEvo.JOB_NUMBER+"."+DOT_namefile);
             data = new ArrayList<PDPData>();//DATA
             FileIO.readInstances(data, Instacespath);
         } catch (Exception e) {	e.printStackTrace();}
@@ -233,19 +233,25 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         state.output.println("label=\"Individual=" + indid + " Fitness=" + ((ec.gp.koza.KozaFitness) gpind.fitness).standardizedFitness() + " Hits=" + ((ec.gp.koza.KozaFitness) gpind.fitness).hits + " Size=" + gpind.size() + " Depth=" + gpind.trees[0].child.depth() + "\";", DOT_FILE);
         gpind.printIndividualForHumans(state, DOT_FILE);
 
-
         String path = Outputpath+PDPProblemEvo.JOB_NUMBER+"/job."+PDPProblemEvo.JOB_NUMBER+".";
         try {
             elite();
 
-            FileIO.repairDot(path,DOT_namefile);
-            FileIO.dot_a_png(path,dotexepath,DOT_namefile);
             FileIO.Stat_a_csv(path,statfile,statfileCSV);
             FileIO.Estadistica_Promedio_y_Mejores(path,Corrida,"EstadisticaProm&Mej.csv");
             FileIO.Estadistica_Todos(path,Corrida,"Estadistica_Todos.csv");//agregar tiempo
             var threadSeeds = Evolve.V_SEED_TIME;
             System.out.println("Seeds: "+threadSeeds+" "+Evolve.P_SEED);
             FileIO.GuardarSemillas(path,semillas,state.evalthreads,state.breedthreads,"Semillas.csv");//incompleta
+            
+            // Reparar el formato del archivo .dot (mover label dentro del digraph)
+            FileIO.repairDot(path,DOT_namefile);
+            
+            System.out.println("");
+            System.out.println("==============================================");
+            System.out.println("NOTA: Para generar las imagenes PNG, ejecuta:");
+            System.out.println("  convert_dots_to_png.bat");
+            System.out.println("==============================================");
         } catch (Exception e) {e.printStackTrace();}
     }
     public static double Relative_Error_Legibility(long tam){//El error depende de que tan alejado esta del tamaño ideal, sea mayor o menor

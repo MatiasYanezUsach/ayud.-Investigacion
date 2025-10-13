@@ -3,6 +3,6 @@ Subpopulation Number: i0|
 Number of Individuals: i1|
 Individual Number: i0|
 Evaluated: F
-Fitness: f1034797486|0.08484207|i4|
+Fitness: f1045125580|0.19858474|i4|
 Tree 0:
- (Equal (Or (If_Then (If_Then WorstMove NearestNeighbor) (If_Then_Else NearestFirstNode WorstMove FarthestNeighbor)) (Or (If_Then BestMove FarthestFirstNode) (If_Then_Else CplexTerminal FarthestNeighbor NearestFirstNode))) (While (Or (If_Then WorstMove CplexTerminal) (Equal FarthestNeighbor NearestFirstNode)) (If_Then (If_Then_Else NearestFirstNode WorstMove FarthestNeighbor) (Or FarthestNeighbor NearestNeighbor))))
+ (If_Then_Else (While (Equal (Or NearestFirstNode FarthestInsertion) (Or FarthestFirstNode FarthestFirstNode)) (If_Then (If_Then NearestInsertion NearestInsertion) (If_Then_Else NearestInsertion CplexTerminal FarthestFirstNode))) (If_Then (While FarthestFirstNode FarthestFirstNode) (If_Then (Equal BestMove CplexTerminal) (While FarthestFirstNode NearestFirstNode))) (While (If_Then_Else (While FarthestFirstNode FarthestFirstNode) (If_Then FarthestInsertion FarthestInsertion) (And FarthestInsertion CplexTerminal)) (If_Then_Else (Equal FarthestFirstNode CplexTerminal) (Equal FarthestFirstNode FarthestFirstNode) (Or CplexTerminal WorstMove))))

@@ -164,13 +164,74 @@ public class FileIO {
 		try {
 			System.out.println("[dot_a_png]");
 			String fileInputPath =	path+file;
-			String[] s = file.split("\\.");//sin extensión
+			String[] s = file.split("\\.");//sin extensiÃ³n
 			String fileOutputPath =	path+s[0]+".png";
+			
+			// Convertir rutas a formato de sistema operativo
+			File dotFile = new File(fileInputPath);
+			File pngFileObj = new File(fileOutputPath);
+			File dotExeFile = new File(dotPath);
+			
+			String absoluteDotPath = dotFile.getAbsolutePath();
+			String absolutePngPath = pngFileObj.getAbsolutePath();
+			String absoluteExePath = dotExeFile.getAbsolutePath();
+			
+			// Verificar que el archivo .dot existe
+			if (!dotFile.exists()) {
+				System.out.println("Error: El archivo .dot no existe: " + absoluteDotPath);
+				return;
+			}
+			
+			// Verificar que dotPath existe
+			if (!dotExeFile.exists()) {
+				System.out.println("Error: dot.exe no encontrado en: " + absoluteExePath);
+				System.out.println("Por favor, instala Graphviz o verifica la ruta en el archivo de configuraciÃ³n.");
+				return;
+			}
+			
+			// Construir el comando como array con rutas absolutas
+			String[] command = {absoluteExePath, "-Tpng", absoluteDotPath, "-o", absolutePngPath};
+			
+			System.out.println("Ejecutando: " + absoluteExePath + " -Tpng " + absoluteDotPath + " -o " + absolutePngPath);
+			
 			Runtime rt = Runtime.getRuntime();
-			rt.exec(dotPath+" -Tpng "+fileInputPath+" -o "+fileOutputPath);
+			Process process = rt.exec(command);
+			
+			// Esperar a que el proceso termine PRIMERO
+			int exitCode = process.waitFor();
+			
+			// PequeÃ±a pausa para asegurar que el archivo se escriba completamente
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ie) {
+				// Ignorar
+			}
+			
+			// Verificar si el archivo PNG realmente se creÃ³
+			pngFileObj = new File(fileOutputPath);
+			if (pngFileObj.exists() && pngFileObj.length() > 0) {
+				System.out.println("PNG generado exitosamente: " + absolutePngPath);
+			} else {
+				// Solo si falla, leer los mensajes de error
+				BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+				StringBuilder errorOutput = new StringBuilder();
+				String errorLine;
+				while ((errorLine = errorReader.readLine()) != null) {
+					errorOutput.append(errorLine).append("\n");
+				}
+				
+				System.out.println("Error al generar PNG. CÃ³digo de salida: " + exitCode);
+				if (errorOutput.length() > 0) {
+					System.out.println("Mensaje de error: " + errorOutput.toString());
+				}
+			}
 
 		} catch (IOException ioe) {
-			System.out.println (ioe);
+			System.out.println("Error de IO: " + ioe.getMessage());
+			ioe.printStackTrace();
+		} catch (InterruptedException ie) {
+			System.out.println("Proceso interrumpido: " + ie.getMessage());
+			ie.printStackTrace();
 		} finally {
 		}
 
@@ -204,7 +265,7 @@ public class FileIO {
 		}
 		//Siguiente linea comienza con la letra p
 		s.next();s.next();//p edge
-		//Informacion básica
+		//Informacion bï¿½sica
 		System.out.println("  Leyendo: numVert,numArist...");
 		info.add(s.nextInt());//numVert
 		info.add(s.nextInt());//numArist
@@ -304,7 +365,7 @@ public class FileIO {
 		Scanner s = new Scanner(file); String temp;
 		ArrayList<Individuo> listEstadisticas = new ArrayList<Individuo>();
 		Individuo estadisticaTemp = null;
-		do {
+		while (s.hasNextLine()) {
 			temp = s.nextLine();
 			if (temp.indexOf("Generation") != -1) {
 				estadisticaTemp = new Individuo();
@@ -317,9 +378,12 @@ public class FileIO {
 				estadisticaTemp.Hits = Integer.parseInt(temp.split("=")[3].split(" ")[0]);
 				listEstadisticas.add(estadisticaTemp);
 			}
-		} while (s.hasNextLine());	s.close();
+		}
+		s.close();
 		//Escribe el txt
-		listEstadisticas.remove(listEstadisticas.size()-1);//el ultimo se repite
+		if (listEstadisticas.size() > 0) {
+			listEstadisticas.remove(listEstadisticas.size()-1);//el ultimo se repite
+		}
 		System.out.print("["+outfile+"]"+listEstadisticas.size()+" Escribe...");
 		DecimalFormat f = new DecimalFormat("###.#######");//7 decimales con separador de coma
 		FileWriter fichero = null;	PrintWriter pw = null;
@@ -393,9 +457,9 @@ public class FileIO {
 			job_List.add(job);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){
-			bw.write(";EVOLUCIÓN "+i);
+			bw.write(";EVOLUCIï¿½N "+i);
 		}bw.newLine();
 		int num_gen = job_List.get(0).size();
 		for(int i=0; i<num_gen;i++){
@@ -453,11 +517,11 @@ public class FileIO {
 		EvoResume += "=================================\n";
 		for(int i=0;i<cont;i++){
 			int time = Integer.parseInt(job_List.get(i));
-			EvoResume +="EVOLUCIÓN:["+i+"]\n";
-			EvoResume +="  Tiempo total Evolución = "+time+"ms = "+(time/1000)+"seg = "+(time/60000)+"min\n";
+			EvoResume +="EVOLUCIï¿½N:["+i+"]\n";
+			EvoResume +="  Tiempo total Evoluciï¿½n = "+time+"ms = "+(time/1000)+"seg = "+(time/60000)+"min\n";
 			EvoResume +="------------------------------\n";
 		}
-		System.out.println("Leyendo log evolución...OK!");
+		System.out.println("Leyendo log evoluciï¿½n...OK!");
 		return EvoResume;   	
 	}
 	public static void GuardarSemillas(String path,String semillas,int evalT,int breedT,String outfile) throws IOException {//Metodo que intenta guardar la semilla del experimento, sin exito D:
@@ -631,7 +695,7 @@ public class FileIO {
 		}
 		System.out.println(Indvs.size()+" OK");
 	}
-	public static void join_Estadistica_Promedio_y_Mejores(String infolder, String outfolder, String file) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas	
+	public static void join_Estadistica_Promedio_y_Mejores(String infolder, String outfolder, String file) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas	
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+file);
@@ -668,7 +732,7 @@ public class FileIO {
 			jobBest_List.add(jobBest);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){//Primera linea, por cada corrida
 			bw.write(";AvgNods_"+i+";AvgERL_"+i+";AvgERP_"+i+";AvgFITNESS_"+i);
 		}
@@ -691,7 +755,7 @@ public class FileIO {
 		bw.close();
 		System.out.println(" EstadisticaProm&Mej unidas: OK!");
 	}
-	public static void join_Fitness_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas	
+	public static void join_Fitness_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas	
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+outfile);
@@ -729,7 +793,7 @@ public class FileIO {
 			jobBest_List.add(jobBest);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){//Primera linea, por cada corrida
 			bw.write(";AvgFITNESS_"+i);
 		}
@@ -752,7 +816,7 @@ public class FileIO {
 		bw.close();
 		System.out.println(" Fitness_Prom&Mej unidas: OK!");
 	}
-	public static void join_Tamano_BestAvg(String infolder, String outfolder, String infile, String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas
+	public static void join_Tamano_BestAvg(String infolder, String outfolder, String infile, String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+outfile);
@@ -790,7 +854,7 @@ public class FileIO {
 			jobBest_List.add(jobBest);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){//Primera linea, por cada corrida
 			bw.write(";AvgTam_"+i);
 		}
@@ -811,9 +875,9 @@ public class FileIO {
 			bw.newLine();
 		}
 		bw.close();
-		System.out.println(" Tamaño_Prom&Mej unidas: OK!");
+		System.out.println(" Tamaï¿½o_Prom&Mej unidas: OK!");
 	}
-	public static void join_ERP_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas	
+	public static void join_ERP_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas	
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+outfile);
@@ -851,7 +915,7 @@ public class FileIO {
 			jobBest_List.add(jobBest);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){//Primera linea, por cada corrida
 			bw.write(";AvgERP_"+i);
 		}
@@ -874,7 +938,7 @@ public class FileIO {
 		bw.close();
 		System.out.println(" ERP_Prom&Mej unidas: OK!");
 	}
-	public static void join_ERL_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas	
+	public static void join_ERL_BestAvg(String infolder, String outfolder, String infile,String outfile) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas	
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+outfile);
@@ -912,7 +976,7 @@ public class FileIO {
 			jobBest_List.add(jobBest);
 		}
 		//Se escriben en un solo archivo
-		bw.write("GENERACIÓN");
+		bw.write("GENERACIï¿½N");
 		for(int i=0;i<cont;i++){//Primera linea, por cada corrida
 			bw.write(";AvgERL_"+i);
 		}
@@ -935,7 +999,7 @@ public class FileIO {
 		bw.close();
 		System.out.println(" ERL_Prom&Mej unidas: OK!");
 	}
-	public static void join_Estadistica_Todos(String infolder,String outfolder, String file) throws IOException{//Une las estadisticas de los mejores individuos de cada generación de todas las corridas	
+	public static void join_Estadistica_Todos(String infolder,String outfolder, String file) throws IOException{//Une las estadisticas de los mejores individuos de cada generaciï¿½n de todas las corridas	
 		File out_folder = new File(outfolder);
 		out_folder.mkdir();
 		File out_file = new File(outfolder+file);
@@ -995,8 +1059,8 @@ public class FileIO {
 					"Id;" +
 					"ERL;" +
 					"ERP;" +
-					"Fitness_Evolución;" +
-					"Fitness_Evaluación;" +
+					"Fitness_Evoluciï¿½n;" +
+					"Fitness_Evaluaciï¿½n;" +
 					"Tam.;" +
 					"Alt.;" +
 					"Hits;" +

@@ -23,7 +23,7 @@ stat =					ec.simple.SimpleStatistics
 jobs = 1
 
 # run for 51 generations, quit prematurely if I find something ideal
-generations =				10
+generations =				5
 
 
 quit-on-run-complete =			false
