@@ -20,10 +20,10 @@ eval =					ec.simple.SimpleEvaluator
 # We're using simple statistics
 stat =					ec.simple.SimpleStatistics
 
-jobs = 2
+jobs = 1
 
 # run for 51 generations, quit prematurely if I find something ideal
-generations =				50
+generations =				10
 
 
 quit-on-run-complete =			false
@@ -41,7 +41,7 @@ pop.subpop.0 = 				ec.Subpopulation
 # ec.Subpopulation
 # ==============================
 # subpop size is 500 individuals
-pop.subpop.0.size =		100
+pop.subpop.0.size =		10
 
 # don't bother trying to eliminate duplicates from the
 # initial population

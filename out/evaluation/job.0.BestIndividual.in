@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1026380947|0.042316984|i12|
+Tree 0:
+ (Or (If_Then (Equal (If_Then_Else FarthestInsertion NearestInsertion WorstMove) (While CplexTerminal BestMove)) (If_Then_Else (If_Then (If_Then NearestInsertion NearestInsertion) (Equal CplexTerminal BestMove)) (If_Then_Else (Or CplexTerminal RandomMove) (Equal CplexTerminal CplexTerminal) (While RandomMove NearestNeighbor)) FarthestNeighbor)) (Or (While (If_Then FarthestNeighbor WorstMove) (If_Then_Else NearestNeighbor RandomMove BestMove)) NearestNeighbor))

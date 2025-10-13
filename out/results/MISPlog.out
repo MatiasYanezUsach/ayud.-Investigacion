@@ -1,0 +1,147 @@
+PARAMETROS
+FyT = 14
+GPNodo(0) = terminals.NearestNeighbor
+GPNodo(1) = terminals.FarthestNeighbor
+GPNodo(2) = terminals.NearestInsertion
+GPNodo(3) = terminals.FarthestInsertion
+GPNodo(4) = terminals.BestMove
+GPNodo(5) = terminals.WorstMove
+GPNodo(6) = terminals.RandomMove
+GPNodo(7) = terminals.CplexTerminal
+GPNodo(8) = functions.IfThenElse
+GPNodo(9) = functions.IfThen
+GPNodo(10) = functions.DoWhile
+GPNodo(11) = functions.And
+GPNodo(12) = functions.Or
+GPNodo(13) = functions.Equal
+CrossoverPipeline = 0.90
+ReproductionPipeline = 0.5
+MutationPipeline = 0.5
+MutateOneNodePipeline = null
+Jobs = 35
+Gen = 80
+=================================
+EVOLUCIÓN:[0]
+  Tiempo total Evolución = 41650ms = 41seg = 0min
+------------------------------
+EVOLUCIÓN:[1]
+  Tiempo total Evolución = 15640ms = 15seg = 0min
+------------------------------
+EVOLUCIÓN:[2]
+  Tiempo total Evolución = 54621ms = 54seg = 0min
+------------------------------
+EVOLUCIÓN:[3]
+  Tiempo total Evolución = 82531ms = 82seg = 1min
+------------------------------
+EVOLUCIÓN:[4]
+  Tiempo total Evolución = 8734ms = 8seg = 0min
+------------------------------
+EVOLUCIÓN:[5]
+  Tiempo total Evolución = 18348ms = 18seg = 0min
+------------------------------
+EVOLUCIÓN:[6]
+  Tiempo total Evolución = 13366ms = 13seg = 0min
+------------------------------
+EVOLUCIÓN:[7]
+  Tiempo total Evolución = 12015ms = 12seg = 0min
+------------------------------
+EVOLUCIÓN:[8]
+  Tiempo total Evolución = 108419ms = 108seg = 1min
+------------------------------
+EVOLUCIÓN:[9]
+  Tiempo total Evolución = 46957ms = 46seg = 0min
+------------------------------
+EVOLUCIÓN:[10]
+  Tiempo total Evolución = 118996ms = 118seg = 1min
+------------------------------
+EVOLUCIÓN:[11]
+  Tiempo total Evolución = 283746ms = 283seg = 4min
+------------------------------
+EVOLUCIÓN:[12]
+  Tiempo total Evolución = 28878ms = 28seg = 0min
+------------------------------
+EVOLUCIÓN:[13]
+  Tiempo total Evolución = 224482ms = 224seg = 3min
+------------------------------
+EVOLUCIÓN:[14]
+  Tiempo total Evolución = 18473ms = 18seg = 0min
+------------------------------
+EVOLUCIÓN:[15]
+  Tiempo total Evolución = 28936ms = 28seg = 0min
+------------------------------
+EVOLUCIÓN:[16]
+  Tiempo total Evolución = 80530ms = 80seg = 1min
+------------------------------
+EVOLUCIÓN:[17]
+  Tiempo total Evolución = 38381ms = 38seg = 0min
+------------------------------
+EVOLUCIÓN:[18]
+  Tiempo total Evolución = 77246ms = 77seg = 1min
+------------------------------
+EVOLUCIÓN:[19]
+  Tiempo total Evolución = 44781ms = 44seg = 0min
+------------------------------
+EVOLUCIÓN:[20]
+  Tiempo total Evolución = 26918ms = 26seg = 0min
+------------------------------
+EVOLUCIÓN:[21]
+  Tiempo total Evolución = 6655ms = 6seg = 0min
+------------------------------
+EVOLUCIÓN:[22]
+  Tiempo total Evolución = 29241ms = 29seg = 0min
+------------------------------
+EVOLUCIÓN:[23]
+  Tiempo total Evolución = 16237ms = 16seg = 0min
+------------------------------
+EVOLUCIÓN:[24]
+  Tiempo total Evolución = 170341ms = 170seg = 2min
+------------------------------
+EVOLUCIÓN:[25]
+  Tiempo total Evolución = 7488ms = 7seg = 0min
+------------------------------
+EVOLUCIÓN:[26]
+  Tiempo total Evolución = 26941ms = 26seg = 0min
+------------------------------
+EVOLUCIÓN:[27]
+  Tiempo total Evolución = 10752ms = 10seg = 0min
+------------------------------
+EVOLUCIÓN:[28]
+  Tiempo total Evolución = 88106ms = 88seg = 1min
+------------------------------
+EVOLUCIÓN:[29]
+  Tiempo total Evolución = 13726ms = 13seg = 0min
+------------------------------
+EVOLUCIÓN:[30]
+  Tiempo total Evolución = 19431ms = 19seg = 0min
+------------------------------
+EVOLUCIÓN:[31]
+  Tiempo total Evolución = 26244ms = 26seg = 0min
+------------------------------
+EVOLUCIÓN:[32]
+  Tiempo total Evolución = 51952ms = 51seg = 0min
+------------------------------
+EVOLUCIÓN:[33]
+  Tiempo total Evolución = 7983ms = 7seg = 0min
+------------------------------
+EVOLUCIÓN:[34]
+  Tiempo total Evolución = 14329ms = 14seg = 0min
+------------------------------
+========================================
+EVALUACInN
+Instancias de Evaluacinn = 10
+------------------------------
+[0]Individuo:[ec.gp.GPIndividual@782030955{208160833}]
+  Num GPNodos = 39
+  Hits = 5
+  ListaHits = [Mitra-1-02.txt, Mitra-2-02.txt, R121_15_80.txt, R141_15_120.txt, R161_15_80.txt]
+  Tiempo promedio = 751.5ms
+  auxData.size = 10.0
+  Error Relativo Promedio = 0.03661478
+  Error Relativo de Legibilidad = 0.85714287
+  FITNESS EVO(1.0*ERP + 0.0*ERL) = 0.03661478
+  FITNESS EVA(ERP) = 0.03661478
+  NodosEnSolucion = 658.26
+------------------------------
+========================================
+Tiempo total Evaluacinn: 7560 ms=7seg
+========================================

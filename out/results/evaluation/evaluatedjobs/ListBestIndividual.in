@@ -1,0 +1,213 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i35|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1048352541|0.2466702|i0|
+Tree 0:
+ (Equal (If_Then (Equal (While FarthestInsertion WorstMove) (And FarthestNeighbor NearestInsertion)) (Equal RandomMove NearestInsertion)) (Equal (Or (And FarthestInsertion RandomMove) (Equal FarthestNeighbor FarthestInsertion)) (If_Then (And NearestNeighbor (And NearestNeighbor FarthestNeighbor)) (Or NearestInsertion BestMove))))
+
+Individual Number: i1|
+Evaluated: F
+Fitness: f1049268696|0.27064395|i0|
+Tree 0:
+ (And NearestInsertion (And (Equal (If_Then (If_Then FarthestInsertion FarthestNeighbor) (If_Then FarthestInsertion NearestInsertion)) (If_Then FarthestNeighbor NearestInsertion)) NearestNeighbor))
+
+Individual Number: i2|
+Evaluated: F
+Fitness: f1042243519|0.15563868|i5|
+Tree 0:
+ (And (And (If_Then (If_Then FarthestNeighbor (While BestMove NearestInsertion)) FarthestNeighbor) FarthestNeighbor) (And (And (If_Then FarthestNeighbor (While BestMove FarthestNeighbor)) (And (Or FarthestNeighbor FarthestNeighbor) FarthestNeighbor)) (And (And (If_Then FarthestNeighbor FarthestNeighbor) FarthestNeighbor) (If_Then FarthestNeighbor (While BestMove FarthestNeighbor)))))
+
+Individual Number: i3|
+Evaluated: F
+Fitness: f1043981026|0.18152955|i3|
+Tree 0:
+ (And (While (If_Then FarthestNeighbor NearestInsertion) (If_Then (While (If_Then NearestInsertion NearestInsertion) BestMove) NearestInsertion)) (Equal (And BestMove (While (If_Then NearestInsertion NearestInsertion) (If_Then_Else NearestNeighbor BestMove NearestNeighbor))) NearestInsertion))
+
+Individual Number: i4|
+Evaluated: F
+Fitness: f1044327573|0.1866935|i2|
+Tree 0:
+ (If_Then (If_Then (Equal (Equal (Equal NearestNeighbor FarthestNeighbor) FarthestNeighbor) FarthestNeighbor) (While NearestInsertion NearestInsertion)) BestMove)
+
+Individual Number: i5|
+Evaluated: F
+Fitness: f1049152658|0.26718575|i0|
+Tree 0:
+ (If_Then (Or (If_Then (Or (Equal WorstMove FarthestInsertion) (If_Then_Else FarthestNeighbor NearestNeighbor NearestInsertion)) (And (If_Then_Else FarthestInsertion BestMove FarthestNeighbor) (Equal WorstMove FarthestInsertion))) (Or (Or (If_Then_Else FarthestInsertion BestMove BestMove) (If_Then_Else FarthestNeighbor NearestNeighbor NearestInsertion)) (And NearestInsertion (If_Then_Else FarthestInsertion WorstMove FarthestInsertion)))) (If_Then_Else FarthestInsertion BestMove BestMove))
+
+Individual Number: i6|
+Evaluated: F
+Fitness: f1043112584|0.16858876|i0|
+Tree 0:
+ (Equal (Equal (Equal (Equal FarthestInsertion NearestInsertion) (And FarthestNeighbor NearestNeighbor)) (If_Then (Equal (And FarthestNeighbor NearestNeighbor) (And FarthestNeighbor NearestNeighbor)) FarthestNeighbor)) (Or BestMove (If_Then (Equal NearestNeighbor (And FarthestNeighbor NearestNeighbor)) (Equal (Equal FarthestInsertion NearestInsertion) (And NearestNeighbor NearestNeighbor)))))
+
+Individual Number: i7|
+Evaluated: F
+Fitness: f1043239478|0.17047963|i2|
+Tree 0:
+ (Equal (If_Then (Equal NearestNeighbor FarthestNeighbor) (Equal NearestInsertion FarthestNeighbor)) (Equal (And (Equal NearestInsertion FarthestNeighbor) (While NearestInsertion NearestInsertion)) (If_Then BestMove (Equal NearestNeighbor FarthestNeighbor))))
+
+Individual Number: i8|
+Evaluated: F
+Fitness: f1041978610|0.15169123|i3|
+Tree 0:
+ (If_Then_Else (Equal (Equal (Equal NearestInsertion (If_Then FarthestNeighbor FarthestInsertion)) (If_Then WorstMove NearestNeighbor)) (If_Then FarthestNeighbor FarthestInsertion)) BestMove (While (Equal BestMove (While NearestInsertion NearestInsertion)) (And (Equal BestMove (While NearestInsertion NearestInsertion)) NearestInsertion)))
+
+Individual Number: i9|
+Evaluated: F
+Fitness: f1049389781|0.27425256|i0|
+Tree 0:
+ (If_Then NearestNeighbor (If_Then_Else (If_Then_Else FarthestInsertion FarthestInsertion FarthestInsertion) (If_Then_Else FarthestInsertion (If_Then_Else NearestNeighbor (If_Then_Else NearestNeighbor FarthestNeighbor RandomMove) RandomMove) FarthestInsertion) FarthestInsertion))
+
+Individual Number: i10|
+Evaluated: F
+Fitness: f1046970240|0.22607231|i3|
+Tree 0:
+ (If_Then_Else (If_Then_Else (If_Then_Else FarthestInsertion NearestNeighbor NearestNeighbor) (If_Then_Else (While (If_Then_Else NearestInsertion NearestInsertion BestMove) NearestInsertion) (If_Then_Else FarthestInsertion (If_Then NearestInsertion BestMove) NearestNeighbor) (Or NearestNeighbor NearestInsertion)) NearestNeighbor) FarthestInsertion (If_Then_Else NearestInsertion NearestInsertion BestMove))
+
+Individual Number: i11|
+Evaluated: F
+Fitness: f1040805699|0.13421349|i3|
+Tree 0:
+ (If_Then_Else NearestInsertion (While (If_Then_Else FarthestNeighbor FarthestNeighbor BestMove) (And FarthestNeighbor (While FarthestNeighbor BestMove))) WorstMove)
+
+Individual Number: i12|
+Evaluated: F
+Fitness: f1042855965|0.16476484|i0|
+Tree 0:
+ (Equal (If_Then_Else (If_Then_Else (While (And WorstMove NearestNeighbor) (Or BestMove FarthestNeighbor)) (Or BestMove (If_Then_Else FarthestInsertion NearestInsertion FarthestNeighbor)) (Equal (Equal RandomMove FarthestNeighbor) (And RandomMove FarthestNeighbor))) (If_Then (If_Then_Else (If_Then BestMove RandomMove) FarthestNeighbor (If_Then_Else FarthestInsertion NearestInsertion FarthestNeighbor)) (If_Then (If_Then_Else BestMove WorstMove NearestInsertion) (If_Then_Else BestMove WorstMove NearestInsertion))) (If_Then_Else NearestInsertion (If_Then_Else (And RandomMove FarthestNeighbor) (If_Then_Else FarthestNeighbor NearestNeighbor NearestNeighbor) BestMove) (Or (And FarthestNeighbor RandomMove) (And FarthestNeighbor RandomMove)))) (If_Then_Else (If_Then_Else (If_Then WorstMove WorstMove) (And NearestNeighbor (Equal NearestNeighbor FarthestInsertion)) (If_Then_Else FarthestNeighbor NearestNeighbor NearestNeighbor)) (If_Then_Else (While (Equal NearestNeighbor BestMove) NearestNeighbor) (Equal (Or BestMove FarthestNeighbor) (And NearestInsertion NearestInsertion)) (And (And NearestNeighbor FarthestNeighbor) (Equal RandomMove FarthestNeighbor))) (If_Then_Else FarthestInsertion NearestInsertion FarthestNeighbor)))
+
+Individual Number: i13|
+Evaluated: F
+Fitness: f1043577294|0.17551348|i1|
+Tree 0:
+ (Equal (If_Then (If_Then (If_Then (If_Then NearestInsertion FarthestInsertion) FarthestInsertion) FarthestInsertion) (Or FarthestInsertion WorstMove)) (And (If_Then (Or FarthestInsertion WorstMove) FarthestInsertion) (Equal (Or FarthestInsertion WorstMove) (While BestMove FarthestNeighbor))))
+
+Individual Number: i14|
+Evaluated: F
+Fitness: f1049289916|0.27127635|i1|
+Tree 0:
+ (If_Then (If_Then (If_Then (Equal NearestNeighbor (And FarthestNeighbor FarthestInsertion)) (If_Then FarthestInsertion FarthestNeighbor)) (If_Then FarthestInsertion BestMove)) NearestInsertion)
+
+Individual Number: i15|
+Evaluated: F
+Fitness: f1048487276|0.24867791|i0|
+Tree 0:
+ (Equal (Equal (Or NearestInsertion FarthestInsertion) (If_Then_Else NearestInsertion (Or WorstMove FarthestInsertion) FarthestInsertion)) (If_Then_Else (Equal FarthestInsertion (Or (And WorstMove RandomMove) FarthestNeighbor)) (Equal WorstMove (If_Then_Else (Or WorstMove FarthestInsertion) (Or WorstMove FarthestInsertion) WorstMove)) WorstMove))
+
+Individual Number: i16|
+Evaluated: F
+Fitness: f1041210380|0.14024371|i4|
+Tree 0:
+ (And (Or (And (Equal FarthestNeighbor NearestInsertion) (And FarthestNeighbor (If_Then FarthestNeighbor BestMove))) (If_Then (If_Then NearestInsertion BestMove) (Or FarthestNeighbor (While BestMove FarthestNeighbor)))) (And (While FarthestNeighbor (If_Then FarthestNeighbor (While BestMove FarthestNeighbor))) (Equal FarthestNeighbor (Equal FarthestInsertion BestMove))))
+
+Individual Number: i17|
+Evaluated: F
+Fitness: f1043259934|0.17078444|i0|
+Tree 0:
+ (If_Then_Else (If_Then (Equal (If_Then_Else (If_Then_Else NearestNeighbor FarthestNeighbor NearestNeighbor) (If_Then FarthestNeighbor NearestInsertion) WorstMove) (If_Then (If_Then FarthestNeighbor NearestInsertion) (And BestMove BestMove))) (If_Then FarthestNeighbor NearestInsertion)) (Equal (If_Then (If_Then_Else NearestNeighbor FarthestNeighbor WorstMove) (And BestMove BestMove)) (If_Then_Else (And FarthestNeighbor (If_Then FarthestNeighbor NearestInsertion)) BestMove WorstMove)) (If_Then (Equal WorstMove (If_Then (If_Then_Else NearestNeighbor FarthestNeighbor NearestNeighbor) (And BestMove BestMove))) (If_Then FarthestNeighbor NearestInsertion)))
+
+Individual Number: i18|
+Evaluated: F
+Fitness: f1043045623|0.16759096|i3|
+Tree 0:
+ (Equal (If_Then NearestInsertion (Equal FarthestNeighbor FarthestNeighbor)) (If_Then (If_Then (Or (Or RandomMove FarthestNeighbor) FarthestNeighbor) (If_Then (Or RandomMove FarthestNeighbor) (Equal FarthestNeighbor WorstMove))) (While (If_Then NearestInsertion BestMove) NearestInsertion)))
+
+Individual Number: i19|
+Evaluated: F
+Fitness: f1041498801|0.14454152|i4|
+Tree 0:
+ (Or (And (And (And FarthestInsertion FarthestInsertion) FarthestInsertion) (While FarthestNeighbor BestMove)) (While FarthestNeighbor FarthestInsertion))
+
+Individual Number: i20|
+Evaluated: F
+Fitness: f1045852112|0.2094109|i0|
+Tree 0:
+ (If_Then_Else (And (If_Then_Else NearestNeighbor FarthestInsertion NearestNeighbor) (And (If_Then_Else BestMove NearestNeighbor (If_Then_Else FarthestInsertion FarthestNeighbor FarthestNeighbor)) (And FarthestNeighbor FarthestNeighbor))) (And (If_Then_Else NearestNeighbor FarthestNeighbor FarthestNeighbor) (And (If_Then_Else BestMove NearestNeighbor (If_Then_Else FarthestInsertion FarthestNeighbor FarthestNeighbor)) FarthestNeighbor)) (And (Or BestMove NearestNeighbor) (If_Then_Else FarthestInsertion FarthestNeighbor FarthestNeighbor)))
+
+Individual Number: i21|
+Evaluated: F
+Fitness: f1048604044|0.25083578|i0|
+Tree 0:
+ (If_Then_Else (If_Then_Else (Or (And FarthestNeighbor BestMove) (And (And FarthestNeighbor BestMove) (Equal WorstMove FarthestNeighbor))) RandomMove NearestNeighbor) (If_Then_Else (Equal (Or RandomMove (Equal WorstMove FarthestNeighbor)) FarthestNeighbor) RandomMove (If_Then (And RandomMove FarthestNeighbor) RandomMove)) (If_Then (And RandomMove FarthestNeighbor) (While BestMove NearestInsertion)))
+
+Individual Number: i22|
+Evaluated: F
+Fitness: f1046147688|0.21381533|i3|
+Tree 0:
+ (Equal (And (Or (Or (And NearestInsertion NearestNeighbor) (While NearestInsertion NearestInsertion)) BestMove) (And (And FarthestNeighbor (While NearestInsertion NearestInsertion)) (While NearestInsertion NearestInsertion))) (Equal (And (And NearestInsertion NearestNeighbor) NearestInsertion) BestMove))
+
+Individual Number: i23|
+Evaluated: F
+Fitness: f1043991522|0.18168595|i3|
+Tree 0:
+ (Equal (If_Then (If_Then NearestNeighbor FarthestInsertion) (And (And (And FarthestInsertion NearestInsertion) NearestNeighbor) NearestNeighbor)) (If_Then_Else (While NearestInsertion NearestInsertion) (If_Then_Else (And BestMove (And FarthestInsertion NearestNeighbor)) (If_Then_Else NearestInsertion (While NearestInsertion NearestInsertion) WorstMove) NearestInsertion) WorstMove))
+
+Individual Number: i24|
+Evaluated: F
+Fitness: f1041325994|0.14196649|i5|
+Tree 0:
+ (Or (Equal (Equal (Equal (While FarthestNeighbor BestMove) FarthestInsertion) FarthestInsertion) (Or (While FarthestNeighbor BestMove) FarthestNeighbor)) BestMove)
+
+Individual Number: i25|
+Evaluated: F
+Fitness: f1047907922|0.24004486|i0|
+Tree 0:
+ (If_Then_Else FarthestNeighbor (Equal FarthestNeighbor (If_Then_Else (And RandomMove FarthestInsertion) (And FarthestInsertion NearestNeighbor) (If_Then_Else (And FarthestNeighbor FarthestNeighbor) (Or WorstMove FarthestNeighbor) FarthestNeighbor))) (If_Then_Else (And FarthestNeighbor FarthestNeighbor) (Equal NearestNeighbor (And FarthestInsertion NearestNeighbor)) RandomMove))
+
+Individual Number: i26|
+Evaluated: F
+Fitness: f1043244575|0.17055558|i2|
+Tree 0:
+ (Equal (Equal (Equal (If_Then FarthestNeighbor NearestNeighbor) (If_Then FarthestNeighbor NearestNeighbor)) (If_Then (If_Then (If_Then FarthestNeighbor NearestNeighbor) NearestNeighbor) NearestNeighbor)) (While NearestInsertion NearestInsertion))
+
+Individual Number: i27|
+Evaluated: F
+Fitness: f1048305195|0.24596469|i0|
+Tree 0:
+ (And (And FarthestNeighbor FarthestInsertion) (Equal (If_Then (Equal FarthestInsertion (Or RandomMove FarthestNeighbor)) WorstMove) (If_Then_Else FarthestInsertion NearestNeighbor (Or RandomMove FarthestNeighbor))))
+
+Individual Number: i28|
+Evaluated: F
+Fitness: f1040965348|0.13659245|i5|
+Tree 0:
+ (And (If_Then_Else (If_Then_Else (Equal (And WorstMove BestMove) (While FarthestNeighbor RandomMove)) (If_Then (If_Then WorstMove FarthestNeighbor) NearestNeighbor) (Equal (Or BestMove WorstMove) (While FarthestNeighbor FarthestNeighbor))) (While (If_Then (If_Then NearestNeighbor NearestInsertion) (Or BestMove NearestNeighbor)) (And (While WorstMove NearestNeighbor) (While NearestNeighbor FarthestNeighbor))) FarthestInsertion) (And (While (Or (Equal BestMove BestMove) BestMove) (If_Then_Else (If_Then_Else BestMove BestMove NearestNeighbor) (If_Then FarthestNeighbor FarthestInsertion) (If_Then RandomMove RandomMove))) (If_Then_Else FarthestNeighbor RandomMove (If_Then_Else (If_Then_Else FarthestNeighbor BestMove NearestNeighbor) (If_Then FarthestNeighbor FarthestInsertion) (If_Then RandomMove RandomMove)))))
+
+Individual Number: i29|
+Evaluated: F
+Fitness: f1044644957|0.1914229|i2|
+Tree 0:
+ (If_Then_Else (And (If_Then NearestNeighbor (If_Then FarthestInsertion FarthestNeighbor)) (And FarthestNeighbor RandomMove)) FarthestInsertion (If_Then_Else (If_Then_Else (If_Then FarthestInsertion (While NearestInsertion NearestInsertion)) (If_Then FarthestInsertion FarthestNeighbor) (If_Then FarthestInsertion (If_Then FarthestInsertion FarthestInsertion))) FarthestNeighbor NearestInsertion))
+
+Individual Number: i30|
+Evaluated: F
+Fitness: f1045340414|0.20178601|i2|
+Tree 0:
+ (Equal (If_Then_Else (If_Then_Else (Or BestMove NearestInsertion) (If_Then_Else FarthestInsertion FarthestInsertion FarthestNeighbor) (While NearestNeighbor NearestInsertion)) (If_Then_Else (Or BestMove NearestInsertion) (If_Then_Else FarthestInsertion FarthestInsertion FarthestNeighbor) (While (If_Then_Else FarthestInsertion FarthestInsertion FarthestNeighbor) NearestInsertion)) (Or (If_Then FarthestNeighbor RandomMove) (If_Then RandomMove RandomMove))) (Equal (Or (And NearestNeighbor RandomMove) (While NearestNeighbor NearestInsertion)) (Or (Equal NearestNeighbor NearestInsertion) (If_Then WorstMove FarthestNeighbor))))
+
+Individual Number: i31|
+Evaluated: F
+Fitness: f1046629152|0.2209897|i0|
+Tree 0:
+ (Equal (Equal (Equal NearestInsertion WorstMove) (Equal (Equal FarthestInsertion NearestNeighbor) NearestNeighbor)) (And (Equal (Equal (Equal FarthestInsertion NearestInsertion) (Equal FarthestNeighbor NearestNeighbor)) NearestInsertion) (Equal (If_Then_Else BestMove NearestInsertion (Equal FarthestInsertion NearestNeighbor)) NearestNeighbor)))
+
+Individual Number: i32|
+Evaluated: F
+Fitness: f1046509382|0.21920499|i3|
+Tree 0:
+ (Equal (If_Then_Else FarthestInsertion (While (Or BestMove NearestInsertion) NearestInsertion) NearestNeighbor) (If_Then (While (And NearestInsertion NearestInsertion) NearestInsertion) FarthestNeighbor))
+
+Individual Number: i33|
+Evaluated: F
+Fitness: f1045599512|0.20564687|i0|
+Tree 0:
+ (If_Then (And (If_Then (If_Then NearestInsertion FarthestInsertion) (Or BestMove (If_Then NearestInsertion FarthestInsertion))) FarthestInsertion) (If_Then_Else (If_Then (If_Then (If_Then_Else NearestInsertion RandomMove FarthestNeighbor) FarthestInsertion) (Or BestMove FarthestInsertion)) FarthestNeighbor (Or BestMove FarthestInsertion)))
+
+Individual Number: i34|
+Evaluated: F
+Fitness: f1048311510|0.24605879|i0|
+Tree 0:
+ (If_Then_Else (Equal (If_Then_Else (Or FarthestInsertion FarthestInsertion) (And FarthestNeighbor FarthestInsertion) (If_Then_Else (Equal NearestInsertion RandomMove) NearestNeighbor NearestInsertion)) (If_Then_Else (Equal NearestInsertion RandomMove) (If_Then_Else WorstMove RandomMove WorstMove) (And FarthestNeighbor FarthestInsertion))) (If_Then WorstMove (If_Then NearestInsertion RandomMove)) (If_Then_Else NearestNeighbor FarthestInsertion (If_Then_Else NearestNeighbor (Or FarthestInsertion FarthestInsertion) WorstMove)))
+
