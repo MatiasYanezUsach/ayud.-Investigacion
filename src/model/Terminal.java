@@ -63,6 +63,17 @@ public class Terminal {
 		//return false;
 	}
 
+	/**
+	 * Versión del terminal CPLEX con límite de tiempo configurable
+	 * @param pdpi Instancia del problema
+	 * @param timeLimitSeconds Límite de tiempo en segundos
+	 * @return Tiempo realmente usado por CPLEX en segundos
+	 */
+	public static double cplex_terminal_with_limit(PDPInstance pdpi, double timeLimitSeconds){
+		//System.out.println("cplex_terminal_with_limit: " + timeLimitSeconds + "s");
+		return pdpi.cplex_terminal_with_limit(timeLimitSeconds);
+	}
+
 	/*
 	//[T][ADD] 	Agrega un vertice LIBRE Aleatorio a la solucion, FALSE si no se puede agregar
 	public static boolean addFreeVertRandom(IndependentSet is){

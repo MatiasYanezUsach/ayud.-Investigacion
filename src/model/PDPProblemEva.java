@@ -138,6 +138,10 @@ public class PDPProblemEva extends GPProblem implements SimpleProblemForm {
 				NodosSolucion.clear();
 				
 				auxData.add(data.get(i).clone());	//nuevo data (vaciar mis)
+				
+				// Resetear el presupuesto de CPLEX para esta instancia
+				terminals.CplexTerminal.resetInstanceBudget(auxData.get(i).getInstance().getName());
+				
 				gpind.trees[0].printStyle = GPTree.PRINT_STYLE_DOT;	//escribir individuos en formato dot
 
 				double timeInit, timeEnd;

@@ -20,7 +20,7 @@ eval =					ec.simple.SimpleEvaluator
 # We're using simple statistics
 stat =					ec.simple.SimpleStatistics
 
-jobs = 1
+jobs = 2
 
 # run for 51 generations, quit prematurely if I find something ideal
 generations =				5

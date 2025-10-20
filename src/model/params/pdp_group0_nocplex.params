@@ -1,0 +1,54 @@
+# ================================================================
+# GRUPO 0: Control Negativo (Sin CPLEX)
+# Presupuesto: 0 segundos (0% de T_base)
+# ================================================================
+# Este grupo sirve como línea base para algoritmos puramente heurísticos
+# CPLEX NO está disponible como terminal
+
+parent.0 = koza.params
+
+# We have one function set, of class GPFunctionSet
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+
+# We'll call the function set "f0".
+gp.fs.0.name = f0
+
+## We have CATORCE funciones (SIN CPLEX)
+gp.fs.0.size = 14
+
+#Terminals (SIN CplexTerminal)
+gp.fs.0.func.0 = terminals.NearestNeighbor
+gp.fs.0.func.0.nc = nc0
+gp.fs.0.func.1 = terminals.FarthestNeighbor
+gp.fs.0.func.1.nc = nc0
+gp.fs.0.func.2 = terminals.NearestInsertion
+gp.fs.0.func.2.nc = nc0
+gp.fs.0.func.3 = terminals.FarthestInsertion
+gp.fs.0.func.3.nc = nc0
+gp.fs.0.func.4 = terminals.BestMove
+gp.fs.0.func.4.nc = nc0
+gp.fs.0.func.5 = terminals.WorstMove
+gp.fs.0.func.5.nc = nc0
+gp.fs.0.func.6 = terminals.NearestFirstNode
+gp.fs.0.func.6.nc = nc0
+gp.fs.0.func.7 = terminals.FarthestFirstNode
+gp.fs.0.func.7.nc = nc0
+
+#Functions
+gp.fs.0.func.8 = functions.IfThenElse
+gp.fs.0.func.8.nc = nc4
+gp.fs.0.func.9 = functions.IfThen
+gp.fs.0.func.9.nc = nc3
+gp.fs.0.func.10 = functions.DoWhile
+gp.fs.0.func.10.nc = nc5
+gp.fs.0.func.11 = functions.And
+gp.fs.0.func.11.nc = nc2
+gp.fs.0.func.12 = functions.Or
+gp.fs.0.func.12.nc = nc2
+gp.fs.0.func.13 = functions.Equal
+gp.fs.0.func.13.nc = nc2
+
+eval.problem = model.PDPProblemEvo
+eval.problem.data = model.PDPData
+

@@ -15,7 +15,7 @@ import ilog.concert.*;
 import ilog.cplex.*;
 import org.apache.commons.math3.util.Precision;
 
-//Funcion ajena a ECJ, Se utiliza para probar que los terminales, métodos de otras funciones, y secuencias de alg. generados por PG, se ejecuten correctamente
+//Funcion ajena a ECJ, Se utiliza para probar que los terminales, metodos de otras funciones, y secuencias de alg. generados por PG, se ejecuten correctamente
 
 public class Main {
 

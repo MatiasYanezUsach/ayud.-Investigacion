@@ -234,6 +234,10 @@ public class PDPInstance {
         this.optimal = optimal;
     }
 
+    public boolean getOptimal() {
+        return this.optimal;
+    }
+
     public int getnNodes() {
         return nNodes;
     }
@@ -1512,6 +1516,228 @@ public class PDPInstance {
         } catch (IloException exc) {
             exc.printStackTrace();
             return false;
+        }
+
+    }
+
+    //TERMINAL QUE USA MODELO EXACTO Y CPLEX CON LIMITE DE TIEMPO CONFIGURABLE
+    //RETORNA EL TIEMPO REALMENTE USADO POR CPLEX EN SEGUNDOS
+    public double cplex_terminal_with_limit(double timeLimitSeconds) {
+        if (optimal) {
+            return 0.0;
+        }
+        if (!lastChange || !cplexLastChange) {
+            return 0.0;
+        }
+
+        int n = this.getCostMatrix().size();
+        List<ArrayList<Float>> costMatrix = this.getCostMatrix();
+        List<Float> d = this.getDeliveryQuantities();
+        List<Float> p = this.getPickupQuantities();
+        Float Q = this.getVehicleCapacity();
+
+        try {
+            IloCplex cplex = new IloCplex();
+            cplex.setOut(null);
+            //variables
+            IloIntVar[][] x = new IloIntVar[n][];
+            IloNumVar[][] y = new IloNumVar[n][];
+            IloNumVar[][] z = new IloNumVar[n][];
+
+            for (int i = 0; i < n; i++) {
+                x[i] = cplex.boolVarArray(n);
+                y[i] = cplex.numVarArray(n, 0, Q);
+                z[i] = cplex.numVarArray(n, 0, Q);
+            }
+
+            //Create objective function and associate with model
+            IloLinearNumExpr objective = cplex.linearNumExpr();
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    objective.addTerm(costMatrix.get(i).get(j), x[i][j]);
+                }
+            }
+
+            cplex.addMinimize(objective);
+
+            //constraints
+            // sum xij = 1 para cada j
+            IloLinearNumExpr[] SumXij = new IloLinearNumExpr[n];
+
+            for (int i = 1; i < n; i++) {
+                SumXij[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        SumXij[i].addTerm(1, x[i][j]);
+                    }
+
+                }
+                cplex.addEq(SumXij[i], 1);
+            }
+
+            //sum xij -sum xji = 0 para cada j en V
+            IloLinearNumExpr[] NegativeSumXji = new IloLinearNumExpr[n];
+            for (int i = 0; i < n; i++) {
+                NegativeSumXji[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        NegativeSumXji[i].addTerm(-1.0, x[j][i]);
+                    }
+                }
+            }
+
+            for (int i = 0; i < n; i++) {
+                cplex.addEq(cplex.sum(cplex.sum(x[i]), NegativeSumXji[i]), 0);
+            }
+
+            //sum yij -sum yji = 0 para cada j en C
+            IloLinearNumExpr[] NegativeSumYji = new IloLinearNumExpr[n];
+            for (int i = 1; i < n; i++) {
+                NegativeSumYji[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        NegativeSumYji[i].addTerm(-1.0, y[j][i]);
+                    }
+
+                }
+            }
+
+            IloLinearNumExpr[] SumYij = new IloLinearNumExpr[n];
+            for (int i = 0; i < n; i++) {
+                SumYij[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        SumYij[i].addTerm(1.0, y[i][j]);
+                    }
+
+                }
+            }
+
+            for (int i = 1; i < n; i++) {
+                cplex.addEq(cplex.sum(SumYij[i], NegativeSumYji[i]), d.get(i - 1));
+            }
+
+            //sum zij -sum zji = 0 para cada j en C
+            IloLinearNumExpr[] NegativeSumZij = new IloLinearNumExpr[n];
+            for (int i = 1; i < n; i++) {
+                NegativeSumZij[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        NegativeSumZij[i].addTerm(-1.0, z[i][j]);
+                    }
+
+                }
+            }
+
+            IloLinearNumExpr[] SumZji = new IloLinearNumExpr[n];
+            for (int i = 0; i < n; i++) {
+                SumZji[i] = cplex.linearNumExpr();
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        SumZji[i].addTerm(1.0, z[j][i]);
+                    }
+
+                }
+            }
+
+            for (int i = 1; i < n; i++) {
+                cplex.addEq(cplex.sum(SumZji[i], NegativeSumZij[i]), p.get(i - 1));
+            }
+
+            //yij + zij < Qxij para cada i,i i distinto de j
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        cplex.addLe(cplex.sum(y[i][j], z[i][j]), cplex.prod(Q, x[i][j]));
+                    }
+                }
+            }
+
+            double[][] startValues = transformSolutionToCplexFormat();
+
+            IloNumVar[] startVar = new IloIntVar[n * n];
+            double[] startVal = new double[n * n];
+            for (int i = 0, idx = 0; i < n; ++i)
+                for (int j = 0; j < n; ++j) {
+                    startVar[idx] = x[i][j];
+                    startVal[idx] = startValues[i][j];
+                    ++idx;
+                }
+            cplex.addMIPStart(startVar, startVal, IloCplex.MIPStartEffort.SolveMIP);
+            cplex.setParam(IloCplex.Param.ClockType, 1);
+            // USAR EL LIMITE DE TIEMPO PARAMETRIZADO
+            cplex.setParam(IloCplex.Param.TimeLimit, timeLimitSeconds);
+            cplex.setParam(IloCplex.Param.Simplex.Display, 0);
+
+            cplex.setParam(IloCplex.Param.MIP.Display, 1);
+            cplex.setParam(IloCplex.Param.MIP.Limits.Solutions, 2);
+            cplex.setParam(IloCplex.Param.Emphasis.MIP, 1);
+            cplex.setParam(IloCplex.Param.Threads, 2);
+
+
+            double start = cplex.getCplexTime();
+
+
+            if (cplex.solve()) {
+
+                double obj = Precision.round(cplex.getObjValue(), 2);
+                double timeUsed = cplex.getCplexTime() - start;
+                this.setTime(timeUsed);
+
+                if (obj < this.totalCost || (this.notVisited.size() > 0)) {
+                    //System.out.println("cplex update:" + obj + " (time: " + timeUsed + "s)");
+                    this.setTotalCost(obj);
+                    double[][] solution = new double[n][n];
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                            double value = cplex.getValue(x[i][j]);
+                            if (value == -0.0) {
+                                value = 0.0;
+                            }
+                            solution[i][j] = value;
+                        }
+                    }
+
+                    List<ArrayList<Integer>> routes = transformSolutionToPDPFormat(solution);
+                    List<Float> currentDeliveryQuantities = getCurrentDeliveryQuantitiesFromRoutes(routes);
+                    List<Float> currentPickupQuantities = getCurrentPickupQuantitiesFromRoutes(routes);
+                    List<ArrayList<Float>> currentLoadNodeas = getCurrentLoadNodesFromRoutes(routes);
+                    this.setRoutes(routes);
+                    this.setCurrentDeliveryQuantities(currentDeliveryQuantities);
+                    this.setCurrentPickupQuantities(currentPickupQuantities);
+                    this.setCurrentVehiclesLoadNodes(currentLoadNodeas);
+                    this.setOptimal(cplex.getStatus().toString().equals("Optimal"));
+                    List<Integer> visited = new ArrayList<>();
+                    for (int i = 0; i < costMatrix.size(); i++) {
+                        visited.add(i);
+                    }
+                    this.setVisited(visited);
+                    this.notVisited.clear();
+                    if (this.optimal) {
+                        //System.out.println("Optimal: " + totalCost);
+                    }
+                    cplex.end();
+                    //System.out.println("cplex.end");
+                    cplexLastChange = true;
+                    return timeUsed; // Retornar tiempo usado
+
+                } else {
+                    cplex.end();
+                    cplexLastChange = false;
+                    return timeUsed; // Retornar tiempo usado aunque no mejore
+                }
+
+            } else {
+                double timeUsed = cplex.getCplexTime() - start;
+                //System.out.println("problem not solved");
+                cplex.end();
+                return timeUsed; // Retornar tiempo usado aunque no resuelva
+            }
+
+        } catch (IloException exc) {
+            exc.printStackTrace();
+            return 0.0; // En caso de error, retornar 0
         }
 
     }

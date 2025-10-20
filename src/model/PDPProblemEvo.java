@@ -83,6 +83,21 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         System.out.println("Actualizando estructuras variables y fijas......");
         Setear_Instancias();
         Inicializa_Corrida(state.numGenerations);//estructura que alamacena los individuos
+        
+        // Leer y configurar el presupuesto de CPLEX desde los parámetros
+        double cplexBudget = state.parameters.getDoubleWithDefault(
+            new Parameter("gp.fs.0.func.6.cplex-budget"), null, 0.0);
+        terminals.CplexTerminal.configureBudget(cplexBudget);
+        
+        // Inicializar el logger de uso de CPLEX solo si hay presupuesto
+        if (cplexBudget > 0) {
+            CplexUsageLogger.getInstance().initialize(
+                Outputpath + PDPProblemEvo.JOB_NUMBER + "/", 
+                PDPProblemEvo.JOB_NUMBER, 
+                cplexBudget
+            );
+        }
+        
         System.out.println("MISProblem: Evolucionando...");
         startGenerationTime = System.nanoTime();	//inicio cronómetro evolución
     }
@@ -100,6 +115,15 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             ArrayList<PDPData> auxData = new ArrayList<PDPData>();
 
             GPIndividual gpind = (GPIndividual) individual;
+
+            // Iniciar registro de evaluación en el logger de CPLEX
+            if (CplexUsageLogger.getInstance().isInitialized()) {
+                CplexUsageLogger.getInstance().startEvaluation(
+                    state.generation, 
+                    gpind.toString(), 
+                    terminals.CplexTerminal.getTotalBudget()
+                );
+            }
 
             int hits = 0;
             double relErrAcum = 0.0;
@@ -119,6 +143,15 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             for(int i = 0; i < cantidad_intancias; i++) {
                 auxData.add(data.get(i).clone()); //el individuo se enfrenta a una instancia limpia
                 //auxData.add(data.get(i+avance_en_rangos_de_cant).clone());	//Co-evolución, se clona la instancia original para evaluar al individuo con una instancia limpia, sin modificaciones
+
+                // Resetear el presupuesto de CPLEX para esta instancia
+                String instanceName = auxData.get(i).getInstance().getName();
+                terminals.CplexTerminal.resetInstanceBudget(instanceName);
+                
+                // Registrar inicio de instancia en el logger
+                if (CplexUsageLogger.getInstance().isInitialized()) {
+                    CplexUsageLogger.getInstance().startInstance(instanceName);
+                }
 
                 gpind.trees[0].printStyle = GPTree.PRINT_STYLE_DOT;
 
@@ -167,6 +200,11 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
 
                 relErrAcum += instanceRelativeError;//acumulador del error relativo
                 timeAcum+=duracion;//acumulador del tiempo de evaluacion
+                
+                // Finalizar registro de instancia en el logger
+                if (CplexUsageLogger.getInstance().isInitialized()) {
+                    CplexUsageLogger.getInstance().endInstance();
+                }
             }
 
             //FIN Evaluación del algoritmo con todas las intancias
@@ -194,6 +232,11 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
                 //System.out.println(gen+" - "+Fitness+" - "+ hits+" - "+AdjustedFitness+" - "+tiempoPromedio+" - "+tamañoArbol+" - "+alturaArbol );
             }
             AgregarIndv(gen,id,AdjustedFitness,Fitness,ERP,ERL, hits,tiempoPromedio,tamanoArbol,alturaArbol);
+            
+            // Finalizar registro de evaluación en el logger
+            if (CplexUsageLogger.getInstance().isInitialized()) {
+                CplexUsageLogger.getInstance().endEvaluation();
+            }
         }
 
     }
@@ -252,6 +295,12 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             System.out.println("NOTA: Para generar las imagenes PNG, ejecuta:");
             System.out.println("  convert_dots_to_png.bat");
             System.out.println("==============================================");
+            
+            // Cerrar el logger de uso de CPLEX
+            if (CplexUsageLogger.getInstance().isInitialized()) {
+                CplexUsageLogger.getInstance().close();
+            }
+            
         } catch (Exception e) {e.printStackTrace();}
     }
     public static double Relative_Error_Legibility(long tam){//El error depende de que tan alejado esta del tamaño ideal, sea mayor o menor
@@ -318,7 +367,12 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         }
     }
     private void AgregarIndv(int gen, String id,float adjs,float stand, double erp, double erl, int hits,long time,long nodos,int altura){
-        Corrida.get(gen).AgregarIndv(gen,id,adjs,stand,erp,erl, hits,time,nodos,altura);
+        // Verificar que el índice esté dentro de los límites
+        if (gen >= 0 && gen < Corrida.size()) {
+            Corrida.get(gen).AgregarIndv(gen,id,adjs,stand,erp,erl, hits,time,nodos,altura);
+        } else {
+            System.err.println("Warning: Generation index " + gen + " is out of bounds (Corrida size: " + Corrida.size() + ")");
+        }
     }
     private void elite(){//agrega el mejor de cada generación a la siguiente generación, solo uno
         if(elites>0){

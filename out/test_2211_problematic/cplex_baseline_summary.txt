@@ -1,0 +1,14 @@
+================================================================
+RESUMEN ESTADISTICO - PRUEBA RAPIDA
+================================================================
+
+INSTANCIAS PROCESADAS:
+  Total: 1
+  Exitosas: 1
+  Fallidas: 0
+
+ESTADISTICAS:
+  Tiempo promedio: 0,281 segundos
+  T_base calculado: 0,281 segundos
+
+RESULTADO: SISTEMA FUNCIONA CORRECTAMENTE

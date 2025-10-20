@@ -1,0 +1,63 @@
+# ================================================================
+# GRUPO 3: Presupuesto Moderado (50% de T_base)
+# ================================================================
+# IMPORTANTE: Reemplazar TBASE_VALUE con el tiempo promedio de CPLEX puro
+# calculado en la Fase 1 del experimento
+# 
+# Ejemplo: Si T_base = 50 segundos, entonces:
+# gp.fs.0.func.6.cplex-budget = 25.0
+# ================================================================
+
+parent.0 = koza.params
+
+# We have one function set, of class GPFunctionSet
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+
+# We'll call the function set "f0".
+gp.fs.0.name = f0
+
+## We have QUINCE funciones (CON CPLEX)
+gp.fs.0.size = 15
+
+#Terminals
+gp.fs.0.func.0 = terminals.NearestNeighbor
+gp.fs.0.func.0.nc = nc0
+gp.fs.0.func.1 = terminals.FarthestNeighbor
+gp.fs.0.func.1.nc = nc0
+gp.fs.0.func.2 = terminals.NearestInsertion
+gp.fs.0.func.2.nc = nc0
+gp.fs.0.func.3 = terminals.FarthestInsertion
+gp.fs.0.func.3.nc = nc0
+gp.fs.0.func.4 = terminals.BestMove
+gp.fs.0.func.4.nc = nc0
+gp.fs.0.func.5 = terminals.WorstMove
+gp.fs.0.func.5.nc = nc0
+gp.fs.0.func.6 = terminals.CplexTerminal
+gp.fs.0.func.6.nc = nc0
+# PRESUPUESTO DE CPLEX: 50% de T_base
+# REEMPLAZAR 0.0 con el valor calculado en Fase 1 (T_base * 0.50)
+# Ejemplo: Si T_base = 45.250, entonces poner: 22.625
+gp.fs.0.func.6.cplex-budget = 8.457
+gp.fs.0.func.7 = terminals.NearestFirstNode
+gp.fs.0.func.7.nc = nc0
+gp.fs.0.func.8 = terminals.FarthestFirstNode
+gp.fs.0.func.8.nc = nc0
+
+#Functions
+gp.fs.0.func.9 = functions.IfThenElse
+gp.fs.0.func.9.nc = nc4
+gp.fs.0.func.10 = functions.IfThen
+gp.fs.0.func.10.nc = nc3
+gp.fs.0.func.11 = functions.DoWhile
+gp.fs.0.func.11.nc = nc5
+gp.fs.0.func.12 = functions.And
+gp.fs.0.func.12.nc = nc2
+gp.fs.0.func.13 = functions.Or
+gp.fs.0.func.13.nc = nc2
+gp.fs.0.func.14 = functions.Equal
+gp.fs.0.func.14.nc = nc2
+
+eval.problem = model.PDPProblemEvo
+eval.problem.data = model.PDPData
+
