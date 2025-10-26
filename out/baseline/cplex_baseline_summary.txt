@@ -8,40 +8,40 @@ INSTANCIAS PROCESADAS:
   Evaluación: 10 resueltas
 
 ESTADISTICAS - INSTANCIAS DE EVOLUCION:
-  Promedio: 0,361 segundos
-  Mínimo:   0,044 segundos
-  Máximo:   1,564 segundos
-  Desv.Est: 0,306 segundos
-  Total:    13,011 segundos
+  Promedio: 0,467 segundos
+  Mínimo:   0,061 segundos
+  Máximo:   1,525 segundos
+  Desv.Est: 0,358 segundos
+  Total:    16,796 segundos
 
 ESTADISTICAS - INSTANCIAS DE EVALUACION:
-  Promedio: 0,343 segundos
-  Mínimo:   0,092 segundos
-  Máximo:   1,275 segundos
-  Desv.Est: 0,355 segundos
-  Total:    3,426 segundos
+  Promedio: 0,552 segundos
+  Mínimo:   0,128 segundos
+  Máximo:   2,092 segundos
+  Desv.Est: 0,583 segundos
+  Total:    5,523 segundos
 
 ESTADISTICAS GLOBALES:
-  Promedio: 0,357 segundos
-  Mínimo:   0,044 segundos
-  Máximo:   1,564 segundos
-  Desv.Est: 0,313 segundos
-  Total:    16,437 segundos
+  Promedio: 0,485 segundos
+  Mínimo:   0,061 segundos
+  Máximo:   2,092 segundos
+  Desv.Est: 0,411 segundos
+  Total:    22,318 segundos
 
 ================================================================
-T_base (Tiempo Total Global): 16,437 segundos
+T_base (Tiempo Promedio por Instancia): 0,485 segundos
 ================================================================
 
-PRESUPUESTOS PARA GRUPOS EXPERIMENTALES:
+PRESUPUESTOS PARA GRUPOS EXPERIMENTALES (por instancia):
   Grupo 0 (0%):    0.000 segundos (sin CPLEX)
-  Grupo 1 (10%):   1,644 segundos
-  Grupo 2 (25%):   4,109 segundos
-  Grupo 3 (50%):   8,218 segundos
-  Grupo 4 (75%):   12,328 segundos
-  Grupo 5 (100%):  16,437 segundos
+  Grupo 1 (10%):   0,049 segundos por instancia
+  Grupo 2 (25%):   0,121 segundos por instancia
+  Grupo 3 (50%):   0,243 segundos por instancia
+  Grupo 4 (75%):   0,364 segundos por instancia
+  Grupo 5 (100%):  0,485 segundos por instancia
 
 ================================================================
 SIGUIENTE PASO:
 Actualizar los archivos de parámetros en src/model/params/
-Reemplazar TBASE_VALUE con: 16,437
+Reemplazar TBASE_VALUE con: 0,485
 ================================================================

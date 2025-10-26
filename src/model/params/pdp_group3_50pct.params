@@ -38,7 +38,7 @@ gp.fs.0.func.6.nc = nc0
 # PRESUPUESTO DE CPLEX: 50% de T_base
 # REEMPLAZAR 0.0 con el valor calculado en Fase 1 (T_base * 0.50)
 # Ejemplo: Si T_base = 45.250, entonces poner: 22.625
-gp.fs.0.func.6.cplex-budget = 8.457
+gp.fs.0.func.6.cplex-budget = 0.243
 gp.fs.0.func.7 = terminals.NearestFirstNode
 gp.fs.0.func.7.nc = nc0
 gp.fs.0.func.8 = terminals.FarthestFirstNode

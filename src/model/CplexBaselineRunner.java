@@ -381,19 +381,19 @@ public class CplexBaselineRunner {
             writer.println();
         }
         
-        // Calcular T_base (tiempo total global)
-        double tBase = calculateSum(allTimes);
+        // Calcular T_base (tiempo promedio por instancia)
+        double tBase = calculateMean(allTimes);
         writer.println("================================================================");
-        writer.println("T_base (Tiempo Total Global): " + String.format("%.3f", tBase) + " segundos");
+        writer.println("T_base (Tiempo Promedio por Instancia): " + String.format("%.3f", tBase) + " segundos");
         writer.println("================================================================");
         writer.println();
-        writer.println("PRESUPUESTOS PARA GRUPOS EXPERIMENTALES:");
+        writer.println("PRESUPUESTOS PARA GRUPOS EXPERIMENTALES (por instancia):");
         writer.println("  Grupo 0 (0%):    0.000 segundos (sin CPLEX)");
-        writer.println("  Grupo 1 (10%):   " + String.format("%.3f", tBase * 0.10) + " segundos");
-        writer.println("  Grupo 2 (25%):   " + String.format("%.3f", tBase * 0.25) + " segundos");
-        writer.println("  Grupo 3 (50%):   " + String.format("%.3f", tBase * 0.50) + " segundos");
-        writer.println("  Grupo 4 (75%):   " + String.format("%.3f", tBase * 0.75) + " segundos");
-        writer.println("  Grupo 5 (100%):  " + String.format("%.3f", tBase * 1.00) + " segundos");
+        writer.println("  Grupo 1 (10%):   " + String.format("%.3f", tBase * 0.10) + " segundos por instancia");
+        writer.println("  Grupo 2 (25%):   " + String.format("%.3f", tBase * 0.25) + " segundos por instancia");
+        writer.println("  Grupo 3 (50%):   " + String.format("%.3f", tBase * 0.50) + " segundos por instancia");
+        writer.println("  Grupo 4 (75%):   " + String.format("%.3f", tBase * 0.75) + " segundos por instancia");
+        writer.println("  Grupo 5 (100%):  " + String.format("%.3f", tBase * 1.00) + " segundos por instancia");
         writer.println();
         writer.println("================================================================");
         writer.println("SIGUIENTE PASO:");
@@ -406,7 +406,7 @@ public class CplexBaselineRunner {
         // También imprimir en consola
         System.out.println();
         System.out.println("================================================================");
-        System.out.println("T_base calculado: " + String.format("%.3f", tBase) + " segundos");
+        System.out.println("T_base calculado: " + String.format("%.3f", tBase) + " segundos por instancia");
         System.out.println("================================================================");
         System.out.println("Ver resumen completo en: " + OUTPUT_PATH + SUMMARY_FILE);
     }
