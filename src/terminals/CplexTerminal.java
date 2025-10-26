@@ -14,27 +14,51 @@ public class CplexTerminal extends GPNode {
 
     private static final long serialVersionUID = -2534468795456857335L;
 
-    // ========== SISTEMA DE CONTROL DE PRESUPUESTO ==========
-    // Variables estáticas para control de presupuesto de CPLEX por instancia
-    private static double totalBudget = 0.0;        // Presupuesto total de CPLEX en segundos (configurable)
+    // ========== SISTEMA DE CONTROL DE PRESUPUESTO POR INSTANCIA ==========
+    // NUEVO: Ahora el presupuesto es DINÁMICO por instancia, calculado como:
+    // totalBudget[i] = budgetPercentage × T_base[i]
+    // donde T_base[i] es el tiempo que CPLEX puro necesita para resolver la instancia i
+
+    private static double totalBudget = 0.0;        // Presupuesto total para la instancia ACTUAL
     private static double usedBudget = 0.0;         // Acumulador del presupuesto usado en la instancia actual
     private static int callCount = 0;               // Contador de llamadas a CPLEX en la instancia actual
     private static String currentInstanceName = ""; // Nombre de la instancia actual para detectar cambios
-    
+
     // Variables para estadísticas y logging
     private static double totalCplexTimeUsed = 0.0;     // Tiempo total de CPLEX usado en todas las instancias
     private static int totalCplexCalls = 0;              // Total de llamadas a CPLEX en todas las instancias
     private static double maxTimePerCall = 0.0;          // Tiempo máximo usado en una sola llamada
     private static double minTimePerCall = Double.MAX_VALUE; // Tiempo mínimo usado en una sola llamada
 
+    // NUEVO: Modo de presupuesto
+    // false = Modo legacy (presupuesto fijo global)
+    // true = Modo dinámico (presupuesto por instancia usando InstanceBudgetManager)
+    private static boolean useDynamicBudget = false;
+
     /**
-     * Configura el presupuesto total de CPLEX desde los parámetros
+     * Configura el presupuesto total de CPLEX desde los parámetros (MODO LEGACY)
      * Este método es llamado desde PDPProblemEvo.setup()
+     * DEPRECATED: Usar enableDynamicBudget() para el diseño experimental correcto
      */
     public static void configureBudget(double budget) {
         totalBudget = budget;
-        System.out.println("CplexTerminal: Presupuesto total configurado = " + totalBudget + " segundos");
-        
+        useDynamicBudget = false;
+        System.out.println("CplexTerminal: Presupuesto fijo configurado = " + totalBudget + " segundos [LEGACY MODE]");
+
+        // Resetear contadores globales
+        resetGlobalStats();
+    }
+
+    /**
+     * NUEVO: Habilita el modo de presupuesto dinámico por instancia
+     * En este modo, el presupuesto se calcula automáticamente para cada instancia
+     * usando el InstanceBudgetManager: presupuesto[i] = porcentaje × T_base[i]
+     */
+    public static void enableDynamicBudget() {
+        useDynamicBudget = true;
+        System.out.println("CplexTerminal: Modo de presupuesto DINÁMICO habilitado");
+        System.out.println("  -> Presupuesto se calculará automáticamente por instancia");
+
         // Resetear contadores globales
         resetGlobalStats();
     }
@@ -42,11 +66,29 @@ public class CplexTerminal extends GPNode {
     /**
      * Resetea el presupuesto para una nueva instancia
      * Debe llamarse al inicio de cada evaluación de instancia
+     *
+     * NUEVO: Si useDynamicBudget está habilitado, calcula el presupuesto
+     * específico para esta instancia usando InstanceBudgetManager
      */
     public static void resetInstanceBudget(String instanceName) {
         usedBudget = 0.0;
         callCount = 0;
         currentInstanceName = instanceName;
+
+        // NUEVO: Calcular presupuesto dinámico por instancia
+        if (useDynamicBudget) {
+            model.InstanceBudgetManager manager = model.InstanceBudgetManager.getInstance();
+            if (manager.isInitialized()) {
+                totalBudget = manager.getBudgetForInstance(instanceName);
+                //System.out.println("CplexTerminal: Presupuesto para " + instanceName +
+                //                 " = " + String.format("%.3f", totalBudget) + "s " +
+                //                 "(T_base=" + String.format("%.3f", manager.getTBaseForInstance(instanceName)) + "s)");
+            } else {
+                totalBudget = 0.0;
+                System.err.println("WARNING: InstanceBudgetManager no está inicializado, presupuesto = 0");
+            }
+        }
+
         //System.out.println("CplexTerminal: Presupuesto reseteado para instancia: " + instanceName);
     }
 

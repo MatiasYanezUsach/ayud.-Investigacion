@@ -35,10 +35,12 @@ gp.fs.0.func.5 = terminals.WorstMove
 gp.fs.0.func.5.nc = nc0
 gp.fs.0.func.6 = terminals.CplexTerminal
 gp.fs.0.func.6.nc = nc0
-# PRESUPUESTO DE CPLEX: 50% de T_base
-# REEMPLAZAR 0.0 con el valor calculado en Fase 1 (T_base * 0.50)
-# Ejemplo: Si T_base = 45.250, entonces poner: 22.625
-gp.fs.0.func.6.cplex-budget = 0.243
+# PRESUPUESTO DE CPLEX: 50% de T_base[i] POR CADA INSTANCIA i
+# Modo dinámico: el presupuesto se calcula automáticamente como:
+# presupuesto[i] = 0.50 × T_base[i]
+# donde T_base[i] es el tiempo que CPLEX puro necesita para resolver la instancia i
+gp.fs.0.func.6.cplex-budget-percentage = 0.50
+gp.fs.0.func.6.cplex-baseline-file = out/baseline/instance_baseline.csv
 gp.fs.0.func.7 = terminals.NearestFirstNode
 gp.fs.0.func.7.nc = nc0
 gp.fs.0.func.8 = terminals.FarthestFirstNode

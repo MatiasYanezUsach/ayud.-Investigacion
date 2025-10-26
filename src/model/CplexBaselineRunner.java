@@ -29,7 +29,8 @@ public class CplexBaselineRunner {
     private static final String OUTPUT_PATH = "out/baseline/";
     private static final String RESULTS_FILE = "cplex_baseline_results.csv";
     private static final String SUMMARY_FILE = "cplex_baseline_summary.txt";
-    
+    private static final String INSTANCE_BASELINE_FILE = "instance_baseline.csv";
+
     // Límite de tiempo máximo para CPLEX (en segundos)
     // Si una instancia no se resuelve en este tiempo, se registra como timeout
     private static final double MAX_TIME_LIMIT = 300.0; // 5 minutos
@@ -176,32 +177,46 @@ public class CplexBaselineRunner {
         ArrayList<PDPData> evolutionData = new ArrayList<>();
         FileIO.readInstances(evolutionData, EVOLUTION_INSTANCES_PATH);
         System.out.println("  Instancias de evolución leídas: " + evolutionData.size());
-        
+
         // Leer instancias de evaluación
         System.out.println("Leyendo instancias de evaluación desde: " + EVALUATION_INSTANCES_PATH);
         ArrayList<PDPData> evaluationData = new ArrayList<>();
         FileIO.readInstances(evaluationData, EVALUATION_INSTANCES_PATH);
         System.out.println("  Instancias de evaluación leídas: " + evaluationData.size());
-        
+
         int totalInstances = evolutionData.size() + evaluationData.size();
         System.out.println("Total de instancias a resolver: " + totalInstances);
         System.out.println();
-        
+
         // Crear archivo CSV de resultados
         PrintWriter csvWriter = new PrintWriter(
             new OutputStreamWriter(
-                new FileOutputStream(OUTPUT_PATH + RESULTS_FILE), 
+                new FileOutputStream(OUTPUT_PATH + RESULTS_FILE),
                 StandardCharsets.UTF_8
             )
         );
-        
+
         // Encabezado CSV
         csvWriter.println("Type,Instance,Optimal,Cost,TimeSeconds,Status,Gap");
-        
+
+        // Crear archivo CSV de línea base por instancia (NUEVO)
+        PrintWriter instanceBaselineWriter = new PrintWriter(
+            new OutputStreamWriter(
+                new FileOutputStream(OUTPUT_PATH + INSTANCE_BASELINE_FILE),
+                StandardCharsets.UTF_8
+            )
+        );
+
+        // Encabezado CSV para línea base por instancia
+        instanceBaselineWriter.println("InstanceName,T_base_seconds,Optimal_value,Status,Difficulty");
+
         // Listas para estadísticas
         List<Double> evolutionTimes = new ArrayList<>();
         List<Double> evaluationTimes = new ArrayList<>();
         List<Double> allTimes = new ArrayList<>();
+
+        // Estructura para almacenar resultados por instancia (NUEVO)
+        List<InstanceBaselineData> instanceBaselines = new ArrayList<>();
         
         // Procesar instancias de evolución
         System.out.println("================================================================");
@@ -231,7 +246,15 @@ public class CplexBaselineRunner {
                 evolutionTimes.add(result.timeSeconds);
                 allTimes.add(result.timeSeconds);
             }
-            
+
+            // Guardar baseline por instancia (NUEVO)
+            InstanceBaselineData ibd = new InstanceBaselineData();
+            ibd.instanceName = instanceName;
+            ibd.tBase = result.timeSeconds;
+            ibd.optimalValue = result.optimalValue;
+            ibd.status = result.status;
+            instanceBaselines.add(ibd);
+
             System.out.println("    Tiempo: " + String.format("%.3f", result.timeSeconds) + "s, " +
                              "Costo: " + String.format("%.2f", result.solutionCost) + ", " +
                              "Estado: " + result.status);
@@ -266,14 +289,26 @@ public class CplexBaselineRunner {
                 evaluationTimes.add(result.timeSeconds);
                 allTimes.add(result.timeSeconds);
             }
-            
+
+            // Guardar baseline por instancia (NUEVO)
+            InstanceBaselineData ibd = new InstanceBaselineData();
+            ibd.instanceName = instanceName;
+            ibd.tBase = result.timeSeconds;
+            ibd.optimalValue = result.optimalValue;
+            ibd.status = result.status;
+            instanceBaselines.add(ibd);
+
             System.out.println("    Tiempo: " + String.format("%.3f", result.timeSeconds) + "s, " +
                              "Costo: " + String.format("%.2f", result.solutionCost) + ", " +
                              "Estado: " + result.status);
         }
-        
+
         csvWriter.close();
-        
+
+        // Escribir archivo de línea base por instancia (NUEVO)
+        writeInstanceBaselines(instanceBaselineWriter, instanceBaselines, allTimes);
+        instanceBaselineWriter.close();
+
         // Calcular y escribir estadísticas
         writeStatistics(evolutionTimes, evaluationTimes, allTimes, totalInstances);
     }
@@ -455,6 +490,69 @@ public class CplexBaselineRunner {
     }
 
     /**
+     * Escribe el archivo de línea base por instancia con clasificación de dificultad
+     */
+    private static void writeInstanceBaselines(PrintWriter writer,
+                                               List<InstanceBaselineData> baselines,
+                                               List<Double> allTimes) {
+        if (allTimes.isEmpty()) {
+            return;
+        }
+
+        // Calcular umbrales de dificultad
+        double min = calculateMin(allTimes);
+        double max = calculateMax(allTimes);
+        double mean = calculateMean(allTimes);
+        double stdDev = calculateStdDev(allTimes, mean);
+
+        // Umbrales: mean - 0.5*stdDev y mean + 0.5*stdDev
+        double lowerThreshold = mean - 0.5 * stdDev;
+        double upperThreshold = mean + 0.5 * stdDev;
+
+        System.out.println();
+        System.out.println("================================================================");
+        System.out.println("CLASIFICACION DE DIFICULTAD DE INSTANCIAS");
+        System.out.println("================================================================");
+        System.out.println("Tiempo mínimo: " + String.format("%.3f", min) + " segundos");
+        System.out.println("Tiempo máximo: " + String.format("%.3f", max) + " segundos");
+        System.out.println("Tiempo promedio: " + String.format("%.3f", mean) + " segundos");
+        System.out.println("Desviación estándar: " + String.format("%.3f", stdDev) + " segundos");
+        System.out.println();
+        System.out.println("Umbrales de clasificación:");
+        System.out.println("  Fácil:   T_base < " + String.format("%.3f", lowerThreshold) + " segundos");
+        System.out.println("  Mediana: " + String.format("%.3f", lowerThreshold) + " <= T_base < " + String.format("%.3f", upperThreshold) + " segundos");
+        System.out.println("  Difícil: T_base >= " + String.format("%.3f", upperThreshold) + " segundos");
+        System.out.println("================================================================");
+
+        // Escribir cada instancia con su clasificación
+        int easyCount = 0, mediumCount = 0, hardCount = 0;
+
+        for (InstanceBaselineData ibd : baselines) {
+            String difficulty;
+            if (ibd.tBase < lowerThreshold) {
+                difficulty = "Easy";
+                easyCount++;
+            } else if (ibd.tBase < upperThreshold) {
+                difficulty = "Medium";
+                mediumCount++;
+            } else {
+                difficulty = "Hard";
+                hardCount++;
+            }
+
+            writer.println(String.format("%s,%.3f,%.2f,%s,%s",
+                ibd.instanceName, ibd.tBase, ibd.optimalValue, ibd.status, difficulty));
+        }
+
+        System.out.println();
+        System.out.println("Distribución de instancias:");
+        System.out.println("  Fáciles:  " + easyCount);
+        System.out.println("  Medianas: " + mediumCount);
+        System.out.println("  Difíciles: " + hardCount);
+        System.out.println();
+    }
+
+    /**
      * Clase para almacenar resultados de una ejecución
      */
     private static class BaselineResult {
@@ -463,6 +561,16 @@ public class CplexBaselineRunner {
         double timeSeconds;
         String status; // "Optimal", "Feasible", "Timeout", "Failed", "Error"
         double gap;
+    }
+
+    /**
+     * Clase para almacenar datos de línea base por instancia
+     */
+    private static class InstanceBaselineData {
+        String instanceName;
+        double tBase;
+        double optimalValue;
+        String status;
     }
 }
 

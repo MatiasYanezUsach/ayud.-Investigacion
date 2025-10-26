@@ -83,19 +83,76 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         System.out.println("Actualizando estructuras variables y fijas......");
         Setear_Instancias();
         Inicializa_Corrida(state.numGenerations);//estructura que alamacena los individuos
-        
-        // Leer y configurar el presupuesto de CPLEX desde los parámetros
+
+        // ========== CONFIGURACIÓN DEL SISTEMA DE PRESUPUESTO DE CPLEX ==========
+        // Leer parámetros de configuración
         double cplexBudget = state.parameters.getDoubleWithDefault(
             new Parameter("gp.fs.0.func.6.cplex-budget"), null, 0.0);
-        terminals.CplexTerminal.configureBudget(cplexBudget);
-        
-        // Inicializar el logger de uso de CPLEX solo si hay presupuesto
-        if (cplexBudget > 0) {
-            CplexUsageLogger.getInstance().initialize(
-                Outputpath + PDPProblemEvo.JOB_NUMBER + "/", 
-                PDPProblemEvo.JOB_NUMBER, 
-                cplexBudget
-            );
+
+        // NUEVO: Leer porcentaje de presupuesto (para modo dinámico)
+        // Este parámetro se usa para el diseño experimental
+        double budgetPercentage = state.parameters.getDoubleWithDefault(
+            new Parameter("gp.fs.0.func.6.cplex-budget-percentage"), null, -1.0);
+
+        // NUEVO: Leer ruta del archivo de línea base
+        String baselineFile = state.parameters.getStringWithDefault(
+            new Parameter("gp.fs.0.func.6.cplex-baseline-file"), null,
+            "out/baseline/instance_baseline.csv");
+
+        // Determinar modo de operación
+        boolean useDynamicBudget = (budgetPercentage >= 0.0);
+
+        if (useDynamicBudget) {
+            // ========== MODO DINÁMICO (DISEÑO EXPERIMENTAL CORRECTO) ==========
+            System.out.println("================================================================");
+            System.out.println("MODO DE PRESUPUESTO DINÁMICO POR INSTANCIA");
+            System.out.println("================================================================");
+            System.out.println("Porcentaje de presupuesto: " + String.format("%.0f%%", budgetPercentage * 100));
+            System.out.println("Archivo de línea base: " + baselineFile);
+
+            try {
+                // Inicializar InstanceBudgetManager
+                InstanceBudgetManager.getInstance().initialize(baselineFile, budgetPercentage);
+
+                // Habilitar modo dinámico en CplexTerminal
+                terminals.CplexTerminal.enableDynamicBudget();
+
+                // Inicializar logger con presupuesto estimado (promedio)
+                CplexUsageLogger.getInstance().initialize(
+                    Outputpath + PDPProblemEvo.JOB_NUMBER + "/",
+                    PDPProblemEvo.JOB_NUMBER,
+                    budgetPercentage // Guardar porcentaje para referencia
+                );
+
+                System.out.println("Sistema de presupuesto dinámico inicializado correctamente");
+                System.out.println("================================================================");
+
+            } catch (Exception e) {
+                System.err.println("ERROR al inicializar sistema de presupuesto dinámico:");
+                e.printStackTrace();
+                System.err.println("Continuando sin CPLEX...");
+                terminals.CplexTerminal.configureBudget(0.0);
+            }
+
+        } else {
+            // ========== MODO LEGACY (PRESUPUESTO FIJO) ==========
+            System.out.println("================================================================");
+            System.out.println("MODO DE PRESUPUESTO FIJO (LEGACY)");
+            System.out.println("================================================================");
+            System.out.println("Presupuesto fijo: " + cplexBudget + " segundos");
+
+            terminals.CplexTerminal.configureBudget(cplexBudget);
+
+            // Inicializar el logger de uso de CPLEX solo si hay presupuesto
+            if (cplexBudget > 0) {
+                CplexUsageLogger.getInstance().initialize(
+                    Outputpath + PDPProblemEvo.JOB_NUMBER + "/",
+                    PDPProblemEvo.JOB_NUMBER,
+                    cplexBudget
+                );
+            }
+
+            System.out.println("================================================================");
         }
         
         System.out.println("MISProblem: Evolucionando...");
