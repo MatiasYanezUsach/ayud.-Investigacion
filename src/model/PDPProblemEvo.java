@@ -72,13 +72,17 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         System.out.println("Obteniendo instancias de prueba...");
         try {
             File evofolder = new File(Outputpath+PDPProblemEvo.JOB_NUMBER+"/");//carpeta de archivos de la evolución
-            evofolder.mkdir();
+            evofolder.mkdirs(); // Crear directorios padres si no existen
             RESULTS_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/"+RESULTS_namefile);
             DOT_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/job."+PDPProblemEvo.JOB_NUMBER+"."+DOT_namefile);
             data = new ArrayList<PDPData>();//DATA
             FileIO.readInstances(data, Instacespath);
         } catch (Exception e) {	e.printStackTrace();}
-        System.out.println("Lectura de los "+ data.size() +" archivo terminada con éxito!");
+        if (data != null) {
+            System.out.println("Lectura de los "+ data.size() +" archivo terminada con éxito!");
+        } else {
+            System.err.println("ERROR: No se pudieron leer las instancias. data es null.");
+        }
         //Se actualiza y setea el resto de las variables
         System.out.println("Actualizando estructuras variables y fijas......");
         Setear_Instancias();

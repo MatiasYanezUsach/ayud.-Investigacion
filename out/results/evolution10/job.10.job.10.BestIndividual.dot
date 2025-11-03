@@ -1,0 +1,17 @@
+label="Individual=1348949648{1939121313} Fitness=0.24143645 Hits=3 Size=5 Depth=3";
+Evaluated: false
+Fitness: Standardized=0.24143645 Adjusted=0.80551845 Hits=3
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "If_Then"];
+n0[label = "While"];
+n00[label = "NearestInsertion"];
+n0 -> n00;
+n01[label = "NearestInsertion"];
+n0 -> n01;
+n -> n0;
+n1[label = "BestMove"];
+n -> n1;
+}
+
