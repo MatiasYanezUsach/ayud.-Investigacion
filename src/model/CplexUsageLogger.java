@@ -95,9 +95,9 @@ public class CplexUsageLogger {
             );
             
             // Escribir encabezado CSV del log de resumen
-            summaryLog.println("Generation,Individual,Instance,TotalCalls,TotalTimeUsed," +
-                              "BudgetAssigned,BudgetUsed,BudgetUtilization,AvgTimePerCall," +
-                              "MaxTimePerCall,MinTimePerCall");
+            summaryLog.println("Generation,Individual,Instance,BaselineTime,BudgetPercentage," +
+                              "BudgetCalculated,TotalCalls,TotalTimeUsed,BudgetUtilization," +
+                              "AvgTimePerCall,MaxTimePerCall,MinTimePerCall");
             summaryLog.flush();
             
             System.out.println("CplexUsageLogger inicializado: " + outputPath);
@@ -127,6 +127,14 @@ public class CplexUsageLogger {
             currentEvaluation.currentInstance = instanceName;
             currentEvaluation.instanceCallCount = 0;
             currentEvaluation.instanceTimeUsed = 0.0;
+            
+            // Obtener baseline para esta instancia
+            Double baseline = CplexBaselineRunner.getBaselineForInstance(instanceName);
+            if (baseline != null) {
+                currentEvaluation.instanceBaseline = baseline;
+            } else {
+                currentEvaluation.instanceBaseline = 0.0;
+            }
         }
     }
 
@@ -157,7 +165,7 @@ public class CplexUsageLogger {
         
         // Escribir en log detallado
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        detailedLog.println(String.format("%s,%d,%s,%s,%d,%.3f,%.3f,%.3f,%.3f,%.2f",
+        detailedLog.println(String.format(Locale.US, "%s,%d,%s,%s,%d,%.3f,%.3f,%.3f,%.3f,%.2f",
             timestamp,
             currentEvaluation.generation,
             currentEvaluation.individualId,
@@ -181,19 +189,21 @@ public class CplexUsageLogger {
             double avgTime = (currentEvaluation.instanceCallCount > 0) ? 
                 currentEvaluation.instanceTimeUsed / currentEvaluation.instanceCallCount : 0.0;
             
-            double budgetUsed = currentEvaluation.totalTimeUsed;
-            double utilization = (currentEvaluation.budgetAssigned > 0) ? 
-                (budgetUsed / currentEvaluation.budgetAssigned) * 100.0 : 0.0;
+            double budgetUsed = currentEvaluation.instanceTimeUsed; // Tiempo usado en esta instancia
+            double budgetCalculated = currentEvaluation.instanceBaseline * currentEvaluation.budgetAssigned;
+            double utilization = (budgetCalculated > 0) ? 
+                (budgetUsed / budgetCalculated) * 100.0 : 0.0;
             
-            // Escribir en log de resumen
-            summaryLog.println(String.format("%d,%s,%s,%d,%.3f,%.3f,%.3f,%.2f,%.3f,%.3f,%.3f",
+            // Escribir en log de resumen (incluye baseline por instancia)
+            summaryLog.println(String.format(Locale.US, "%d,%s,%s,%.3f,%.3f,%.3f,%d,%.3f,%.2f,%.3f,%.3f,%.3f",
                 currentEvaluation.generation,
                 currentEvaluation.individualId,
                 currentEvaluation.currentInstance,
+                currentEvaluation.instanceBaseline,  // Baseline de esta instancia
+                currentEvaluation.budgetAssigned,    // Porcentaje configurado
+                budgetCalculated,                     // Presupuesto calculado (baseline × porcentaje)
                 currentEvaluation.instanceCallCount,
                 currentEvaluation.instanceTimeUsed,
-                currentEvaluation.budgetAssigned,
-                budgetUsed,
                 utilization,
                 avgTime,
                 currentEvaluation.maxTimePerCall,
@@ -271,7 +281,9 @@ public class CplexUsageLogger {
             statsWriter.println("  Individuos evaluados:     " + totalIndividualsEvaluated);
             statsWriter.println("  Llamadas totales a CPLEX: " + totalCplexCalls);
             statsWriter.println("  Tiempo total usado:       " + String.format("%.3f", totalCplexTimeUsed) + " segundos");
-            statsWriter.println("  Presupuesto asignado:     " + String.format("%.3f", totalBudgetAssigned) + " segundos/instancia");
+            statsWriter.println("  Porcentaje configurado:   " + String.format("%.1f", totalBudgetAssigned * 100) + "% del baseline por instancia");
+            statsWriter.println("  NOTA: El presupuesto se calcula por instancia como: baseline_instancia × " + 
+                             String.format("%.1f", totalBudgetAssigned * 100) + "%");
             
             if (totalIndividualsEvaluated > 0) {
                 double avgCallsPerInd = (double) totalCplexCalls / totalIndividualsEvaluated;
@@ -323,7 +335,7 @@ public class CplexUsageLogger {
         int generation;
         String individualId;
         String currentInstance;
-        double budgetAssigned;
+        double budgetAssigned;  // Porcentaje del baseline (ej: 0.10 para 10%)
         long startTime;
         
         int totalCalls = 0;
@@ -331,6 +343,7 @@ public class CplexUsageLogger {
         
         int instanceCallCount = 0;
         double instanceTimeUsed = 0.0;
+        double instanceBaseline = 0.0;  // Baseline tiempo para la instancia actual
         
         double maxTimePerCall = 0.0;
         double minTimePerCall = Double.MAX_VALUE;

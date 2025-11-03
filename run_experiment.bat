@@ -48,16 +48,22 @@ set REPETITIONS=%2
 
 if "%REPETITIONS%"=="" set REPETITIONS=30
 
-REM Configurar classpath
-set CLASSPATH=bin;ecj;cplex_2211.jar;commons-math3-3.6.1.jar
-
-REM Configurar ruta de bibliotecas nativas de CPLEX
-REM AJUSTAR ESTA RUTA SEGÚN LA INSTALACIÓN DE CPLEX
-set CPLEX_LIB_PATH=C:\Program Files\IBM\ILOG\CPLEX_Studio2211\cplex\bin\x64_win64
+REM Cargar configuración desde .env
+call load_env.bat
+if errorlevel 1 (
+    echo ERROR: No se pudo cargar la configuración desde .env
+    pause
+    exit /b 1
+)
 
 echo ================================================================
 echo FASE 2: EXPERIMENTOS CON DIFERENTES PRESUPUESTOS DE CPLEX
 echo ================================================================
+echo.
+
+echo Configuración cargada:
+echo   CPLEX_LIB_PATH: %CPLEX_LIB_PATH%
+echo   CPLEX_JAR: %CPLEX_JAR%
 echo.
 
 REM Compilar código fuente

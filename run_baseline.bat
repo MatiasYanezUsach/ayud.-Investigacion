@@ -8,7 +8,7 @@ REM calcular el tiempo base (T_base) necesario para cada grupo.
 REM 
 REM IMPORTANTE: 
 REM - Ejecutar en la máquina dedicada del laboratorio
-REM - Asegurarse de que CPLEX esté correctamente configurado
+REM - Configurar las rutas en el archivo .env
 REM ================================================================
 
 echo ================================================================
@@ -16,12 +16,18 @@ echo FASE 1: ESTABLECIMIENTO DE LINEA BASE CON CPLEX PURO
 echo ================================================================
 echo.
 
-REM Configurar classpath
-set CLASSPATH=bin;ecj;cplex_2211.jar;commons-math3-3.6.1.jar
+REM Cargar configuración desde .env
+call load_env.bat
+if errorlevel 1 (
+    echo ERROR: No se pudo cargar la configuración desde .env
+    pause
+    exit /b 1
+)
 
-REM Configurar ruta de bibliotecas nativas de CPLEX
-REM AJUSTAR ESTA RUTA SEGÚN LA INSTALACIÓN DE CPLEX
-set CPLEX_LIB_PATH=C:\Program Files\IBM\ILOG\CPLEX_Studio2211\cplex\bin\x64_win64
+echo Configuración cargada:
+echo   CPLEX_LIB_PATH: %CPLEX_LIB_PATH%
+echo   CPLEX_JAR: %CPLEX_JAR%
+echo.
 
 echo Compilando codigo fuente...
 javac -encoding UTF-8 -d bin -cp "%CLASSPATH%" src/model/*.java src/terminals/*.java src/functions/*.java

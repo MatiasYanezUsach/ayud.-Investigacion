@@ -3,7 +3,10 @@ package model;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * FASE 1 DEL EXPERIMENTO: Establecer Línea Base
@@ -29,6 +32,10 @@ public class CplexBaselineRunner {
     private static final String OUTPUT_PATH = "out/baseline/";
     private static final String RESULTS_FILE = "cplex_baseline_results.csv";
     private static final String SUMMARY_FILE = "cplex_baseline_summary.txt";
+    private static final String BASELINE_MAP_FILE = "cplex_baseline_per_instance.csv";
+    
+    // Map para almacenar baseline por instancia: nombre instancia -> tiempo baseline
+    private static Map<String, Double> baselinePerInstance = new HashMap<>();
     
     // Límite de tiempo máximo para CPLEX (en segundos)
     // Si una instancia no se resuelve en este tiempo, se registra como timeout
@@ -226,10 +233,11 @@ public class CplexBaselineRunner {
             ));
             csvWriter.flush();
             
-            // Agregar a estadísticas
+            // Agregar a estadísticas y al mapa de baseline por instancia
             if (result.status.equals("Optimal") || result.status.equals("Feasible")) {
                 evolutionTimes.add(result.timeSeconds);
                 allTimes.add(result.timeSeconds);
+                baselinePerInstance.put(instanceName, result.timeSeconds);
             }
             
             System.out.println("    Tiempo: " + String.format("%.3f", result.timeSeconds) + "s, " +
@@ -261,10 +269,11 @@ public class CplexBaselineRunner {
             ));
             csvWriter.flush();
             
-            // Agregar a estadísticas
+            // Agregar a estadísticas y al mapa de baseline por instancia
             if (result.status.equals("Optimal") || result.status.equals("Feasible")) {
                 evaluationTimes.add(result.timeSeconds);
                 allTimes.add(result.timeSeconds);
+                baselinePerInstance.put(instanceName, result.timeSeconds);
             }
             
             System.out.println("    Tiempo: " + String.format("%.3f", result.timeSeconds) + "s, " +
@@ -273,6 +282,9 @@ public class CplexBaselineRunner {
         }
         
         csvWriter.close();
+        
+        // Guardar baseline por instancia en un archivo separado para fácil acceso
+        saveBaselinePerInstance();
         
         // Calcular y escribir estadísticas
         writeStatistics(evolutionTimes, evaluationTimes, allTimes, totalInstances);
@@ -387,18 +399,24 @@ public class CplexBaselineRunner {
         writer.println("T_base (Tiempo Promedio por Instancia): " + String.format("%.3f", tBase) + " segundos");
         writer.println("================================================================");
         writer.println();
-        writer.println("PRESUPUESTOS PARA GRUPOS EXPERIMENTALES (por instancia):");
+        writer.println("PRESUPUESTOS PARA GRUPOS EXPERIMENTALES:");
+        writer.println("NOTA: Los presupuestos se calculan POR INSTANCIA usando el baseline");
+        writer.println("      de cada instancia individual, no el promedio.");
         writer.println("  Grupo 0 (0%):    0.000 segundos (sin CPLEX)");
-        writer.println("  Grupo 1 (10%):   " + String.format("%.3f", tBase * 0.10) + " segundos por instancia");
-        writer.println("  Grupo 2 (25%):   " + String.format("%.3f", tBase * 0.25) + " segundos por instancia");
-        writer.println("  Grupo 3 (50%):   " + String.format("%.3f", tBase * 0.50) + " segundos por instancia");
-        writer.println("  Grupo 4 (75%):   " + String.format("%.3f", tBase * 0.75) + " segundos por instancia");
-        writer.println("  Grupo 5 (100%):  " + String.format("%.3f", tBase * 1.00) + " segundos por instancia");
+        writer.println("  Grupo 1 (10%):   Cada instancia usa 10% de su propio baseline");
+        writer.println("  Grupo 2 (25%):   Cada instancia usa 25% de su propio baseline");
+        writer.println("  Grupo 3 (50%):   Cada instancia usa 50% de su propio baseline");
+        writer.println("  Grupo 4 (75%):   Cada instancia usa 75% de su propio baseline");
+        writer.println("  Grupo 5 (100%):  Cada instancia usa 100% de su propio baseline");
+        writer.println();
+        writer.println("REFERENCIA - Promedio global T_base: " + String.format("%.3f", tBase) + " segundos");
+        writer.println("(Este valor es solo para referencia; el presupuesto se calcula por instancia)");
         writer.println();
         writer.println("================================================================");
         writer.println("SIGUIENTE PASO:");
-        writer.println("Actualizar los archivos de parámetros en src/model/params/");
-        writer.println("Reemplazar TBASE_VALUE con: " + String.format("%.3f", tBase));
+        writer.println("El sistema ahora carga el baseline por instancia automáticamente.");
+        writer.println("Los archivos de parámetros deben contener el porcentaje (ej: 0.10 para 10%),");
+        writer.println("y el presupuesto se calculará por instancia usando: baseline_instancia × porcentaje");
         writer.println("================================================================");
         
         writer.close();
@@ -452,6 +470,105 @@ public class CplexBaselineRunner {
             .mapToDouble(v -> Math.pow(v - mean, 2))
             .sum() / (values.size() - 1);
         return Math.sqrt(variance);
+    }
+
+    /**
+     * Guarda el baseline por instancia en un archivo CSV simple
+     */
+    private static void saveBaselinePerInstance() throws IOException {
+        PrintWriter writer = new PrintWriter(
+            new OutputStreamWriter(
+                new FileOutputStream(OUTPUT_PATH + BASELINE_MAP_FILE), 
+                StandardCharsets.UTF_8
+            )
+        );
+        
+        writer.println("Instance,BaselineTimeSeconds");
+        for (Map.Entry<String, Double> entry : baselinePerInstance.entrySet()) {
+            // Usar Locale.US para asegurar punto decimal (no coma)
+            writer.println(String.format(Locale.US, "%s,%.6f", entry.getKey(), entry.getValue()));
+        }
+        
+        writer.close();
+        System.out.println("Baseline por instancia guardado en: " + OUTPUT_PATH + BASELINE_MAP_FILE);
+        System.out.println("Total instancias con baseline: " + baselinePerInstance.size());
+    }
+    
+    /**
+     * Carga el baseline por instancia desde el archivo CSV
+     * Retorna un Map: nombre instancia -> tiempo baseline
+     */
+    public static Map<String, Double> loadBaselinePerInstance() {
+        Map<String, Double> baselineMap = new HashMap<>();
+        
+        try {
+            File baselineFile = new File(OUTPUT_PATH + BASELINE_MAP_FILE);
+            if (!baselineFile.exists()) {
+                System.err.println("ADVERTENCIA: Archivo de baseline por instancia no encontrado: " + 
+                                baselineFile.getAbsolutePath());
+                System.err.println("Asegúrate de ejecutar CplexBaselineRunner primero (FASE 1)");
+                return baselineMap;
+            }
+            
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                    new FileInputStream(baselineFile), 
+                    StandardCharsets.UTF_8
+                )
+            );
+            
+            // Saltar encabezado
+            String line = reader.readLine();
+            if (line == null || !line.startsWith("Instance")) {
+                System.err.println("ADVERTENCIA: Formato de archivo baseline incorrecto");
+                reader.close();
+                return baselineMap;
+            }
+            
+            // Leer líneas de datos
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+                
+                // Encontrar la PRIMERA coma (separador entre nombre y tiempo)
+                // NOTA: Usamos la primera coma porque el tiempo puede tener comas decimales
+                int firstCommaIndex = line.indexOf(',');
+                if (firstCommaIndex < 0) continue;
+                
+                String instanceName = line.substring(0, firstCommaIndex).trim();
+                String timeValueStr = line.substring(firstCommaIndex + 1).trim();
+                
+                try {
+                    // Reemplazar coma decimal por punto si es necesario (formato europeo -> US)
+                    timeValueStr = timeValueStr.replace(',', '.');
+                    double baselineTime = Double.parseDouble(timeValueStr);
+                    baselineMap.put(instanceName, baselineTime);
+                } catch (NumberFormatException e) {
+                    System.err.println("ADVERTENCIA: Error al parsear tiempo baseline para " + 
+                                    instanceName + ": " + timeValueStr);
+                }
+            }
+            
+            reader.close();
+            System.out.println("Baseline por instancia cargado: " + baselineMap.size() + " instancias");
+            
+        } catch (IOException e) {
+            System.err.println("ERROR al cargar baseline por instancia: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return baselineMap;
+    }
+    
+    /**
+     * Obtiene el baseline para una instancia específica
+     * Retorna null si no se encuentra
+     */
+    public static Double getBaselineForInstance(String instanceName) {
+        if (baselinePerInstance.isEmpty()) {
+            baselinePerInstance = loadBaselinePerInstance();
+        }
+        return baselinePerInstance.get(instanceName);
     }
 
     /**

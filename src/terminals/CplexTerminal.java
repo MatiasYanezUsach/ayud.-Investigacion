@@ -16,7 +16,8 @@ public class CplexTerminal extends GPNode {
 
     // ========== SISTEMA DE CONTROL DE PRESUPUESTO ==========
     // Variables estáticas para control de presupuesto de CPLEX por instancia
-    private static double totalBudget = 0.0;        // Presupuesto total de CPLEX en segundos (configurable)
+    private static double budgetPercentage = 0.0;   // Porcentaje del baseline de cada instancia (ej: 0.10 para 10%)
+    private static double totalBudget = 0.0;        // Presupuesto total de CPLEX en segundos para la instancia actual
     private static double usedBudget = 0.0;         // Acumulador del presupuesto usado en la instancia actual
     private static int callCount = 0;               // Contador de llamadas a CPLEX en la instancia actual
     private static String currentInstanceName = ""; // Nombre de la instancia actual para detectar cambios
@@ -28,26 +29,62 @@ public class CplexTerminal extends GPNode {
     private static double minTimePerCall = Double.MAX_VALUE; // Tiempo mínimo usado en una sola llamada
 
     /**
-     * Configura el presupuesto total de CPLEX desde los parámetros
+     * Configura el porcentaje del baseline que se usará como presupuesto
      * Este método es llamado desde PDPProblemEvo.setup()
+     * El presupuesto real se calculará por instancia usando: baseline_instancia × porcentaje
+     * 
+     * @param percentage Porcentaje del baseline (ej: 0.10 para 10%, 0.25 para 25%, etc.)
      */
-    public static void configureBudget(double budget) {
-        totalBudget = budget;
-        System.out.println("CplexTerminal: Presupuesto total configurado = " + totalBudget + " segundos");
+    public static void configureBudgetPercentage(double percentage) {
+        budgetPercentage = percentage;
+        System.out.println("CplexTerminal: Porcentaje de baseline configurado = " + 
+                         String.format("%.1f", percentage * 100) + "%");
+        System.out.println("El presupuesto se calculará por instancia como: baseline_instancia × " + 
+                         String.format("%.1f", percentage * 100) + "%");
         
         // Resetear contadores globales
         resetGlobalStats();
     }
+    
+    /**
+     * Método legacy para compatibilidad - ahora interpreta el valor como porcentaje
+     * @deprecated Usar configureBudgetPercentage en su lugar
+     */
+    @Deprecated
+    public static void configureBudget(double budget) {
+        // Si el valor es <= 1.0, asumir que es un porcentaje (0.10 = 10%)
+        // Si es > 1.0, asumir que es un valor fijo antiguo y advertir
+        if (budget > 1.0) {
+            System.err.println("ADVERTENCIA: Se recibió un valor de presupuesto fijo (" + budget + 
+                             " segundos). El sistema ahora usa porcentaje del baseline por instancia.");
+            System.err.println("Por favor, actualiza los archivos de parámetros para usar porcentajes (0.10, 0.25, etc.)");
+        }
+        configureBudgetPercentage(budget);
+    }
 
     /**
      * Resetea el presupuesto para una nueva instancia
+     * Calcula el presupuesto basado en el baseline de esa instancia específica
      * Debe llamarse al inicio de cada evaluación de instancia
      */
     public static void resetInstanceBudget(String instanceName) {
         usedBudget = 0.0;
         callCount = 0;
         currentInstanceName = instanceName;
-        //System.out.println("CplexTerminal: Presupuesto reseteado para instancia: " + instanceName);
+        
+        // Calcular presupuesto para esta instancia: baseline_instancia × porcentaje
+        Double baselineTime = model.CplexBaselineRunner.getBaselineForInstance(instanceName);
+        if (baselineTime != null) {
+            totalBudget = baselineTime * budgetPercentage;
+            //System.out.println("CplexTerminal: Instancia " + instanceName + 
+            //                 " - Baseline: " + String.format("%.3f", baselineTime) + "s, " +
+            //                 "Presupuesto (" + String.format("%.1f", budgetPercentage * 100) + "%): " + 
+            //                 String.format("%.3f", totalBudget) + "s");
+        } else {
+            System.err.println("ADVERTENCIA: No se encontró baseline para instancia: " + instanceName);
+            System.err.println("No se puede calcular presupuesto específico. Usando 0.0.");
+            totalBudget = 0.0;
+        }
     }
 
     /**
@@ -128,6 +165,7 @@ public class CplexTerminal extends GPNode {
     }
 
     // Getters para estadísticas (útiles para análisis posterior)
+    public static double getBudgetPercentage() { return budgetPercentage; }
     public static double getTotalBudget() { return totalBudget; }
     public static double getUsedBudget() { return usedBudget; }
     public static int getCallCount() { return callCount; }

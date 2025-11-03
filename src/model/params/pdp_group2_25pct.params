@@ -35,10 +35,10 @@ gp.fs.0.func.5 = terminals.WorstMove
 gp.fs.0.func.5.nc = nc0
 gp.fs.0.func.6 = terminals.CplexTerminal
 gp.fs.0.func.6.nc = nc0
-# PRESUPUESTO DE CPLEX: 25% de T_base
-# REEMPLAZAR 0.0 con el valor calculado en Fase 1 (T_base * 0.25)
-# Ejemplo: Si T_base = 45.250, entonces poner: 11.313
-gp.fs.0.func.6.cplex-budget = 0.121
+# PRESUPUESTO DE CPLEX: 25% del baseline por instancia
+# El sistema ahora calcula el presupuesto por instancia como: baseline_instancia × 0.25
+# IMPORTANTE: Usar el porcentaje como decimal (0.10 para 10%, 0.25 para 25%, etc.)
+gp.fs.0.func.6.cplex-budget = 0.25
 gp.fs.0.func.7 = terminals.NearestFirstNode
 gp.fs.0.func.7.nc = nc0
 gp.fs.0.func.8 = terminals.FarthestFirstNode

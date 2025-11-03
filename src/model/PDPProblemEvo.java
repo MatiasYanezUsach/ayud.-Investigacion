@@ -84,17 +84,19 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         Setear_Instancias();
         Inicializa_Corrida(state.numGenerations);//estructura que alamacena los individuos
         
-        // Leer y configurar el presupuesto de CPLEX desde los parámetros
-        double cplexBudget = state.parameters.getDoubleWithDefault(
+        // Leer y configurar el porcentaje del baseline para CPLEX desde los parámetros
+        // El valor debe ser un porcentaje (ej: 0.10 para 10%, 0.25 para 25%, etc.)
+        double cplexBudgetPercentage = state.parameters.getDoubleWithDefault(
             new Parameter("gp.fs.0.func.6.cplex-budget"), null, 0.0);
-        terminals.CplexTerminal.configureBudget(cplexBudget);
+        terminals.CplexTerminal.configureBudgetPercentage(cplexBudgetPercentage);
         
-        // Inicializar el logger de uso de CPLEX solo si hay presupuesto
-        if (cplexBudget > 0) {
+        // Inicializar el logger de uso de CPLEX solo si hay presupuesto (porcentaje > 0)
+        // Nota: El logger recibirá el porcentaje, pero el presupuesto real se calcula por instancia
+        if (cplexBudgetPercentage > 0) {
             CplexUsageLogger.getInstance().initialize(
                 Outputpath + PDPProblemEvo.JOB_NUMBER + "/", 
                 PDPProblemEvo.JOB_NUMBER, 
-                cplexBudget
+                cplexBudgetPercentage  // Guardamos el porcentaje, no el presupuesto fijo
             );
         }
         
@@ -117,11 +119,12 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             GPIndividual gpind = (GPIndividual) individual;
 
             // Iniciar registro de evaluación en el logger de CPLEX
+            // Nota: Pasamos el porcentaje del baseline, no el presupuesto calculado
             if (CplexUsageLogger.getInstance().isInitialized()) {
                 CplexUsageLogger.getInstance().startEvaluation(
                     state.generation, 
                     gpind.toString(), 
-                    terminals.CplexTerminal.getTotalBudget()
+                    terminals.CplexTerminal.getBudgetPercentage()
                 );
             }
 
