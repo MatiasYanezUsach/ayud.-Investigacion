@@ -3,6 +3,6 @@ Subpopulation Number: i0|
 Number of Individuals: i1|
 Individual Number: i0|
 Evaluated: F
-Fitness: f1046992254|0.22640035|i0|
+Fitness: f1046423678|0.2179279|i0|
 Tree 0:
- (If_Then (And (Or (If_Then NearestNeighbor NearestNeighbor) (If_Then NearestNeighbor NearestNeighbor)) (And NearestNeighbor (Equal NearestNeighbor FarthestNeighbor))) (And (And (If_Then NearestNeighbor NearestNeighbor) NearestNeighbor) (And (If_Then NearestNeighbor NearestNeighbor) (Equal FarthestNeighbor FarthestNeighbor))))
+ (If_Then_Else (If_Then_Else (Equal (If_Then_Else NearestInsertion FarthestFirstNode NearestFirstNode) NearestFirstNode) (If_Then_Else (If_Then_Else NearestFirstNode NearestInsertion NearestFirstNode) (If_Then_Else NearestInsertion FarthestFirstNode NearestFirstNode) NearestFirstNode) (If_Then_Else NearestInsertion FarthestFirstNode NearestFirstNode)) (And (If_Then_Else (If_Then_Else NearestFirstNode NearestFirstNode NearestFirstNode) (If_Then_Else NearestInsertion FarthestFirstNode NearestFirstNode) (If_Then_Else NearestFirstNode FarthestFirstNode NearestFirstNode)) (If_Then_Else (If_Then_Else NearestFirstNode NearestInsertion NearestFirstNode) (If_Then_Else NearestInsertion FarthestFirstNode NearestFirstNode) NearestFirstNode)) FarthestFirstNode)

@@ -1,32 +1,28 @@
-label="Individual=729864207{703657207} Fitness=0.09407377 Hits=7 Size=13 Depth=5";
+label="Individual=226744878{1311296301} Fitness=0.30211347 Hits=3 Size=11 Depth=5";
 Evaluated: false
-Fitness: Standardized=0.09407377 Adjusted=0.9140152 Hits=7
+Fitness: Standardized=0.30211347 Adjusted=0.7679822 Hits=3
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "Or"];
-n00[label = "BestMove"];
+n[label = "If_Then"];
+n0[label = "While"];
+n00[label = "NearestNeighbor"];
 n0 -> n00;
-n01[label = "FarthestNeighbor"];
+n01[label = "NearestNeighbor"];
 n0 -> n01;
 n -> n0;
 n1[label = "While"];
-n10[label = "Or"];
-n100[label = "Or"];
-n1000[label = "BestMove"];
-n100 -> n1000;
-n1001[label = "FarthestNeighbor"];
-n100 -> n1001;
+n10[label = "If_Then"];
+n100[label = "CplexTerminal"];
 n10 -> n100;
-n101[label = "FarthestNeighbor"];
+n101[label = "And"];
+n1010[label = "CplexTerminal"];
+n101 -> n1010;
+n1011[label = "NearestFirstNode"];
+n101 -> n1011;
 n10 -> n101;
 n1 -> n10;
-n11[label = "And"];
-n110[label = "CplexTerminal"];
-n11 -> n110;
-n111[label = "FarthestFirstNode"];
-n11 -> n111;
+n11[label = "BestMove"];
 n1 -> n11;
 n -> n1;
 }

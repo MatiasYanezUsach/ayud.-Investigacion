@@ -92,6 +92,18 @@ echo ================================================================
 echo TODOS LOS EXPERIMENTOS COMPLETADOS
 echo ================================================================
 echo.
+
+REM Generar reporte Excel consolidado de todos los grupos
+echo.
+echo Generando reporte Excel consolidado...
+python generate_excel_report.py
+if errorlevel 1 (
+    echo ADVERTENCIA: No se pudo generar el reporte Excel consolidado
+) else (
+    echo Reporte Excel consolidado generado exitosamente
+)
+
+echo.
 pause
 exit /b 0
 
@@ -147,6 +159,25 @@ echo ================================================================
 echo COMPLETADO: %GROUP_NAME%
 echo ================================================================
 echo.
+
+REM Generar reporte Excel automáticamente
+echo.
+echo Generando reporte Excel...
+python generate_excel_report.py %G%
+if errorlevel 1 (
+    echo ADVERTENCIA: No se pudo generar el reporte Excel
+    echo Continuando...
+) else (
+    echo Reporte Excel generado exitosamente
+    echo.
+    echo Generando graficos...
+    python generate_charts.py %G%
+    if errorlevel 1 (
+        echo ADVERTENCIA: No se pudieron generar los graficos
+    ) else (
+        echo Graficos generados exitosamente
+    )
+)
 
 endlocal
 exit /b 0

@@ -1,0 +1,100 @@
+RESPUESTAS A LAS DUDAS DEL PROFESOR
+=====================================
+
+CONTEXTO GENERAL
+-----------------
+El experimento evalúa un algoritmo evolutivo (programación genética) que usa CPLEX 
+como operador interno. Cada individuo (programa genético) se evalúa con todas las 
+instancias de prueba, y el fitness es el Error Relativo Promedio (ERP) sobre todas 
+las instancias. El presupuesto de CPLEX se limita a un porcentaje del tiempo baseline 
+de cada instancia.
+
+HOJA "BASELINE POR INSTANCIA"
+------------------------------
+
+1. ¿En qué máquina se obtuvieron estos tiempos computacionales?
+   → Ver hoja "Configuración", sección "INFORMACIÓN DE LA MÁQUINA". 
+     Incluye: Sistema Operativo, Arquitectura, Procesador y RAM.
+
+2. ¿Qué significan los números en los nombres de las instancias?
+   → Ejemplo "R161_15_80.txt":
+     • R = Tipo Random
+     • 161 = Número de clientes
+     • 15 = Número de nodos
+     • 80 = Capacidad del vehículo
+   
+   Otros formatos:
+   • "C101_20_02": C = Clustered, 101 = número, 20 = nodos, 02 = variante
+   • "RC101_20_02": RC = Random-Clustered, 101 = número, 20 = nodos, 02 = variante
+   • "3C_20_66-02": 3C = tipo, 20 = nodos, 66 = capacidad, 02 = variante
+
+3. ¿Qué representan las instancias "Mitra 1-6" y "CON 3 instancia 24"?
+   → Son instancias especiales de la literatura (benchmarks estándar del PDP).
+     "Mitra" y "CON3" son nombres de conjuntos de instancias de prueba conocidas.
+     Los números indican variantes específicas dentro de esos conjuntos.
+
+HOJA "ESTADÍSTICAS POR EJECUCIÓN"
+----------------------------------
+
+4. ¿Qué son los "individuos"?
+   → Correcto: son el tamaño de población del algoritmo genético (15 individuos).
+     IMPORTANTE: "Individuos Evaluados" en esta hoja es el TOTAL acumulado durante 
+     TODAS las 100 generaciones (no es 15, sino ~1500 individuos evaluados en total).
+
+5. ¿El formato numérico está en inglés o castellano?
+   → CASTELLANO: usa comas como separador decimal.
+     Ejemplo: "8,7" = ocho punto siete (8.7 en notación internacional).
+     Ejemplo: "1,176" = mil ciento setenta y seis (1,176 en notación internacional).
+
+6. ¿Qué representa exactamente "llamadas simplex 8,7"?
+   → Es el PROMEDIO de llamadas a CPLEX por individuo (8.7 llamadas/individuo).
+     NO es el total de llamadas. El total aparece en la columna "Llamadas CPLEX (Total)".
+
+7. ¿Cómo se calcula el "promedio de llamada por individuo"?
+   → Fórmula: Promedio = Total de Llamadas CPLEX / Total de Individuos Evaluados
+     Ejemplo: Si hay 473 llamadas totales y 8,7 promedio por individuo:
+     → 473 / 8,7 ≈ 54 individuos evaluados (en esa ejecución específica)
+     NOTA: El cálculo es correcto, pero el número de individuos evaluados varía 
+     porque no todos los individuos llaman a CPLEX (solo los que tienen el terminal CPLEX).
+
+HOJA "BEST FITNESS POR EJECUCIÓN"
+----------------------------------
+
+8. ¿Cuál fitness es el que se debe considerar: el estandarizado o el ajustado?
+   → El ESTANDARIZADO (ERP - Error Relativo Promedio) es el que se usa para la selección.
+     El ajustado (1/(1+ERP)) es solo informativo.
+
+9. ¿El fitness reportado es del mejor individuo de la generación o del promedio?
+   → Es del MEJOR individuo de cada generación (no del promedio).
+
+10. ¿Qué tamaño de población se está usando?
+    → 15 individuos (ver hoja "Configuración").
+
+11. ¿Cuántas instancias de prueba se usaron para evaluar el error relativo promedio?
+    → Todas las instancias disponibles en data/evolution/ (ver hoja "Configuración", 
+      sección "INSTANCIAS DE EVALUACIÓN"). Cada individuo se evalúa con TODAS las instancias.
+
+12. ¿Qué valores de probabilidad se usaron para selección, cruzamiento y mutación?
+    → Ver hoja "Configuración", sección "PARÁMETROS DEL ALGORITMO EVOLUTIVO":
+      • Probabilidad Crossover: 70%
+      • Probabilidad Mutación (Subtree): 15%
+      • Probabilidad Mutación (One Node): 15%
+      • Selección: Tournament Selection (tamaño 4)
+
+GUÍA DE LECTURA DEL EXCEL
+--------------------------
+1. Empezar por la hoja "Configuración" para entender el experimento completo.
+2. Revisar "Baseline por Instancia" para ver la dificultad de cada instancia.
+3. Ver "Resumen General" para estadísticas consolidadas.
+4. Analizar "Estadísticas por Ejecución" para ver el uso de CPLEX.
+5. Examinar "Best Fitness por Ejecución" para ver la evolución del mejor individuo.
+6. Revisar "Estadísticas Promedio y Mejor" para comparar población vs mejor individuo.
+
+NOTAS IMPORTANTES
+-----------------
+• Todos los valores numéricos usan comas como separador decimal (formato castellano).
+• "Individuos Evaluados" = total acumulado durante toda la ejecución (100 generaciones).
+• No todos los individuos llaman a CPLEX (solo los que tienen el terminal CPLEX en su árbol).
+• El presupuesto de CPLEX es un porcentaje del baseline por instancia (ver hoja "Configuración").
+• El fitness principal es el ERP (Error Relativo Promedio), que se minimiza.
+
