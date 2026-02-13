@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1048306714|0.24598733|i0|
+Tree 0:
+ (If_Then_Else (Equal (If_Then (Or NearestFirstNode BestMove) (If_Then FarthestFirstNode NearestNeighbor)) (If_Then (Equal FarthestFirstNode NearestNeighbor) (If_Then FarthestFirstNode NearestNeighbor))) (Equal (If_Then (If_Then NearestFirstNode NearestFirstNode) (Equal FarthestFirstNode NearestNeighbor)) NearestNeighbor) (Equal (Equal FarthestFirstNode NearestNeighbor) NearestNeighbor))

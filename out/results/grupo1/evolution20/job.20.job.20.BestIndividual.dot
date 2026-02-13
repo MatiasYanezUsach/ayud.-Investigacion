@@ -1,0 +1,67 @@
+label="Individual=282821294{1517904218} Fitness=0.184894 Hits=2 Size=30 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.184894 Adjusted=0.84395736 Hits=2
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "And"];
+n0[label = "Equal"];
+n00[label = "If_Then"];
+n000[label = "NearestInsertion"];
+n00 -> n000;
+n001[label = "Equal"];
+n0010[label = "FarthestNeighbor"];
+n001 -> n0010;
+n0011[label = "NearestInsertion"];
+n001 -> n0011;
+n00 -> n001;
+n0 -> n00;
+n01[label = "If_Then"];
+n010[label = "If_Then"];
+n0100[label = "NearestInsertion"];
+n010 -> n0100;
+n0101[label = "NearestInsertion"];
+n010 -> n0101;
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestInsertion"];
+n011 -> n0110;
+n0111[label = "NearestInsertion"];
+n011 -> n0111;
+n01 -> n011;
+n0 -> n01;
+n -> n0;
+n1[label = "If_Then"];
+n10[label = "Equal"];
+n100[label = "If_Then_Else"];
+n1000[label = "FarthestNeighbor"];
+n100 -> n1000;
+n1001[label = "NearestInsertion"];
+n100 -> n1001;
+n1002[label = "FarthestNeighbor"];
+n100 -> n1002;
+n10 -> n100;
+n101[label = "While"];
+n1010[label = "NearestInsertion"];
+n101 -> n1010;
+n1011[label = "NearestInsertion"];
+n101 -> n1011;
+n10 -> n101;
+n1 -> n10;
+n11[label = "Equal"];
+n110[label = "If_Then"];
+n1100[label = "NearestInsertion"];
+n110 -> n1100;
+n1101[label = "NearestInsertion"];
+n110 -> n1101;
+n11 -> n110;
+n111[label = "If_Then"];
+n1110[label = "NearestInsertion"];
+n111 -> n1110;
+n1111[label = "NearestInsertion"];
+n111 -> n1111;
+n11 -> n111;
+n1 -> n11;
+n -> n1;
+}
+

@@ -1,0 +1,45 @@
+label="Individual=667447085{-1334864813} Fitness=0.2897047 Hits=0 Size=19 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.2897047 Adjusted=0.7753713 Hits=0
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "If_Then_Else"];
+n0[label = "FarthestFirstNode"];
+n -> n0;
+n1[label = "If_Then_Else"];
+n10[label = "If_Then_Else"];
+n100[label = "If_Then_Else"];
+n1000[label = "FarthestFirstNode"];
+n100 -> n1000;
+n1001[label = "BestMove"];
+n100 -> n1001;
+n1002[label = "CplexTerminal"];
+n100 -> n1002;
+n10 -> n100;
+n101[label = "FarthestInsertion"];
+n10 -> n101;
+n102[label = "If_Then_Else"];
+n1020[label = "FarthestFirstNode"];
+n102 -> n1020;
+n1021[label = "FarthestInsertion"];
+n102 -> n1021;
+n1022[label = "CplexTerminal"];
+n102 -> n1022;
+n10 -> n102;
+n1 -> n10;
+n11[label = "If_Then_Else"];
+n110[label = "FarthestFirstNode"];
+n11 -> n110;
+n111[label = "FarthestInsertion"];
+n11 -> n111;
+n112[label = "CplexTerminal"];
+n11 -> n112;
+n1 -> n11;
+n12[label = "CplexTerminal"];
+n1 -> n12;
+n -> n1;
+n2[label = "CplexTerminal"];
+n -> n2;
+}
+

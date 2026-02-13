@@ -254,9 +254,15 @@ def read_stats_prom_mej(stats_file):
     
     return data
 
-def find_all_executions():
+def find_all_executions(group_num=None):
     """Encuentra todas las ejecuciones en out/results/"""
-    results_dir = "out/results"
+    
+    # Si se especifica un grupo, buscar en out/results/grupo{N}/
+    if group_num is not None:
+        results_dir = f"out/results/grupo{group_num}"
+    else:
+        results_dir = "out/results"
+    
     if not os.path.exists(results_dir):
         return []
     
@@ -294,13 +300,22 @@ def generate_excel(group_num=None):
     
     # Encontrar todas las ejecuciones
     print("Buscando ejecuciones...")
-    executions = find_all_executions()
+    executions = find_all_executions(group_num)  # Pasar group_num aqui
     
     if not executions:
-        print("ERROR: No se encontraron ejecuciones en out/results/")
+        if group_num is not None:
+            print(f"ERROR: No se encontraron ejecuciones en out/results/grupo{group_num}/")
+        else:
+            print("ERROR: No se encontraron ejecuciones en out/results/")
         return False
     
     print(f"Encontradas {len(executions)} ejecuciones: {executions}")
+    
+    # Determinar el directorio base de resultados
+    if group_num is not None:
+        results_base_dir = f"out/results/grupo{group_num}"
+    else:
+        results_base_dir = "out/results"
     
     # Crear workbook
     wb = Workbook()
@@ -464,10 +479,16 @@ def generate_excel(group_num=None):
     # Recopilar estadísticas de todas las ejecuciones
     all_stats = []
     for exec_num in executions:
-        stats_file = f"out/results/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
+        stats_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
         stats = parse_statistics_file(stats_file)
         if stats:
             all_stats.append(stats)
+    
+    # Determinar el presupuesto esperado basándose en el número de grupo
+    expected_budget_pct = None
+    if group_num is not None:
+        budget_map = {0: 0.0, 1: 10.0, 2: 25.0, 3: 50.0, 4: 75.0, 5: 100.0}
+        expected_budget_pct = budget_map.get(group_num)
     
     if all_stats:
         total_indiv = sum(s['individuos'] for s in all_stats)
@@ -489,7 +510,24 @@ def generate_excel(group_num=None):
         ws_summary.cell(row, 2).value = f"{total_time:.2f} segundos"
         row += 1
         ws_summary.cell(row, 1).value = "Presupuesto CPLEX:"
-        ws_summary.cell(row, 2).value = f"{avg_pct:.1f}% del baseline por instancia"
+        
+        # Usar el presupuesto esperado si se especificó un grupo, sino usar el calculado
+        if expected_budget_pct is not None:
+            ws_summary.cell(row, 2).value = f"{expected_budget_pct:.1f}% del baseline por instancia"
+            # Advertir si hay discrepancia
+            if abs(avg_pct - expected_budget_pct) > 1.0:
+                ws_summary.cell(row, 3).value = f"ADVERTENCIA: Los archivos muestran {avg_pct:.1f}% - Verifique que las ejecuciones correspondan al grupo correcto"
+                ws_summary.cell(row, 3).font = Font(italic=True, color="FF0000")
+        else:
+            ws_summary.cell(row, 2).value = f"{avg_pct:.1f}% del baseline por instancia"
+    elif group_num == 0:
+        # Grupo 0: Sin CPLEX
+        ws_summary.cell(row, 1).value = "Total Ejecuciones:"
+        ws_summary.cell(row, 2).value = len(executions)
+        row += 1
+        ws_summary.cell(row, 1).value = "Presupuesto CPLEX:"
+        ws_summary.cell(row, 2).value = "0.0% del baseline por instancia (Sin CPLEX)"
+        ws_summary.cell(row, 3).value = "Grupo de control - No usa CPLEX"
     
     # Ajustar ancho de columnas
     ws_summary.column_dimensions['A'].width = 30
@@ -569,7 +607,7 @@ def generate_excel(group_num=None):
     
     row = 3
     for exec_num in executions:
-        stats_file = f"out/results/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
+        stats_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
         stats = parse_statistics_file(stats_file)
         if stats:
             ws_stats.cell(row, 1).value = exec_num
@@ -602,7 +640,7 @@ def generate_excel(group_num=None):
     
     row = 3
     for exec_num in executions:
-        fitness_file = f"out/results/evolution{exec_num}/job.{exec_num}.BestFitness.csv"
+        fitness_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.BestFitness.csv"
         fitness_data = read_best_fitness(fitness_file)
         for entry in fitness_data:
             ws_fitness.cell(row, 1).value = exec_num
@@ -635,7 +673,7 @@ def generate_excel(group_num=None):
     
     row = 3
     for exec_num in executions:
-        stats_file = f"out/results/evolution{exec_num}/job.{exec_num}.EstadisticaProm&Mej.csv"
+        stats_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.EstadisticaProm&Mej.csv"
         stats_data = read_stats_prom_mej(stats_file)
         for entry in stats_data:
             ws_stats_pm.cell(row, 1).value = exec_num

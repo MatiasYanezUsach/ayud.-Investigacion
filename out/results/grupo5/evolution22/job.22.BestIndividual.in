@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1046713354|0.22224441|i3|
+Tree 0:
+ (Equal (While NearestNeighbor (And NearestNeighbor (While NearestInsertion NearestInsertion))) CplexTerminal)

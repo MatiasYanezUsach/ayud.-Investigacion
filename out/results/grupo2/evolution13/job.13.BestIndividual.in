@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1049730449|0.28440526|i0|
+Tree 0:
+ (If_Then_Else (If_Then_Else (And NearestFirstNode (If_Then_Else FarthestInsertion FarthestNeighbor NearestFirstNode)) FarthestNeighbor NearestFirstNode) FarthestNeighbor NearestFirstNode)

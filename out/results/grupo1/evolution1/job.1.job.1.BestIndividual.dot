@@ -1,0 +1,71 @@
+label="Individual=726281927{-1052202353} Fitness=0.12500192 Hits=8 Size=32 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.12500192 Adjusted=0.8888874 Hits=8
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "If_Then_Else"];
+n0[label = "And"];
+n00[label = "WorstMove"];
+n0 -> n00;
+n01[label = "NearestInsertion"];
+n0 -> n01;
+n -> n0;
+n1[label = "Or"];
+n10[label = "And"];
+n100[label = "If_Then"];
+n1000[label = "FarthestInsertion"];
+n100 -> n1000;
+n1001[label = "FarthestNeighbor"];
+n100 -> n1001;
+n10 -> n100;
+n101[label = "FarthestNeighbor"];
+n10 -> n101;
+n1 -> n10;
+n11[label = "While"];
+n110[label = "If_Then_Else"];
+n1100[label = "FarthestNeighbor"];
+n110 -> n1100;
+n1101[label = "NearestNeighbor"];
+n110 -> n1101;
+n1102[label = "FarthestFirstNode"];
+n110 -> n1102;
+n11 -> n110;
+n111[label = "And"];
+n1110[label = "BestMove"];
+n111 -> n1110;
+n1111[label = "WorstMove"];
+n111 -> n1111;
+n11 -> n111;
+n1 -> n11;
+n -> n1;
+n2[label = "While"];
+n20[label = "If_Then_Else"];
+n200[label = "While"];
+n2000[label = "BestMove"];
+n200 -> n2000;
+n2001[label = "NearestInsertion"];
+n200 -> n2001;
+n20 -> n200;
+n201[label = "If_Then"];
+n2010[label = "FarthestNeighbor"];
+n201 -> n2010;
+n2011[label = "CplexTerminal"];
+n201 -> n2011;
+n20 -> n201;
+n202[label = "And"];
+n2020[label = "NearestNeighbor"];
+n202 -> n2020;
+n2021[label = "FarthestNeighbor"];
+n202 -> n2021;
+n20 -> n202;
+n2 -> n20;
+n21[label = "If_Then"];
+n210[label = "FarthestNeighbor"];
+n21 -> n210;
+n211[label = "CplexTerminal"];
+n21 -> n211;
+n2 -> n21;
+n -> n2;
+}
+

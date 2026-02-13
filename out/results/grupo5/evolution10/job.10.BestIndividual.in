@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1039718969|0.12150998|i8|
+Tree 0:
+ (And (While (Or NearestInsertion (Or BestMove CplexTerminal)) (Or BestMove CplexTerminal)) (And (And (If_Then_Else NearestInsertion BestMove CplexTerminal) NearestFirstNode) (Or BestMove CplexTerminal)))

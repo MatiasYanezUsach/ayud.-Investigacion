@@ -147,7 +147,8 @@ echo ================================================================
 echo.
 
 REM Ejecutar ECJ con el archivo de parámetros correspondiente
-java -cp "%CLASSPATH%" -Djava.library.path="%CPLEX_LIB_PATH%" ec.Evolve -file src/model/params/%PARAMS_FILE% -p jobs=%R% -p generations=100 -p pop.subpop.0.size=15
+REM Agregar -p experiment.group=%G% para separar resultados por grupo
+java -cp "%CLASSPATH%" -Djava.library.path="%CPLEX_LIB_PATH%" ec.Evolve -file src/model/params/%PARAMS_FILE% -p experiment.group=%G% -p jobs=%R% -p generations=100 -p pop.subpop.0.size=15
 
 if errorlevel 1 (
     echo ERROR: Fallo la ejecucion del grupo %G%

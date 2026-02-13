@@ -1,0 +1,25 @@
+label="Individual=502800944{-1533777272} Fitness=0.22224441 Hits=3 Size=9 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.22224441 Adjusted=0.818167 Hits=3
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "Equal"];
+n0[label = "While"];
+n00[label = "NearestNeighbor"];
+n0 -> n00;
+n01[label = "And"];
+n010[label = "NearestNeighbor"];
+n01 -> n010;
+n011[label = "While"];
+n0110[label = "NearestInsertion"];
+n011 -> n0110;
+n0111[label = "NearestInsertion"];
+n011 -> n0111;
+n01 -> n011;
+n0 -> n01;
+n -> n0;
+n1[label = "CplexTerminal"];
+n -> n1;
+}
+

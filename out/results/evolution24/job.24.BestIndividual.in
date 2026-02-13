@@ -1,8 +1,0 @@
-Number of Subpopulations: i1|
-Subpopulation Number: i0|
-Number of Individuals: i1|
-Individual Number: i0|
-Evaluated: F
-Fitness: f1050324638|0.30211347|i3|
-Tree 0:
- (If_Then (While NearestNeighbor NearestNeighbor) (While (If_Then CplexTerminal (And CplexTerminal NearestFirstNode)) BestMove))

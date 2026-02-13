@@ -37,7 +37,8 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
 
     public static String semillas;
     //public static int cantidad_intancias_coevo = 6;//Co-evolución
-    public static String Outputpath = "out/results/evolution";
+    public static String Outputpath = "out/results/evolution"; // Se actualiza en prepareToEvaluate
+    public static int EXPERIMENT_GROUP = -1; // Número de grupo del experimento
     public static String Instacespath =  "data/evolution";
     public static String dotexepath = "graphviz-2.38/bin/dot.exe";
     public static String statfile = "Statistics.out";
@@ -67,6 +68,19 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         elites=  state.parameters.getInt(new ec.util.Parameter("breed.elite.0"),null);
         //Se guardan las  semillas...¿como?
         semillas=  state.parameters.getString(new ec.util.Parameter("seed.0"),null);
+
+        // IMPORTANTE: Leer el número de grupo ANTES de crear directorios
+        // Leer el número de grupo del experimento (usa default -1 para backward compatibility)
+        EXPERIMENT_GROUP = state.parameters.getIntWithDefault(
+            new Parameter("experiment.group"), null, -1);
+        
+        // Actualizar Outputpath para incluir el grupo si está especificado
+        if (EXPERIMENT_GROUP >= 0) {
+            Outputpath = "out/results/grupo" + EXPERIMENT_GROUP + "/evolution";
+            System.out.println("Usando directorio para grupo " + EXPERIMENT_GROUP + ": " + Outputpath);
+        } else {
+            Outputpath = "out/results/evolution";
+        }
 
         //Se Lee la instancia desde archivo
         System.out.println("Obteniendo instancias de prueba...");

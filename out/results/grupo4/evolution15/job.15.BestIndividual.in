@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1039205877|0.11768714|i8|
+Tree 0:
+ (If_Then (Equal (And (Or CplexTerminal FarthestFirstNode) FarthestNeighbor) (Equal (And FarthestInsertion FarthestNeighbor) FarthestNeighbor)) (While (If_Then BestMove FarthestNeighbor) (Or CplexTerminal FarthestFirstNode)))

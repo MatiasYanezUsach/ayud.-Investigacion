@@ -15,8 +15,18 @@ public class MyEvolutionState  extends SimpleEvolutionState {
 		
 		int jobNum = ((Integer)(job[0])).intValue();
 		int genNum =  parameters.getInt(new ec.util.Parameter("generations"),null);
+		
+		// Leer el número de grupo del experimento (default: -1 para backward compatibility)
+		int groupNum = parameters.getIntWithDefault(new ec.util.Parameter("experiment.group"), null, -1);
+		
 		if(genNum!=1){
-			parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evolution" + jobNum + "/Statistics.out");
+			if(groupNum >= 0) {
+				// Nuevo formato: out/results/grupo{G}/evolution{jobNum}
+				parameters.set(new ec.util.Parameter("stat.file"), "$out/results/grupo" + groupNum + "/evolution" + jobNum + "/Statistics.out");
+			} else {
+				// Formato antiguo (backward compatibility)
+				parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evolution" + jobNum + "/Statistics.out");
+			}
 		}else{
 			parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evaluation/Statistics.out");
 		}

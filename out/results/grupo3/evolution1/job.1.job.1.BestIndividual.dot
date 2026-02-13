@@ -1,0 +1,61 @@
+label="Individual=726281927{-883035932} Fitness=0.2509308 Hits=0 Size=27 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.2509308 Adjusted=0.79940474 Hits=0
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "Equal"];
+n0[label = "If_Then_Else"];
+n00[label = "If_Then_Else"];
+n000[label = "And"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "FarthestFirstNode"];
+n000 -> n0001;
+n00 -> n000;
+n001[label = "NearestFirstNode"];
+n00 -> n001;
+n002[label = "CplexTerminal"];
+n00 -> n002;
+n0 -> n00;
+n01[label = "NearestFirstNode"];
+n0 -> n01;
+n02[label = "And"];
+n020[label = "FarthestInsertion"];
+n02 -> n020;
+n021[label = "FarthestFirstNode"];
+n02 -> n021;
+n0 -> n02;
+n -> n0;
+n1[label = "If_Then_Else"];
+n10[label = "And"];
+n100[label = "If_Then_Else"];
+n1000[label = "FarthestNeighbor"];
+n100 -> n1000;
+n1001[label = "NearestFirstNode"];
+n100 -> n1001;
+n1002[label = "NearestInsertion"];
+n100 -> n1002;
+n10 -> n100;
+n101[label = "And"];
+n1010[label = "NearestFirstNode"];
+n101 -> n1010;
+n1011[label = "FarthestFirstNode"];
+n101 -> n1011;
+n10 -> n101;
+n1 -> n10;
+n11[label = "And"];
+n110[label = "NearestFirstNode"];
+n11 -> n110;
+n111[label = "FarthestFirstNode"];
+n11 -> n111;
+n1 -> n11;
+n12[label = "And"];
+n120[label = "NearestFirstNode"];
+n12 -> n120;
+n121[label = "FarthestFirstNode"];
+n12 -> n121;
+n1 -> n12;
+n -> n1;
+}
+

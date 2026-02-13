@@ -1,0 +1,47 @@
+label="Individual=726281927{-1924564551} Fitness=0.27073553 Hits=0 Size=20 Depth=5";
+Evaluated: false
+Fitness: Standardized=0.27073553 Adjusted=0.7869458 Hits=0
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "Or"];
+n0[label = "Equal"];
+n00[label = "WorstMove"];
+n0 -> n00;
+n01[label = "NearestFirstNode"];
+n0 -> n01;
+n -> n0;
+n1[label = "And"];
+n10[label = "If_Then_Else"];
+n100[label = "Equal"];
+n1000[label = "FarthestFirstNode"];
+n100 -> n1000;
+n1001[label = "FarthestFirstNode"];
+n100 -> n1001;
+n10 -> n100;
+n101[label = "If_Then"];
+n1010[label = "FarthestFirstNode"];
+n101 -> n1010;
+n1011[label = "NearestFirstNode"];
+n101 -> n1011;
+n10 -> n101;
+n102[label = "Or"];
+n1020[label = "WorstMove"];
+n102 -> n1020;
+n1021[label = "NearestFirstNode"];
+n102 -> n1021;
+n10 -> n102;
+n1 -> n10;
+n11[label = "If_Then"];
+n110[label = "If_Then"];
+n1100[label = "FarthestFirstNode"];
+n110 -> n1100;
+n1101[label = "NearestFirstNode"];
+n110 -> n1101;
+n11 -> n110;
+n111[label = "NearestInsertion"];
+n11 -> n111;
+n1 -> n11;
+n -> n1;
+}
+
