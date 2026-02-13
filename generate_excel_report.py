@@ -490,6 +490,36 @@ def generate_excel(group_num=None):
         budget_map = {0: 0.0, 1: 10.0, 2: 25.0, 3: 50.0, 4: 75.0, 5: 100.0}
         expected_budget_pct = budget_map.get(group_num)
     
+    # Calcular individuos evaluados desde EstadisticaProm&Mej.csv (SIEMPRE disponible, incluso para Grupo 0)
+    total_indiv_from_csv = 0
+    all_best_erp_final = []
+    all_avg_erp_final = []
+    all_best_fitness_final = []
+    all_avg_fitness_final = []
+    
+    for exec_num in executions:
+        stats_file_csv = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.EstadisticaProm&Mej.csv"
+        try:
+            with open(stats_file_csv, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f, delimiter=';')  # CSV usa punto y coma como delimitador
+                rows = list(reader)
+                if rows:
+                    # Última fila = generación final
+                    last_row = rows[-1]
+                    # IndivEvals está en la columna 'Evaluated' o puede estar calculado como Gen * pop_size
+                    # Para este experimento: 100 generaciones × 15 individuos = 1500 por ejecución
+                    gen = parse_float(last_row.get('Gen', 0))
+                    if gen > 0:
+                        total_indiv_from_csv += gen * 15  # 15 = tamaño de población
+                    
+                    # Capturar ERP y Fitness finales
+                    all_best_erp_final.append(parse_float(last_row.get('BestERP', 0)))
+                    all_avg_erp_final.append(parse_float(last_row.get('AvgERP', 0)))
+                    all_best_fitness_final.append(parse_float(last_row.get('BestFITNESS', 0)))
+                    all_avg_fitness_final.append(parse_float(last_row.get('AvgFITNESS', 0)))
+        except Exception as e:
+            print(f"⚠️  Advertencia: No se pudo leer {stats_file_csv}: {e}")
+    
     if all_stats:
         total_indiv = sum(s['individuos'] for s in all_stats)
         total_calls = sum(s['llamadas'] for s in all_stats)
@@ -520,14 +550,85 @@ def generate_excel(group_num=None):
                 ws_summary.cell(row, 3).font = Font(italic=True, color="FF0000")
         else:
             ws_summary.cell(row, 2).value = f"{avg_pct:.1f}% del baseline por instancia"
+        row += 1
+        
+        # Agregar estadísticas de rendimiento evolutivo
+        if all_best_erp_final:
+            row += 1
+            ws_summary.cell(row, 1).value = "RENDIMIENTO EVOLUTIVO (Generación Final)"
+            ws_summary.cell(row, 1).font = Font(bold=True)
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Mejor ERP Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_best_erp_final) / len(all_best_erp_final):.6f}"
+            ws_summary.cell(row, 3).value = "(Promedio del mejor ERP de cada ejecución)"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "ERP Poblacional Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_avg_erp_final) / len(all_avg_erp_final):.6f}"
+            ws_summary.cell(row, 3).value = "(Promedio del ERP de la población en cada ejecución)"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Mejor Fitness Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_best_fitness_final) / len(all_best_fitness_final):.6f}"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Fitness Poblacional Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_avg_fitness_final) / len(all_avg_fitness_final):.6f}"
+            
     elif group_num == 0:
-        # Grupo 0: Sin CPLEX
+        # Grupo 0: Sin CPLEX - Pero SÍ tiene datos de rendimiento evolutivo
         ws_summary.cell(row, 1).value = "Total Ejecuciones:"
         ws_summary.cell(row, 2).value = len(executions)
         row += 1
+        
+        # Agregar individuos evaluados desde CSV
+        if total_indiv_from_csv > 0:
+            ws_summary.cell(row, 1).value = "Total Individuos Evaluados:"
+            ws_summary.cell(row, 2).value = int(total_indiv_from_csv)
+            ws_summary.cell(row, 3).value = "(Suma de todos los individuos evaluados en todas las ejecuciones)"
+            row += 1
+        
+        ws_summary.cell(row, 1).value = "Total Llamadas CPLEX:"
+        ws_summary.cell(row, 2).value = 0
+        ws_summary.cell(row, 3).value = "(Grupo de control - No usa CPLEX)"
+        row += 1
+        
+        ws_summary.cell(row, 1).value = "Tiempo Total CPLEX:"
+        ws_summary.cell(row, 2).value = "0.00 segundos"
+        ws_summary.cell(row, 3).value = "(Grupo de control - No usa CPLEX)"
+        row += 1
+        
         ws_summary.cell(row, 1).value = "Presupuesto CPLEX:"
         ws_summary.cell(row, 2).value = "0.0% del baseline por instancia (Sin CPLEX)"
-        ws_summary.cell(row, 3).value = "Grupo de control - No usa CPLEX"
+        ws_summary.cell(row, 3).value = "Grupo de control - Algoritmo Genético Puro"
+        row += 1
+        
+        # Agregar estadísticas de rendimiento evolutivo para Grupo 0
+        if all_best_erp_final:
+            row += 1
+            ws_summary.cell(row, 1).value = "RENDIMIENTO EVOLUTIVO (Generación Final)"
+            ws_summary.cell(row, 1).font = Font(bold=True)
+            ws_summary.cell(row, 3).value = "IMPORTANTE: Estas métricas sirven como BASELINE para comparar contra grupos con CPLEX"
+            ws_summary.cell(row, 3).font = Font(italic=True, color="0000FF")
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Mejor ERP Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_best_erp_final) / len(all_best_erp_final):.6f}"
+            ws_summary.cell(row, 3).value = "(Promedio del mejor ERP de cada ejecución)"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "ERP Poblacional Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_avg_erp_final) / len(all_avg_erp_final):.6f}"
+            ws_summary.cell(row, 3).value = "(Promedio del ERP de la población en cada ejecución)"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Mejor Fitness Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_best_fitness_final) / len(all_best_fitness_final):.6f}"
+            row += 1
+            
+            ws_summary.cell(row, 1).value = "Fitness Poblacional Promedio:"
+            ws_summary.cell(row, 2).value = f"{sum(all_avg_fitness_final) / len(all_avg_fitness_final):.6f}"
     
     # Ajustar ancho de columnas
     ws_summary.column_dimensions['A'].width = 30

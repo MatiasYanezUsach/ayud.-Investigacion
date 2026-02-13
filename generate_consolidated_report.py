@@ -45,6 +45,21 @@ def read_group_data(group_num):
     try:
         wb = openpyxl.load_workbook(excel_file, data_only=True)
         
+        # Leer hoja "Resumen General" para obtener información consolidada
+        ws_summary = None
+        for sheet_name in wb.sheetnames:
+            if "Resumen" in sheet_name:
+                ws_summary = wb[sheet_name]
+                break
+        
+        summary_data = {}
+        if ws_summary:
+            for row in range(1, ws_summary.max_row + 1):
+                key = ws_summary.cell(row, 1).value
+                value = ws_summary.cell(row, 2).value
+                if key and value is not None:
+                    summary_data[str(key).strip()] = value
+        
         # Leer hoja "Estadísticas por Ejecución"
         ws_stats = None
         for sheet_name in wb.sheetnames:
@@ -52,20 +67,25 @@ def read_group_data(group_num):
                 ws_stats = wb[sheet_name]
                 break
         
-        if not ws_stats:
-            return None
-        
-        # Leer datos (saltar encabezados)
         data = []
-        for row in range(3, ws_stats.max_row + 1):
-            row_data = {}
-            for col in range(1, ws_stats.max_column + 1):
-                header = ws_stats.cell(2, col).value
-                value = ws_stats.cell(row, col).value
-                if header:
-                    row_data[header] = value
-            if row_data:
-                data.append(row_data)
+        if ws_stats:
+            # Leer datos (saltar encabezados)
+            for row in range(3, ws_stats.max_row + 1):
+                row_data = {}
+                for col in range(1, ws_stats.max_column + 1):
+                    header = ws_stats.cell(2, col).value
+                    value = ws_stats.cell(row, col).value
+                    if header:
+                        row_data[header] = value
+                if row_data:
+                    data.append(row_data)
+        
+        # Si no hay datos de "Estadísticas por Ejecución", contar ejecuciones manualmente
+        if not data and 'Total Ejecuciones:' in summary_data:
+            num_ejecuciones = summary_data.get('Total Ejecuciones:', 0)
+            # Crear datos sintéticos para el Grupo 0
+            for i in range(int(num_ejecuciones)) if isinstance(num_ejecuciones, (int, float)) else range(0):
+                data.append({'Ejecución': i})
         
         # Leer hoja "Best Fitness por Ejecución"
         ws_fitness = None
@@ -109,7 +129,8 @@ def read_group_data(group_num):
         return {
             'stats': data,
             'fitness': fitness_data,
-            'averages': avg_data
+            'averages': avg_data,
+            'summary': summary_data
         }
     except Exception as e:
         print(f"Error leyendo grupo {group_num}: {e}")
@@ -234,46 +255,57 @@ def generate_consolidated_excel():
         
         data = grupos_data[g]
         stats = data['stats']
+        summary_data = data.get('summary', {})
         
-        if not stats:
-            continue
-        
-        # Calcular promedios
-        total_indiv = sum(float(s.get('Individuos Evaluados', 0) or 0) for s in stats)
-        total_calls = sum(float(s.get('Llamadas CPLEX (Total)', 0) or 0) for s in stats)
-        total_time = sum(float(s.get('Tiempo Total CPLEX (s)', 0) or 0) for s in stats)
-        
-        avg_indiv = total_indiv / len(stats) if stats else 0
-        avg_calls = total_calls / len(stats) if stats else 0
-        avg_time = total_time / len(stats) if stats else 0
-        
-        # Fitness promedio y mejor
-        fitness_data = data.get('fitness', [])
-        if fitness_data:
-            # Obtener última generación de cada ejecución
-            last_gen_fitness = []
-            for exec_num in range(len(stats)):
-                exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_num + 1]
-                if exec_fitness:
-                    # Última generación
-                    last_gen = max(exec_fitness, key=lambda x: x.get('Generación', 0))
-                    erp = last_gen.get('Fitness Estandarizado (ERP)')
-                    if erp is not None:
-                        try:
-                            last_gen_fitness.append(float(erp))
-                        except:
-                            pass
-            
-            avg_fitness = sum(last_gen_fitness) / len(last_gen_fitness) if last_gen_fitness else 0
-            best_fitness = min(last_gen_fitness) if last_gen_fitness else 0
+        # Para Grupo 0 (sin CPLEX), usar datos del resumen
+        if g == 0:
+            num_ejecuciones = int(summary_data.get('Total Ejecuciones:', 0))
+            avg_indiv = float(summary_data.get('Total Individuos Evaluados:', 0))
+            avg_calls = 0
+            avg_time = 0
+            avg_fitness = float(summary_data.get('ERP Poblacional Promedio:', 0))
+            best_fitness = float(summary_data.get('Mejor ERP Promedio:', 0))
         else:
-            avg_fitness = 0
-            best_fitness = 0
+            if not stats:
+                continue
+            
+            # Calcular promedios
+            total_indiv = sum(float(s.get('Individuos Evaluados', 0) or 0) for s in stats)
+            total_calls = sum(float(s.get('Llamadas CPLEX (Total)', 0) or 0) for s in stats)
+            total_time = sum(float(s.get('Tiempo Total CPLEX (s)', 0) or 0) for s in stats)
+            
+            avg_indiv = total_indiv / len(stats) if stats else 0
+            avg_calls = total_calls / len(stats) if stats else 0
+            avg_time = total_time / len(stats) if stats else 0
+            num_ejecuciones = len(stats)
+            
+            # Fitness promedio y mejor
+            fitness_data = data.get('fitness', [])
+            if fitness_data:
+                # Obtener última generación de cada ejecución
+                last_gen_fitness = []
+                for exec_num in range(len(stats)):
+                    exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_num + 1]
+                    if exec_fitness:
+                        # Última generación
+                        last_gen = max(exec_fitness, key=lambda x: x.get('Generación', 0))
+                        erp = last_gen.get('Fitness Estandarizado (ERP)')
+                        if erp is not None:
+                            try:
+                                last_gen_fitness.append(float(erp))
+                            except:
+                                pass
+                
+                avg_fitness = sum(last_gen_fitness) / len(last_gen_fitness) if last_gen_fitness else 0
+                best_fitness = min(last_gen_fitness) if last_gen_fitness else 0
+            else:
+                avg_fitness = 0
+                best_fitness = 0
         
         # Escribir fila
         ws_compare.cell(row, 1).value = f"Grupo {g}"
         ws_compare.cell(row, 2).value = grupos_nombres[g].split(" - ")[1]
-        ws_compare.cell(row, 3).value = len(stats)
+        ws_compare.cell(row, 3).value = num_ejecuciones
         ws_compare.cell(row, 4).value = round(avg_indiv, 2)
         ws_compare.cell(row, 5).value = round(avg_calls, 2)
         ws_compare.cell(row, 6).value = round(avg_time, 6)
