@@ -257,14 +257,31 @@ def generate_consolidated_excel():
         stats = data['stats']
         summary_data = data.get('summary', {})
         
-        # Para Grupo 0 (sin CPLEX), usar datos del resumen
+        # Para Grupo 0 (sin CPLEX), usar datos del resumen para indiv/calls/time
+        # y calcular fitness desde la hoja igual que grupos 1-5
         if g == 0:
             num_ejecuciones = int(summary_data.get('Total Ejecuciones:', 0))
-            avg_indiv = float(summary_data.get('Total Individuos Evaluados:', 0))
+            total_indiv_g0 = float(summary_data.get('Total Individuos Evaluados:', 0))
+            avg_indiv = total_indiv_g0 / num_ejecuciones if num_ejecuciones else 0
             avg_calls = 0
             avg_time = 0
-            avg_fitness = float(summary_data.get('ERP Poblacional Promedio:', 0))
-            best_fitness = float(summary_data.get('Mejor ERP Promedio:', 0))
+            fitness_data_g0 = data.get('fitness', [])
+            exec_ids_g0 = sorted(set(
+                f.get('Ejecución') for f in fitness_data_g0 if f.get('Ejecución') is not None
+            ))
+            last_gen_fitness = []
+            for eid in exec_ids_g0:
+                ef = [f for f in fitness_data_g0 if f.get('Ejecución') == eid]
+                if ef:
+                    last_gen = max(ef, key=lambda x: x.get('Generación', 0))
+                    erp = last_gen.get('Fitness Estandarizado (ERP)')
+                    if erp is not None:
+                        try:
+                            last_gen_fitness.append(float(erp))
+                        except:
+                            pass
+            avg_fitness = sum(last_gen_fitness) / len(last_gen_fitness) if last_gen_fitness else 0
+            best_fitness = min(last_gen_fitness) if last_gen_fitness else 0
         else:
             if not stats:
                 continue
@@ -284,8 +301,9 @@ def generate_consolidated_excel():
             if fitness_data:
                 # Obtener última generación de cada ejecución
                 last_gen_fitness = []
-                for exec_num in range(len(stats)):
-                    exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_num + 1]
+                for s in stats:
+                    exec_id = s.get('Ejecución')
+                    exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_id]
                     if exec_fitness:
                         # Última generación
                         last_gen = max(exec_fitness, key=lambda x: x.get('Generación', 0))
@@ -361,7 +379,8 @@ def generate_consolidated_excel():
         
         for exec_num, stat in enumerate(stats):
             # Obtener fitness de esta ejecución
-            exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_num + 1]
+            exec_id = stat.get('Ejecución')
+            exec_fitness = [f for f in fitness_data if f.get('Ejecución') == exec_id]
             final_fitness = 0
             best_fitness = 0
             if exec_fitness:
@@ -374,8 +393,8 @@ def generate_consolidated_excel():
             ws_detailed.cell(row, 3).value = float(stat.get('Individuos Evaluados', 0) or 0)
             ws_detailed.cell(row, 4).value = float(stat.get('Llamadas CPLEX (Total)', 0) or 0)
             ws_detailed.cell(row, 5).value = float(stat.get('Tiempo Total CPLEX (s)', 0) or 0)
-            ws_detailed.cell(row, 6).value = float(stat.get('Promedio Llamadas/Indiv', 0) or 0)
-            ws_detailed.cell(row, 7).value = float(stat.get('Promedio Tiempo/Indiv (s)', 0) or 0)
+            ws_detailed.cell(row, 6).value = float(stat.get('Prom. Llamadas/Indiv', 0) or 0)
+            ws_detailed.cell(row, 7).value = float(stat.get('Prom. Tiempo/Indiv (s)', 0) or 0)
             ws_detailed.cell(row, 8).value = final_fitness
             ws_detailed.cell(row, 9).value = best_fitness
             
