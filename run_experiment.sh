@@ -50,7 +50,7 @@ CLASSPATH="bin:ecj:cplex.jar:commons-math3-3.6.1.jar"
 
 # Configurar ruta de bibliotecas nativas de CPLEX
 # AJUSTAR ESTA RUTA SEGÚN LA INSTALACIÓN DE CPLEX
-CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio201/cplex/bin/x86-64_linux"
+CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio2212/cplex/bin/x86-64_linux"
 
 echo "================================================================"
 echo "FASE 2: EXPERIMENTOS CON DIFERENTES PRESUPUESTOS DE CPLEX"
@@ -113,21 +113,37 @@ run_group() {
     # Ejecutar ECJ con el archivo de parámetros correspondiente
     java -cp "$CLASSPATH" -Djava.library.path="$CPLEX_LIB_PATH" ec.Evolve \
         -file src/model/params/$PARAMS_FILE \
+        -p experiment.group=$G \
         -p jobs=$R \
         -p generations=100 \
         -p pop.subpop.0.size=15
-    
+
     if [ $? -ne 0 ]; then
         echo "ERROR: Fallo la ejecucion del grupo $G"
         return 1
     fi
-    
+
     echo ""
     echo "================================================================"
     echo "COMPLETADO: $GROUP_NAME"
     echo "================================================================"
     echo ""
-    
+
+    echo "Generando reporte Excel..."
+    python3 generate_excel_report.py $G
+    if [ $? -ne 0 ]; then
+        echo "ADVERTENCIA: No se pudo generar el reporte Excel"
+    else
+        echo "Reporte Excel generado exitosamente"
+        echo "Generando graficos..."
+        python3 generate_charts.py $G
+        if [ $? -ne 0 ]; then
+            echo "ADVERTENCIA: No se pudieron generar los graficos"
+        else
+            echo "Graficos generados exitosamente"
+        fi
+    fi
+
     return 0
 }
 
@@ -147,5 +163,14 @@ echo ""
 echo "================================================================"
 echo "TODOS LOS EXPERIMENTOS COMPLETADOS"
 echo "================================================================"
+echo ""
+
+echo "Generando reporte Excel consolidado..."
+python3 generate_excel_report.py
+if [ $? -ne 0 ]; then
+    echo "ADVERTENCIA: No se pudo generar el reporte Excel consolidado"
+else
+    echo "Reporte Excel consolidado generado exitosamente"
+fi
 echo ""
 

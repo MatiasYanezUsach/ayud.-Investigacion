@@ -21,7 +21,7 @@ CLASSPATH="bin:ecj:cplex.jar:commons-math3-3.6.1.jar"
 
 # Configurar ruta de bibliotecas nativas de CPLEX
 # AJUSTAR ESTA RUTA SEGÚN LA INSTALACIÓN DE CPLEX
-CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio201/cplex/bin/x86-64_linux"
+CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio2212/cplex/bin/x86-64_linux"
 
 echo "Compilando codigo fuente..."
 javac -encoding UTF-8 -d bin -cp "$CLASSPATH" src/model/*.java src/terminals/*.java src/functions/*.java

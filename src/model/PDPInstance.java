@@ -30,6 +30,7 @@ public class PDPInstance {
     private boolean lastChange = false;
     private boolean optimal = false;
     private boolean cplexLastChange;
+    private boolean baselineMode = false;
 
     public PDPInstance() {
         this.nNodes = 0;
@@ -232,6 +233,10 @@ public class PDPInstance {
 
     public void setOptimal(boolean optimal) {
         this.optimal = optimal;
+    }
+
+    public void setBaselineMode(boolean baselineMode) {
+        this.baselineMode = baselineMode;
     }
 
     public boolean getOptimal() {
@@ -1671,8 +1676,14 @@ public class PDPInstance {
             cplex.setParam(IloCplex.Param.Simplex.Display, 0);
 
             cplex.setParam(IloCplex.Param.MIP.Display, 1);
-            cplex.setParam(IloCplex.Param.MIP.Limits.Solutions, 2);
-            cplex.setParam(IloCplex.Param.Emphasis.MIP, 1);
+            if (baselineMode) {
+                // Modo baseline: sin limite de soluciones, enfasis en optimalidad
+                cplex.setParam(IloCplex.Param.Emphasis.MIP, 2);
+            } else {
+                // Modo GP: detener al encontrar 2 soluciones, enfasis en factibilidad
+                cplex.setParam(IloCplex.Param.MIP.Limits.Solutions, 2);
+                cplex.setParam(IloCplex.Param.Emphasis.MIP, 1);
+            }
             cplex.setParam(IloCplex.Param.Threads, 2);
 
 

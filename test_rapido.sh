@@ -6,8 +6,8 @@ echo "========================================"
 echo
 
 # Configurar rutas (AJUSTAR SEGUN TU INSTALACION)
-CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio201/cplex/bin/x86-64_linux"
-CPLEX_JAR_PATH="/opt/ibm/ILOG/CPLEX_Studio201/cplex/lib/cplex.jar"
+CPLEX_LIB_PATH="/opt/ibm/ILOG/CPLEX_Studio2212/cplex/bin/x86-64_linux"
+CPLEX_JAR_PATH="/opt/ibm/ILOG/CPLEX_Studio2212/cplex/lib/cplex.jar"
 
 echo "[1/4] Verificando rutas de CPLEX..."
 if [ ! -d "$CPLEX_LIB_PATH" ]; then

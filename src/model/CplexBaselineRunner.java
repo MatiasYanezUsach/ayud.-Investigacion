@@ -38,8 +38,8 @@ public class CplexBaselineRunner {
     private static Map<String, Double> baselinePerInstance = new HashMap<>();
     
     // Límite de tiempo máximo para CPLEX (en segundos)
-    // Si una instancia no se resuelve en este tiempo, se registra como timeout
-    private static final double MAX_TIME_LIMIT = 300.0; // 5 minutos
+    // 1e75 es el valor máximo que acepta el parámetro TiLim de CPLEX (sin tope práctico)
+    private static final double MAX_TIME_LIMIT = 1e75;
 
     public static void main(String[] args) {
         try {
@@ -307,11 +307,12 @@ public class CplexBaselineRunner {
             // Configurar flags para que CPLEX se ejecute
             pdpi.setLastChange(true);
             pdpi.setCplexLastChange(true);
-            
+            pdpi.setBaselineMode(true);
+
             // Medir tiempo de inicio
             double startTime = System.nanoTime();
-            
-            // Ejecutar CPLEX con el límite de tiempo
+
+            // Ejecutar CPLEX en modo baseline: sin limite de soluciones, enfasis en optimalidad
             double timeUsed = pdpi.cplex_terminal_with_limit(timeLimit);
             
             // Medir tiempo total (incluyendo overhead)
