@@ -8,28 +8,28 @@ INSTANCIAS PROCESADAS:
   Evaluación: 10 resueltas
 
 ESTADISTICAS - INSTANCIAS DE EVOLUCION:
-  Promedio: 0,509 segundos
-  Mínimo:   0,074 segundos
-  Máximo:   1,751 segundos
-  Desv.Est: 0,395 segundos
-  Total:    18,316 segundos
+  Promedio: 1192,543 segundos
+  Mínimo:   0,080 segundos
+  Máximo:   23971,809 segundos
+  Desv.Est: 4267,887 segundos
+  Total:    42931,538 segundos
 
 ESTADISTICAS - INSTANCIAS DE EVALUACION:
-  Promedio: 0,464 segundos
-  Mínimo:   0,134 segundos
-  Máximo:   1,646 segundos
-  Desv.Est: 0,454 segundos
-  Total:    4,640 segundos
+  Promedio: 1097,763 segundos
+  Mínimo:   0,224 segundos
+  Máximo:   6872,507 segundos
+  Desv.Est: 2312,544 segundos
+  Total:    10977,626 segundos
 
 ESTADISTICAS GLOBALES:
-  Promedio: 0,499 segundos
-  Mínimo:   0,074 segundos
-  Máximo:   1,751 segundos
-  Desv.Est: 0,404 segundos
-  Total:    22,957 segundos
+  Promedio: 1171,938 segundos
+  Mínimo:   0,080 segundos
+  Máximo:   23971,809 segundos
+  Desv.Est: 3903,620 segundos
+  Total:    53909,164 segundos
 
 ================================================================
-T_base (Tiempo Promedio por Instancia): 0,499 segundos
+T_base (Tiempo Promedio por Instancia): 1171,938 segundos
 ================================================================
 
 PRESUPUESTOS PARA GRUPOS EXPERIMENTALES:
@@ -42,7 +42,7 @@ NOTA: Los presupuestos se calculan POR INSTANCIA usando el baseline
   Grupo 4 (75%):   Cada instancia usa 75% de su propio baseline
   Grupo 5 (100%):  Cada instancia usa 100% de su propio baseline
 
-REFERENCIA - Promedio global T_base: 0,499 segundos
+REFERENCIA - Promedio global T_base: 1171,938 segundos
 (Este valor es solo para referencia; el presupuesto se calcula por instancia)
 
 ================================================================
