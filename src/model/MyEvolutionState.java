@@ -18,9 +18,14 @@ public class MyEvolutionState  extends SimpleEvolutionState {
 		
 		// Leer el número de grupo del experimento (default: -1 para backward compatibility)
 		int groupNum = parameters.getIntWithDefault(new ec.util.Parameter("experiment.group"), null, -1);
-		
+		// Directorio de salida personalizado (para pruebas de parámetros)
+		String outputDir = parameters.getString(new ec.util.Parameter("experiment.output.dir"), null);
+
 		if(genNum!=1){
-			if(groupNum >= 0) {
+			if(outputDir != null && !outputDir.isEmpty()) {
+				// Directorio personalizado: experiment.output.dir/evolution{jobNum}
+				parameters.set(new ec.util.Parameter("stat.file"), "$" + outputDir + "/evolution" + jobNum + "/Statistics.out");
+			} else if(groupNum >= 0) {
 				// Nuevo formato: out/results/grupo{G}/evolution{jobNum}
 				parameters.set(new ec.util.Parameter("stat.file"), "$out/results/grupo" + groupNum + "/evolution" + jobNum + "/Statistics.out");
 			} else {

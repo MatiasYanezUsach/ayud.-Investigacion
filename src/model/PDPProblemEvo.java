@@ -74,8 +74,14 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
         EXPERIMENT_GROUP = state.parameters.getIntWithDefault(
             new Parameter("experiment.group"), null, -1);
         
+        // Directorio de salida personalizado (para pruebas de parámetros)
+        String customOutputDir = state.parameters.getString(new Parameter("experiment.output.dir"), null);
+
         // Actualizar Outputpath para incluir el grupo si está especificado
-        if (EXPERIMENT_GROUP >= 0) {
+        if (customOutputDir != null && !customOutputDir.isEmpty()) {
+            Outputpath = customOutputDir + "/evolution";
+            System.out.println("Usando directorio personalizado: " + Outputpath);
+        } else if (EXPERIMENT_GROUP >= 0) {
             Outputpath = "out/results/grupo" + EXPERIMENT_GROUP + "/evolution";
             System.out.println("Usando directorio para grupo " + EXPERIMENT_GROUP + ": " + Outputpath);
         } else {
