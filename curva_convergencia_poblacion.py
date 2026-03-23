@@ -27,18 +27,36 @@ COLORES_POP = {
 
 
 def leer_fitness(outdir: str):
-    """Lee job.0.BestFitness.csv desde el directorio de resultados."""
-    csv_path = os.path.join(outdir, "evolution0", "job.0.BestFitness.csv")
-    if not os.path.exists(csv_path):
-        print(f"  No encontrado: {csv_path}")
-        return None
-    try:
-        df = pd.read_csv(csv_path, sep=";", decimal=",")
-        df.columns = [c.strip() for c in df.columns]
-        return df["Standarized"].values
-    except Exception as e:
-        print(f"  Error leyendo {csv_path}: {e}")
-        return None
+    """Lee fitness por generación desde job.0.BestFitness.csv o Statistics.out."""
+    evo_dir = os.path.join(outdir, "evolution0")
+
+    # Opción 1: archivo CSV con prefijo job
+    csv_path = os.path.join(evo_dir, "job.0.BestFitness.csv")
+    if os.path.exists(csv_path):
+        try:
+            df = pd.read_csv(csv_path, sep=";", decimal=",")
+            df.columns = [c.strip() for c in df.columns]
+            return df["Standarized"].values
+        except Exception as e:
+            print(f"  Error leyendo {csv_path}: {e}")
+
+    # Opción 2: Statistics.out (sin prefijo job)
+    stat_path = os.path.join(evo_dir, "Statistics.out")
+    if os.path.exists(stat_path):
+        try:
+            fitness_vals = []
+            with open(stat_path, "r", encoding="utf-8", errors="replace") as f:
+                for line in f:
+                    if "best fitness of generation" in line and "Standardized=" in line:
+                        part = line.split("Standardized=")[1].split()[0]
+                        fitness_vals.append(float(part))
+            if fitness_vals:
+                return np.array(fitness_vals)
+        except Exception as e:
+            print(f"  Error leyendo {stat_path}: {e}")
+
+    print(f"  Sin datos en: {evo_dir}")
+    return None
 
 
 def graficar(cplex_pct: int):
