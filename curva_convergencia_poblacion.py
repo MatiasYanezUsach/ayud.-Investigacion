@@ -26,7 +26,7 @@ COLORES_POP = {
 }
 
 
-def leer_fitness(outdir: str) -> np.ndarray | None:
+def leer_fitness(outdir: str):
     """Lee job.0.BestFitness.csv desde el directorio de resultados."""
     csv_path = os.path.join(outdir, "evolution0", "job.0.BestFitness.csv")
     if not os.path.exists(csv_path):
