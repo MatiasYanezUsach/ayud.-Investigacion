@@ -97,6 +97,11 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             DOT_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/job."+PDPProblemEvo.JOB_NUMBER+"."+DOT_namefile);
             data = new ArrayList<PDPData>();//DATA
             FileIO.readInstances(data, Instacespath);
+            // Limitar número de instancias si se especifica experiment.max.instances
+            int maxInst = state.parameters.getIntWithDefault(new Parameter("experiment.max.instances"), null, -1);
+            if (maxInst > 0 && data.size() > maxInst) {
+                data = new ArrayList<PDPData>(data.subList(0, maxInst));
+            }
         } catch (Exception e) {	e.printStackTrace();}
         if (data != null) {
             System.out.println("Lectura de los "+ data.size() +" archivo terminada con éxito!");

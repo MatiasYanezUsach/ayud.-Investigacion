@@ -40,7 +40,8 @@ run_combo() {
         -p jobs=1 \
         -p generations=100 \
         -p pop.subpop.0.size=$POP \
-        -p experiment.output.dir=$OUTDIR
+        -p experiment.output.dir=$OUTDIR \
+        -p experiment.max.instances=8
 
     if [ $? -ne 0 ]; then
         echo "ERROR en población=$POP CPLEX=${CPLEX}%"

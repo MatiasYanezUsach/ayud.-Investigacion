@@ -70,7 +70,8 @@ java -cp "%CLASSPATH%" -Djava.library.path="%CPLEX_LIB_PATH%" ^
     -p jobs=1 ^
     -p generations=100 ^
     -p pop.subpop.0.size=%POP% ^
-    -p experiment.output.dir=%OUTDIR%
+    -p experiment.output.dir=%OUTDIR% ^
+    -p experiment.max.instances=8
 
 if errorlevel 1 (
     echo ERROR en población=%POP% CPLEX=%CPLEX%%%
