@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1037087888|0.101906896|i0|
+Tree 0:
+ (And (While NearestInsertion (And NearestInsertion (And FarthestFirstNode NearestInsertion))) (Equal FarthestNeighbor BestMove))
