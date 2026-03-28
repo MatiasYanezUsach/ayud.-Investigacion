@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find c:Usersmfym2OneDriveEscritorioayud.-Investigacion -maxdepth 2 -name *.params)",
+      "Bash(cat 'c:\\\\Users\\\\mfym2\\\\OneDrive\\\\Escritorio\\\\ayud.-Investigacion\\\\out\\\\results\\\\grupo0\\\\evolution0\\\\job.0.EstadisticaProm&Mej.csv')",
+      "Read(//dev/**)",
+      "Bash(ls -la --time-style=full-iso c:Usersmfym2OneDriveEscritorioayud.-Investigacionoutresultsgrupo0*/job.0.BestFitness.csv)",
+      "Bash(for f:*)",
+      "Bash(do stat:*)",
+      "Bash(/dev/null done:*)",
+      "Bash(sort -k2)",
+      "Read(//c/Users/mfym2/OneDrive/Escritorio/ayud.-Investigacion/**)"
+    ]
+  }
+}

@@ -3,7 +3,7 @@ REM ================================================================
 REM PRUEBA DE TAMAÑO DE POBLACION
 REM ================================================================
 REM Ejecuta 1 corrida por cada combinacion de:
-REM   - Tamaños de población: 100, 75, 50, 15, 10
+REM   - Tamaños de población: 25, 20, 15, 10, 5, 1
 REM   - Configuracion CPLEX: 0%% (grupo0) y 100%% (grupo5)
 REM
 REM Resultados guardados en: out/prueba_poblacion/popXXX_cplexYY/
@@ -30,7 +30,7 @@ echo Compilacion exitosa.
 echo.
 
 REM Tamaños de población a probar
-set POPS=100 75 50 15 10
+set POPS=25 20 15 10 5 1
 
 REM Ejecutar todas las combinaciones
 for %%P in (%POPS%) do (

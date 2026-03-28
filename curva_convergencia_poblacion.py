@@ -16,13 +16,14 @@ BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 PRUEBA_DIR = os.path.join(BASE_DIR, "out", "prueba_poblacion")
 OUT_DIR    = os.path.join(BASE_DIR, "out")
 
-POBLACIONES = [100, 75, 50, 15, 10]
+POBLACIONES = [25, 20, 15, 10, 5, 1]
 COLORES_POP = {
-    100: "#e41a1c",
-    75:  "#ff7f00",
-    50:  "#4daf4a",
-    15:  "#377eb8",
-    10:  "#984ea3",
+    25: "#e41a1c",
+    20: "#ff7f00",
+    15: "#4daf4a",
+    10: "#377eb8",
+    5:  "#984ea3",
+    1:  "#a65628",
 }
 
 
@@ -45,11 +46,15 @@ def leer_fitness(outdir: str):
     if os.path.exists(stat_path):
         try:
             fitness_vals = []
+            capture_next = False
             with open(stat_path, "r", encoding="utf-8", errors="replace") as f:
                 for line in f:
-                    if "best fitness of generation" in line and "Standardized=" in line:
+                    if line.startswith("Best Individual:"):
+                        capture_next = True
+                    elif capture_next and "Fitness: Standardized=" in line:
                         part = line.split("Standardized=")[1].split()[0]
                         fitness_vals.append(float(part))
+                        capture_next = False
             if fitness_vals:
                 return np.array(fitness_vals)
         except Exception as e:
