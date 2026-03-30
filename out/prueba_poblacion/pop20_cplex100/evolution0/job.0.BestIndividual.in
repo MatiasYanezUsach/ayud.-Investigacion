@@ -1,0 +1,8 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i1|
+Individual Number: i0|
+Evaluated: F
+Fitness: f981735881|0.0010078485|i6|
+Tree 0:
+ (If_Then (While (If_Then (Or NearestNeighbor CplexTerminal) CplexTerminal) (If_Then (Or NearestNeighbor CplexTerminal) CplexTerminal)) CplexTerminal)

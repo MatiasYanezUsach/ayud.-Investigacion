@@ -1,0 +1,12 @@
+
+Generation: 0
+Best Individual:
+Subpopulation 0:
+Evaluated: true
+Fitness: Standardized=0.8557085 Adjusted=0.5388777 Hits=0
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "FarthestInsertion"];
+}
+

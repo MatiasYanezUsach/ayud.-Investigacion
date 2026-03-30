@@ -1,0 +1,34 @@
+
+Generation: 0
+Best Individual:
+Subpopulation 0:
+Evaluated: true
+Fitness: Standardized=0.9326506 Adjusted=0.5174241 Hits=0
+Tree 0:
+digraph g {
+node [shape=rectangle];
+n[label = "If_Then_Else"];
+n0[label = "If_Then_Else"];
+n00[label = "WorstMove"];
+n0 -> n00;
+n01[label = "FarthestFirstNode"];
+n0 -> n01;
+n02[label = "NearestFirstNode"];
+n0 -> n02;
+n -> n0;
+n1[label = "Or"];
+n10[label = "NearestFirstNode"];
+n1 -> n10;
+n11[label = "NearestNeighbor"];
+n1 -> n11;
+n -> n1;
+n2[label = "If_Then_Else"];
+n20[label = "FarthestFirstNode"];
+n2 -> n20;
+n21[label = "NearestInsertion"];
+n2 -> n21;
+n22[label = "NearestInsertion"];
+n2 -> n22;
+n -> n2;
+}
+

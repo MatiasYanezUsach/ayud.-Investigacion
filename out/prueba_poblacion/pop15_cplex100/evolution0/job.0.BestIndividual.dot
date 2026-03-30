@@ -1,29 +1,69 @@
-label="Individual=140799417{1690086892} Fitness=0.0019169936 Hits=5 Size=11 Depth=5";
+label="Individual=140799417{248471745} Fitness=0.005501333 Hits=3 Size=31 Depth=5";
 Evaluated: false
-Fitness: Standardized=0.0019169936 Adjusted=0.9980867 Hits=5
+Fitness: Standardized=0.005501333 Adjusted=0.9945287 Hits=3
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "Equal"];
-n0[label = "FarthestFirstNode"];
+n[label = "If_Then_Else"];
+n0[label = "If_Then_Else"];
+n00[label = "If_Then_Else"];
+n000[label = "If_Then"];
+n0000[label = "NearestInsertion"];
+n000 -> n0000;
+n0001[label = "FarthestFirstNode"];
+n000 -> n0001;
+n00 -> n000;
+n001[label = "Or"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestInsertion"];
+n001 -> n0011;
+n00 -> n001;
+n002[label = "WorstMove"];
+n00 -> n002;
+n0 -> n00;
+n01[label = "FarthestInsertion"];
+n0 -> n01;
+n02[label = "FarthestInsertion"];
+n0 -> n02;
 n -> n0;
-n1[label = "While"];
-n10[label = "CplexTerminal"];
+n1[label = "If_Then_Else"];
+n10[label = "If_Then_Else"];
+n100[label = "Equal"];
+n1000[label = "CplexTerminal"];
+n100 -> n1000;
+n1001[label = "CplexTerminal"];
+n100 -> n1001;
+n10 -> n100;
+n101[label = "CplexTerminal"];
+n10 -> n101;
+n102[label = "FarthestInsertion"];
+n10 -> n102;
 n1 -> n10;
 n11[label = "Equal"];
-n110[label = "If_Then"];
-n1100[label = "NearestNeighbor"];
-n110 -> n1100;
-n1101[label = "CplexTerminal"];
-n110 -> n1101;
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "While"];
-n1110[label = "CplexTerminal"];
-n111 -> n1110;
-n1111[label = "NearestFirstNode"];
-n111 -> n1111;
+n111[label = "CplexTerminal"];
 n11 -> n111;
 n1 -> n11;
+n12[label = "If_Then_Else"];
+n120[label = "NearestFirstNode"];
+n12 -> n120;
+n121[label = "FarthestFirstNode"];
+n12 -> n121;
+n122[label = "If_Then"];
+n1220[label = "NearestInsertion"];
+n122 -> n1220;
+n1221[label = "FarthestFirstNode"];
+n122 -> n1221;
+n12 -> n122;
+n1 -> n12;
 n -> n1;
+n2[label = "While"];
+n20[label = "NearestInsertion"];
+n2 -> n20;
+n21[label = "FarthestFirstNode"];
+n2 -> n21;
+n -> n2;
 }
 
