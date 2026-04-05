@@ -9,7 +9,8 @@
       "Bash(do stat:*)",
       "Bash(/dev/null done:*)",
       "Bash(sort -k2)",
-      "Read(//c/Users/mfym2/OneDrive/Escritorio/ayud.-Investigacion/**)"
+      "Read(//c/Users/mfym2/OneDrive/Escritorio/ayud.-Investigacion/**)",
+      "Bash(python -c ':*)"
     ]
   }
 }

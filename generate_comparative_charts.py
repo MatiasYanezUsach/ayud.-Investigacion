@@ -37,7 +37,7 @@ def cargar_datos_grupo(grupo_num):
     archivo_excel = f"RESULTADOS_EXPERIMENTO_GRUPO{grupo_num}.xlsx"
     
     if not os.path.exists(archivo_excel):
-        print(f"⚠️  Advertencia: No se encontró {archivo_excel}")
+        print(f"ADVERTENCIA: No se encontró {archivo_excel}")
         return None
     
     wb = openpyxl.load_workbook(archivo_excel, data_only=True)
@@ -228,7 +228,7 @@ def grafico_1_baseline_tiempos(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '01_baseline_tiempos_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 01_baseline_tiempos_comparativo.png")
+    print("[OK] Generado: 01_baseline_tiempos_comparativo.png")
 
 def grafico_2_llamadas_cplex(todos_datos):
     """Gráfico 2: Total de llamadas a CPLEX acumuladas por ejecución"""
@@ -254,7 +254,7 @@ def grafico_2_llamadas_cplex(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '02_llamadas_cplex_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 02_llamadas_cplex_comparativo.png")
+    print("[OK] Generado: 02_llamadas_cplex_comparativo.png")
 
 def grafico_3_tiempo_cplex(todos_datos):
     """Gráfico 3: Tiempo total CPLEX por ejecución"""
@@ -280,7 +280,7 @@ def grafico_3_tiempo_cplex(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '03_tiempo_cplex_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 03_tiempo_cplex_comparativo.png")
+    print("[OK] Generado: 03_tiempo_cplex_comparativo.png")
 
 def grafico_4_evolucion_fitness(todos_datos):
     """Gráfico 4: Evolución del fitness promedio y mejor"""
@@ -327,7 +327,7 @@ def grafico_4_evolucion_fitness(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '04_evolucion_fitness_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 04_evolucion_fitness_comparativo.png")
+    print("[OK] Generado: 04_evolucion_fitness_comparativo.png")
 
 def grafico_5_evolucion_erp(todos_datos):
     """Gráfico 5: Evolución del ERP promedio y mejor"""
@@ -374,7 +374,7 @@ def grafico_5_evolucion_erp(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '05_evolucion_erp_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 05_evolucion_erp_comparativo.png")
+    print("[OK] Generado: 05_evolucion_erp_comparativo.png")
 
 def grafico_6_individuos_evaluados(todos_datos):
     """Gráfico 6: Total de individuos evaluados por generación"""
@@ -386,7 +386,7 @@ def grafico_6_individuos_evaluados(todos_datos):
         
         generaciones = [d['generacion'] for d in datos['estadisticas_prom_mej']]
         # Asumiendo 15 individuos por generación (población)
-        individuos = [gen * 15 for gen in generaciones]
+        individuos = [gen * 50 for gen in generaciones]
         
         plt.plot(generaciones, individuos, marker='o', markersize=3, linewidth=2,
                 label=f"Grupo {datos['grupo']}: {datos['presupuesto']}", 
@@ -401,7 +401,7 @@ def grafico_6_individuos_evaluados(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '06_individuos_evaluados_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 06_individuos_evaluados_comparativo.png")
+    print("[OK] Generado: 06_individuos_evaluados_comparativo.png")
 
 def grafico_7_promedio_llamadas_indiv(todos_datos):
     """Gráfico 7: Promedio de llamadas CPLEX por individuo"""
@@ -427,7 +427,7 @@ def grafico_7_promedio_llamadas_indiv(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '07_promedio_llamadas_indiv_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 07_promedio_llamadas_indiv_comparativo.png")
+    print("[OK] Generado: 07_promedio_llamadas_indiv_comparativo.png")
 
 def grafico_8_evolucion_hits(todos_datos):
     """Gráfico 8: Evolución de hits promedio"""
@@ -453,7 +453,7 @@ def grafico_8_evolucion_hits(todos_datos):
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, '08_evolucion_hits_comparativo.png'), dpi=150, bbox_inches='tight')
     plt.close()
-    print("✅ Generado: 08_evolucion_hits_comparativo.png")
+    print("[OK] Generado: 08_evolucion_hits_comparativo.png")
 
 def main():
     print("\n" + "="*80)
@@ -461,25 +461,25 @@ def main():
     print("="*80 + "\n")
     
     # Cargar datos de todos los grupos
-    print("📊 Cargando datos de todos los grupos...")
+    print("Cargando datos de todos los grupos...")
     todos_datos = []
     for grupo in GRUPOS:
         print(f"   Cargando Grupo {grupo}...", end=" ")
         datos = cargar_datos_grupo(grupo)
         if datos:
             todos_datos.append(datos)
-            print("✅")
+            print("OK")
         else:
-            print("❌")
-    
+            print("ERROR")
+
     if not todos_datos:
-        print("\n❌ ERROR: No se pudieron cargar datos de ningún grupo.")
+        print("\nERROR: No se pudieron cargar datos de ningun grupo.")
         return
-    
-    print(f"\n✅ Se cargaron exitosamente {len(todos_datos)} grupos.\n")
-    
+
+    print(f"\nSe cargaron exitosamente {len(todos_datos)} grupos.\n")
+
     # Generar todos los gráficos
-    print("📈 Generando gráficos comparativos...\n")
+    print("Generando graficos comparativos...\n")
     
     grafico_1_baseline_tiempos(todos_datos)
     grafico_2_llamadas_cplex(todos_datos)
@@ -491,7 +491,7 @@ def main():
     grafico_8_evolucion_hits(todos_datos)
     
     print("\n" + "="*80)
-    print(f"✅ COMPLETADO: Se generaron 8 gráficos comparativos en '{OUTPUT_DIR}/'")
+    print(f"COMPLETADO: Se generaron 8 graficos comparativos en '{OUTPUT_DIR}/'")
     print("="*80 + "\n")
 
 if __name__ == "__main__":

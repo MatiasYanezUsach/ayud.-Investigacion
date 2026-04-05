@@ -356,7 +356,7 @@ def generate_excel(group_num=None):
     ws_config.cell(row, 1).font = Font(bold=True)
     row += 1
     ws_config.cell(row, 1).value = "Tamaño de Población:"
-    ws_config.cell(row, 2).value = "15 individuos"
+    ws_config.cell(row, 2).value = "50 individuos"
     row += 1
     ws_config.cell(row, 1).value = "Generaciones:"
     ws_config.cell(row, 2).value = "100 generaciones"
@@ -507,10 +507,10 @@ def generate_excel(group_num=None):
                     # Última fila = generación final
                     last_row = rows[-1]
                     # IndivEvals está en la columna 'Evaluated' o puede estar calculado como Gen * pop_size
-                    # Para este experimento: 100 generaciones × 15 individuos = 1500 por ejecución
+                    # Para este experimento: 100 generaciones × 50 individuos = 5000 por ejecución
                     gen = parse_float(last_row.get('Gen', 0))
                     if gen > 0:
-                        total_indiv_from_csv += gen * 15  # 15 = tamaño de población
+                        total_indiv_from_csv += gen * 50  # 50 = tamaño de población
                     
                     # Capturar ERP y Fitness finales
                     all_best_erp_final.append(parse_float(last_row.get('BestERP', 0)))
@@ -518,7 +518,7 @@ def generate_excel(group_num=None):
                     all_best_fitness_final.append(parse_float(last_row.get('BestFITNESS', 0)))
                     all_avg_fitness_final.append(parse_float(last_row.get('AvgFITNESS', 0)))
         except Exception as e:
-            print(f"⚠️  Advertencia: No se pudo leer {stats_file_csv}: {e}")
+            print(f"ADVERTENCIA: No se pudo leer {stats_file_csv}: {e}")
     
     if all_stats:
         total_indiv = sum(s['individuos'] for s in all_stats)
@@ -693,7 +693,7 @@ def generate_excel(group_num=None):
     ws_stats = wb.create_sheet("Estadísticas por Ejecución")
     
     # Nota explicativa
-    ws_stats.cell(1, 1).value = "NOTA IMPORTANTE: 'Individuos Evaluados' = Total acumulado de individuos evaluados durante TODA la ejecución (100 generaciones). NO es el tamaño de población (que es 15). 'Llamadas CPLEX' = Total de llamadas a CPLEX durante toda la ejecución. 'Tiempo Total' = Tiempo total en segundos usado por CPLEX en toda la ejecución."
+    ws_stats.cell(1, 1).value = "NOTA IMPORTANTE: 'Individuos Evaluados' = Total acumulado de individuos evaluados durante TODA la ejecución (100 generaciones). NO es el tamaño de población (que es 50). 'Llamadas CPLEX' = Total de llamadas a CPLEX durante toda la ejecución. 'Tiempo Total' = Tiempo total en segundos usado por CPLEX en toda la ejecución."
     ws_stats.merge_cells(f'A1:F1')
     ws_stats.cell(1, 1).font = Font(italic=True, color="0000FF")
     ws_stats.cell(1, 1).alignment = Alignment(wrap_text=True)

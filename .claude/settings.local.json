@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"c:/Users/mfym2/OneDrive/Escritorio/ayud.-Investigacion/\"*.py)",
+      "Bash(grep \"\\\\.py$\")",
+      "Bash(python -c ':*)",
+      "Bash(ls \"c:/Users/mfym2/OneDrive/Escritorio/ayud.-Investigacion/\"requirements*.txt)"
+    ]
+  }
+}

@@ -27,7 +27,7 @@ for grupo in grupos:
     carpeta = f"graficos_grupo{grupo}"
     
     if not os.path.exists(carpeta):
-        print(f"\n⚠️  Carpeta no encontrada: {carpeta}")
+        print(f"\nADVERTENCIA: Carpeta no encontrada: {carpeta}")
         continue
     
     print(f"\nProcesando {carpeta}...")

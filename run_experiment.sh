@@ -116,7 +116,8 @@ run_group() {
         -p experiment.group=$G \
         -p jobs=$R \
         -p generations=100 \
-        -p pop.subpop.0.size=15
+        -p pop.subpop.0.size=50 \
+        -p experiment.max.instances=8
 
     if [ $? -ne 0 ]; then
         echo "ERROR: Fallo la ejecucion del grupo $G"
