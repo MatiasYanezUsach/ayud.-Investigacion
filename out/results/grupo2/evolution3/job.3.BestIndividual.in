@@ -3,6 +3,6 @@ Subpopulation Number: i0|
 Number of Individuals: i1|
 Individual Number: i0|
 Evaluated: F
-Fitness: f1045180020|0.19939595|i0|
+Fitness: f1010290279|0.011218644|i2|
 Tree 0:
- (And (If_Then (If_Then (And FarthestNeighbor NearestInsertion) (And NearestInsertion NearestInsertion)) (If_Then (And FarthestNeighbor NearestInsertion) (And NearestInsertion NearestInsertion))) (If_Then (If_Then (And NearestInsertion NearestInsertion) (And NearestInsertion NearestInsertion)) (If_Then (And FarthestNeighbor NearestInsertion) (And NearestInsertion NearestInsertion))))
+ (Equal (If_Then (If_Then FarthestInsertion (Equal CplexTerminal CplexTerminal)) (And CplexTerminal (Equal NearestFirstNode NearestFirstNode))) (Equal CplexTerminal (Equal CplexTerminal CplexTerminal)))

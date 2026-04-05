@@ -3,36 +3,70 @@ Generation: 0
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.092348665 Adjusted=0.9154586 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
+n[label = "Or"];
+n0[label = "If_Then"];
 n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n000[label = "If_Then_Else"];
+n0000[label = "FarthestNeighbor"];
+n000 -> n0000;
+n0001[label = "BestMove"];
+n000 -> n0001;
+n0002[label = "WorstMove"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "NearestFirstNode"];
+n001 -> n0010;
+n0011[label = "BestMove"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
 n01[label = "Equal"];
-n010[label = "BestMove"];
+n010[label = "While"];
+n0100[label = "FarthestInsertion"];
+n010 -> n0100;
+n0101[label = "NearestNeighbor"];
+n010 -> n0101;
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "If_Then"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "FarthestInsertion"];
+n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
 n10[label = "While"];
-n100[label = "NearestInsertion"];
+n100[label = "Or"];
+n1000[label = "NearestInsertion"];
+n100 -> n1000;
+n1001[label = "FarthestNeighbor"];
+n100 -> n1001;
 n10 -> n100;
-n101[label = "BestMove"];
+n101[label = "Or"];
+n1010[label = "CplexTerminal"];
+n101 -> n1010;
+n1011[label = "CplexTerminal"];
+n101 -> n1011;
 n10 -> n101;
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "NearestInsertion"];
+n11[label = "While"];
+n110[label = "Equal"];
+n1100[label = "BestMove"];
+n110 -> n1100;
+n1101[label = "FarthestNeighbor"];
+n110 -> n1101;
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "Equal"];
+n1110[label = "NearestNeighbor"];
+n111 -> n1110;
+n1111[label = "FarthestFirstNode"];
+n111 -> n1111;
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -43,37 +77,49 @@ Generation: 1
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.046968196 Adjusted=0.9551388 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "Equal"];
-n010[label = "BestMove"];
+n01[label = "And"];
+n010[label = "If_Then_Else"];
+n0100[label = "WorstMove"];
+n010 -> n0100;
+n0101[label = "BestMove"];
+n010 -> n0101;
+n0102[label = "FarthestInsertion"];
+n010 -> n0102;
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "Equal"];
+n0110[label = "FarthestInsertion"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
-n10[label = "While"];
-n100[label = "NearestInsertion"];
-n10 -> n100;
-n101[label = "BestMove"];
-n10 -> n101;
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "NearestInsertion"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -83,29 +129,49 @@ Generation: 2
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.046968196 Adjusted=0.9551388 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "Equal"];
-n010[label = "BestMove"];
+n01[label = "And"];
+n010[label = "If_Then_Else"];
+n0100[label = "WorstMove"];
+n010 -> n0100;
+n0101[label = "BestMove"];
+n010 -> n0101;
+n0102[label = "FarthestInsertion"];
+n010 -> n0102;
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "Equal"];
+n0110[label = "FarthestInsertion"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "And"];
-n10[label = "FarthestNeighbor"];
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestInsertion"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -115,41 +181,39 @@ Generation: 3
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.036441218 Adjusted=0.96484005 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
 n01[label = "Equal"];
-n010[label = "BestMove"];
+n010[label = "FarthestInsertion"];
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "CplexTerminal"];
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
-n10[label = "While"];
-n100[label = "NearestInsertion"];
-n10 -> n100;
-n101[label = "BestMove"];
-n10 -> n101;
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "If_Then"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "FarthestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "NearestNeighbor"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -159,33 +223,39 @@ Generation: 4
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.036441218 Adjusted=0.96484005 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
 n01[label = "Equal"];
-n010[label = "BestMove"];
+n010[label = "FarthestInsertion"];
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "CplexTerminal"];
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "FarthestInsertion"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -195,37 +265,39 @@ Generation: 5
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3199315 Adjusted=0.7576151 Hits=2
+Fitness: Standardized=0.036441218 Adjusted=0.96484005 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
 n01[label = "Equal"];
-n010[label = "BestMove"];
+n010[label = "FarthestInsertion"];
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "CplexTerminal"];
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
-n10[label = "While"];
-n100[label = "NearestInsertion"];
-n10 -> n100;
-n101[label = "BestMove"];
-n10 -> n101;
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "NearestInsertion"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -235,33 +307,43 @@ Generation: 6
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.3148517 Adjusted=0.76054204 Hits=3
+Fitness: Standardized=0.025970856 Adjusted=0.9746866 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
-n0[label = "While"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n[label = "Equal"];
+n0[label = "If_Then"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "NearestFirstNode"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "Equal"];
-n010[label = "BestMove"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
 n01 -> n010;
-n011[label = "NearestNeighbor"];
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
 n1[label = "Equal"];
-n10[label = "While"];
-n100[label = "NearestInsertion"];
-n10 -> n100;
-n101[label = "BestMove"];
-n10 -> n101;
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "BestMove"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -271,37 +353,43 @@ Generation: 7
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025970856 Adjusted=0.9746866 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -311,37 +399,43 @@ Generation: 8
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025970856 Adjusted=0.9746866 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -351,37 +445,43 @@ Generation: 9
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025970856 Adjusted=0.9746866 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -391,37 +491,43 @@ Generation: 10
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025970856 Adjusted=0.9746866 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -431,37 +537,37 @@ Generation: 11
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025657872 Adjusted=0.974984 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "Equal"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -471,37 +577,37 @@ Generation: 12
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.025657872 Adjusted=0.974984 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "NearestFirstNode"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -511,37 +617,43 @@ Generation: 13
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.020495793 Adjusted=0.97991586 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "Equal"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -551,37 +663,43 @@ Generation: 14
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.020495793 Adjusted=0.97991586 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "Equal"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -591,37 +709,43 @@ Generation: 15
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.020495793 Adjusted=0.97991586 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "Equal"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -631,37 +755,43 @@ Generation: 16
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.020495793 Adjusted=0.97991586 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "Equal"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -671,37 +801,43 @@ Generation: 17
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.020495793 Adjusted=0.97991586 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "If_Then_Else"];
+n0000[label = "NearestFirstNode"];
+n000 -> n0000;
+n0001[label = "WorstMove"];
+n000 -> n0001;
+n0002[label = "CplexTerminal"];
+n000 -> n0002;
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -711,37 +847,37 @@ Generation: 18
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.01709691 Adjusted=0.98319054 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "FarthestFirstNode"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -751,37 +887,37 @@ Generation: 19
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2831019 Adjusted=0.7793613 Hits=0
+Fitness: Standardized=0.01709691 Adjusted=0.98319054 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "NearestNeighbor"];
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -791,41 +927,37 @@ Generation: 20
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2805431 Adjusted=0.78091866 Hits=0
+Fitness: Standardized=0.01709691 Adjusted=0.98319054 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -835,41 +967,37 @@ Generation: 21
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2805431 Adjusted=0.78091866 Hits=0
+Fitness: Standardized=0.01709691 Adjusted=0.98319054 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -879,41 +1007,37 @@ Generation: 22
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.2805431 Adjusted=0.78091866 Hits=0
+Fitness: Standardized=0.01709691 Adjusted=0.98319054 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestFirstNode"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "CplexTerminal"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
+n11[label = "CplexTerminal"];
 n1 -> n11;
 n -> n1;
 }
@@ -923,36 +1047,32 @@ Generation: 23
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.27436754 Adjusted=0.78470296 Hits=0
+Fitness: Standardized=0.012810767 Adjusted=0.98735136 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "If_Then"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
-n00 -> n000;
-n001[label = "NearestInsertion"];
-n00 -> n001;
+n00[label = "NearestFirstNode"];
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "Equal"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "CplexTerminal"];
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "And"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
 n11[label = "And"];
-n110[label = "FarthestNeighbor"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "Equal"];
+n1110[label = "FarthestInsertion"];
+n111 -> n1110;
+n1111[label = "CplexTerminal"];
+n111 -> n1111;
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -963,36 +1083,32 @@ Generation: 24
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.27436754 Adjusted=0.78470296 Hits=0
+Fitness: Standardized=0.012810767 Adjusted=0.98735136 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "If_Then"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
-n00 -> n000;
-n001[label = "NearestInsertion"];
-n00 -> n001;
+n00[label = "NearestFirstNode"];
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "Equal"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "CplexTerminal"];
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "And"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
 n11[label = "And"];
-n110[label = "FarthestNeighbor"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "Equal"];
+n1110[label = "FarthestInsertion"];
+n111 -> n1110;
+n1111[label = "CplexTerminal"];
+n111 -> n1111;
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -1003,36 +1119,32 @@ Generation: 25
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.27436754 Adjusted=0.78470296 Hits=0
+Fitness: Standardized=0.012810767 Adjusted=0.98735136 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "If_Then"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
-n00 -> n000;
-n001[label = "NearestInsertion"];
-n00 -> n001;
+n00[label = "NearestFirstNode"];
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "Equal"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "CplexTerminal"];
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "And"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
 n11[label = "And"];
-n110[label = "FarthestNeighbor"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "Equal"];
+n1110[label = "FarthestInsertion"];
+n111 -> n1110;
+n1111[label = "CplexTerminal"];
+n111 -> n1111;
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -1043,36 +1155,32 @@ Generation: 26
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.27436754 Adjusted=0.78470296 Hits=0
+Fitness: Standardized=0.012810767 Adjusted=0.98735136 Hits=1
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "If_Then"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
-n00 -> n000;
-n001[label = "NearestInsertion"];
-n00 -> n001;
+n00[label = "NearestFirstNode"];
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "Equal"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "CplexTerminal"];
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "Equal"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "And"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
 n11[label = "And"];
-n110[label = "FarthestNeighbor"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "Equal"];
+n1110[label = "FarthestInsertion"];
+n111 -> n1110;
+n1111[label = "CplexTerminal"];
+n111 -> n1111;
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -1083,40 +1191,40 @@ Generation: 27
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.27124408 Adjusted=0.786631 Hits=0
+Fitness: Standardized=0.011218644 Adjusted=0.9889058 Hits=2
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
-n00[label = "And"];
-n000[label = "FarthestNeighbor"];
+n00[label = "If_Then"];
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
+n001 -> n0010;
+n0011[label = "CplexTerminal"];
+n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "NearestFirstNode"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "Equal"];
-n100[label = "FarthestFirstNode"];
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
+n11[label = "Equal"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "CplexTerminal"];
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -1127,48 +1235,40 @@ Generation: 28
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.26634875 Adjusted=0.7896719 Hits=0
+Fitness: Standardized=0.011218644 Adjusted=0.9889058 Hits=2
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "FarthestNeighbor"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "NearestNeighbor"];
+n01[label = "And"];
+n010[label = "CplexTerminal"];
+n01 -> n010;
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
+n011 -> n0110;
+n0111[label = "NearestFirstNode"];
+n011 -> n0111;
+n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
+n11[label = "Equal"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "NearestInsertion"];
+n111[label = "CplexTerminal"];
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -1179,4904 +1279,40 @@ Generation: 29
 Best Individual:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.24895453 Adjusted=0.80066967 Hits=0
+Fitness: Standardized=0.011218644 Adjusted=0.9889058 Hits=2
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "NearestNeighbor"];
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 30
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.24895453 Adjusted=0.80066967 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "NearestNeighbor"];
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 31
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.24895453 Adjusted=0.80066967 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "NearestNeighbor"];
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 32
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.24895453 Adjusted=0.80066967 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "NearestNeighbor"];
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "FarthestNeighbor"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "FarthestNeighbor"];
-n11 -> n110;
-n111[label = "NearestInsertion"];
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 33
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 34
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 35
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 36
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 37
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 38
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 39
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 40
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.23330016 Adjusted=0.81083256 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "NearestNeighbor"];
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 41
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.22928552 Adjusted=0.8134807 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 42
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.22928552 Adjusted=0.8134807 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 43
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.22928552 Adjusted=0.8134807 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "FarthestNeighbor"];
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 44
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.21881874 Adjusted=0.8204665 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "And"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "NearestInsertion"];
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 45
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.20641787 Adjusted=0.82890016 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 46
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.20641787 Adjusted=0.82890016 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 47
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.20641787 Adjusted=0.82890016 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "FarthestNeighbor"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 48
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 49
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 50
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "Equal"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 51
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 52
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 53
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 54
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 55
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 56
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 57
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 58
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 59
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 60
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 61
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 62
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 63
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 64
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 65
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 66
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 67
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 68
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 69
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "Equal"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 70
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "Equal"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 71
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "Equal"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 72
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "Equal"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 73
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 74
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 75
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 76
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 77
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 78
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "If_Then"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 79
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 80
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "If_Then"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 81
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "Equal"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 82
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 83
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "If_Then"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 84
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 85
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 86
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 87
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 88
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 89
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "If_Then"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 90
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 91
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 92
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "And"];
-n0100[label = "FarthestFirstNode"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "If_Then"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "And"];
-n110[label = "And"];
-n1100[label = "FarthestFirstNode"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 93
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 94
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 95
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 96
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "Equal"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 97
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 98
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "Equal"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
-n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
-n001 -> n0010;
-n0011[label = "NearestInsertion"];
-n001 -> n0011;
-n00 -> n001;
-n0 -> n00;
-n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
-n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
-n011 -> n0110;
-n0111[label = "NearestInsertion"];
-n011 -> n0111;
-n01 -> n011;
-n0 -> n01;
-n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "Equal"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
-n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
-n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
-n11 -> n111;
-n1 -> n11;
-n -> n1;
-}
-
-
-Generation: 99
-Best Individual:
-Subpopulation 0:
-Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
-Tree 0:
-digraph g {
-node [shape=rectangle];
-n[label = "And"];
-n0[label = "If_Then"];
-n00[label = "If_Then"];
-n000[label = "Equal"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
+n000[label = "FarthestInsertion"];
 n00 -> n000;
 n001[label = "Equal"];
-n0010[label = "NearestInsertion"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
 n01[label = "And"];
-n010[label = "Equal"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
+n010[label = "CplexTerminal"];
 n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
 n011 -> n0110;
-n0111[label = "NearestInsertion"];
+n0111[label = "NearestFirstNode"];
 n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "Equal"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
+n11[label = "Equal"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "Equal"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
+n111[label = "CplexTerminal"];
 n11 -> n111;
 n1 -> n11;
 n -> n1;
@@ -6086,68 +1322,40 @@ n -> n1;
 Best Individual of Run:
 Subpopulation 0:
 Evaluated: true
-Fitness: Standardized=0.19939595 Adjusted=0.83375305 Hits=0
+Fitness: Standardized=0.011218644 Adjusted=0.9889058 Hits=2
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "And"];
+n[label = "Equal"];
 n0[label = "If_Then"];
 n00[label = "If_Then"];
-n000[label = "And"];
-n0000[label = "FarthestNeighbor"];
-n000 -> n0000;
-n0001[label = "NearestInsertion"];
-n000 -> n0001;
+n000[label = "FarthestInsertion"];
 n00 -> n000;
-n001[label = "And"];
-n0010[label = "NearestInsertion"];
+n001[label = "Equal"];
+n0010[label = "CplexTerminal"];
 n001 -> n0010;
-n0011[label = "NearestInsertion"];
+n0011[label = "CplexTerminal"];
 n001 -> n0011;
 n00 -> n001;
 n0 -> n00;
-n01[label = "If_Then"];
-n010[label = "And"];
-n0100[label = "FarthestNeighbor"];
-n010 -> n0100;
-n0101[label = "NearestInsertion"];
-n010 -> n0101;
+n01[label = "And"];
+n010[label = "CplexTerminal"];
 n01 -> n010;
-n011[label = "And"];
-n0110[label = "NearestInsertion"];
+n011[label = "Equal"];
+n0110[label = "NearestFirstNode"];
 n011 -> n0110;
-n0111[label = "NearestInsertion"];
+n0111[label = "NearestFirstNode"];
 n011 -> n0111;
 n01 -> n011;
 n0 -> n01;
 n -> n0;
-n1[label = "If_Then"];
-n10[label = "If_Then"];
-n100[label = "And"];
-n1000[label = "NearestInsertion"];
-n100 -> n1000;
-n1001[label = "NearestInsertion"];
-n100 -> n1001;
-n10 -> n100;
-n101[label = "And"];
-n1010[label = "NearestInsertion"];
-n101 -> n1010;
-n1011[label = "NearestInsertion"];
-n101 -> n1011;
-n10 -> n101;
+n1[label = "Equal"];
+n10[label = "CplexTerminal"];
 n1 -> n10;
-n11[label = "If_Then"];
-n110[label = "And"];
-n1100[label = "FarthestNeighbor"];
-n110 -> n1100;
-n1101[label = "NearestInsertion"];
-n110 -> n1101;
+n11[label = "Equal"];
+n110[label = "CplexTerminal"];
 n11 -> n110;
-n111[label = "And"];
-n1110[label = "NearestInsertion"];
-n111 -> n1110;
-n1111[label = "NearestInsertion"];
-n111 -> n1111;
+n111[label = "CplexTerminal"];
 n11 -> n111;
 n1 -> n11;
 n -> n1;
