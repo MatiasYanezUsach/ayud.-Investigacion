@@ -3,6 +3,6 @@ Subpopulation Number: i0|
 Number of Individuals: i1|
 Individual Number: i0|
 Evaluated: F
-Fitness: f1018250869|0.021640042|i0|
+Fitness: f1040186511|0.124993436|i0|
 Tree 0:
- (Equal FarthestInsertion (While (Or BestMove FarthestInsertion) (Equal FarthestFirstNode (While FarthestNeighbor FarthestFirstNode))))
+ (If_Then FarthestInsertion (If_Then FarthestInsertion (Equal FarthestInsertion (While NearestInsertion NearestInsertion))))

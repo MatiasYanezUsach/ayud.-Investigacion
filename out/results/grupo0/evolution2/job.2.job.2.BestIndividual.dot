@@ -1,26 +1,22 @@
-label="Individual=500772834{1228621487} Fitness=0.021640042 Hits=0 Size=11 Depth=5";
+label="Individual=1800659519{-2015734375} Fitness=0.124993436 Hits=0 Size=9 Depth=5";
 Evaluated: false
-Fitness: Standardized=0.021640042 Adjusted=0.9788183 Hits=0
+Fitness: Standardized=0.124993436 Adjusted=0.8888941 Hits=0
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "Equal"];
+n[label = "If_Then"];
 n0[label = "FarthestInsertion"];
 n -> n0;
-n1[label = "While"];
-n10[label = "Or"];
-n100[label = "BestMove"];
-n10 -> n100;
-n101[label = "FarthestInsertion"];
-n10 -> n101;
+n1[label = "If_Then"];
+n10[label = "FarthestInsertion"];
 n1 -> n10;
 n11[label = "Equal"];
-n110[label = "FarthestFirstNode"];
+n110[label = "FarthestInsertion"];
 n11 -> n110;
 n111[label = "While"];
-n1110[label = "FarthestNeighbor"];
+n1110[label = "NearestInsertion"];
 n111 -> n1110;
-n1111[label = "FarthestFirstNode"];
+n1111[label = "NearestInsertion"];
 n111 -> n1111;
 n11 -> n111;
 n1 -> n11;

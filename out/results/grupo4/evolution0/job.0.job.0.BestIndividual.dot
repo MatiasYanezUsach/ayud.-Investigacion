@@ -1,35 +1,65 @@
-label="Individual=603856241{-119989544} Fitness=0.0022066727 Hits=6 Size=14 Depth=5";
+label="Individual=786041152{1377634635} Fitness=0.0014307953 Hits=5 Size=29 Depth=5";
 Evaluated: false
-Fitness: Standardized=0.0022066727 Adjusted=0.9977982 Hits=6
+Fitness: Standardized=0.0014307953 Adjusted=0.9985713 Hits=5
 Tree 0:
 digraph g {
 node [shape=rectangle];
-n[label = "Equal"];
-n0[label = "FarthestFirstNode"];
+n[label = "If_Then_Else"];
+n0[label = "If_Then"];
+n00[label = "Or"];
+n000[label = "FarthestInsertion"];
+n00 -> n000;
+n001[label = "CplexTerminal"];
+n00 -> n001;
+n0 -> n00;
+n01[label = "NearestInsertion"];
+n0 -> n01;
 n -> n0;
-n1[label = "Equal"];
+n1[label = "If_Then_Else"];
 n10[label = "While"];
-n100[label = "If_Then_Else"];
-n1000[label = "FarthestFirstNode"];
+n100[label = "Equal"];
+n1000[label = "FarthestInsertion"];
 n100 -> n1000;
-n1001[label = "NearestNeighbor"];
+n1001[label = "FarthestFirstNode"];
 n100 -> n1001;
-n1002[label = "CplexTerminal"];
-n100 -> n1002;
 n10 -> n100;
-n101[label = "Equal"];
+n101[label = "Or"];
 n1010[label = "FarthestInsertion"];
 n101 -> n1010;
-n1011[label = "NearestNeighbor"];
+n1011[label = "CplexTerminal"];
 n101 -> n1011;
 n10 -> n101;
 n1 -> n10;
-n11[label = "While"];
-n110[label = "CplexTerminal"];
+n11[label = "If_Then"];
+n110[label = "If_Then"];
+n1100[label = "FarthestFirstNode"];
+n110 -> n1100;
+n1101[label = "FarthestNeighbor"];
+n110 -> n1101;
 n11 -> n110;
-n111[label = "CplexTerminal"];
+n111[label = "NearestInsertion"];
 n11 -> n111;
 n1 -> n11;
+n12[label = "Equal"];
+n120[label = "FarthestInsertion"];
+n12 -> n120;
+n121[label = "FarthestInsertion"];
+n12 -> n121;
+n1 -> n12;
 n -> n1;
+n2[label = "Equal"];
+n20[label = "If_Then"];
+n200[label = "FarthestNeighbor"];
+n20 -> n200;
+n201[label = "NearestFirstNode"];
+n20 -> n201;
+n2 -> n20;
+n21[label = "If_Then"];
+n210[label = "NearestInsertion"];
+n21 -> n210;
+n211[label = "NearestInsertion"];
+n21 -> n211;
+n2 -> n21;
+n -> n2;
 }
 
