@@ -96,11 +96,19 @@ echo.
 REM Generar reporte Excel consolidado de todos los grupos
 echo.
 echo Generando reporte Excel consolidado...
-python generate_excel_report.py
+python generate_consolidated_report.py
 if errorlevel 1 (
     echo ADVERTENCIA: No se pudo generar el reporte Excel consolidado
 ) else (
     echo Reporte Excel consolidado generado exitosamente
+    echo.
+    echo Generando graficos comparativos...
+    python generate_comparative_charts.py
+    if errorlevel 1 (
+        echo ADVERTENCIA: No se pudieron generar los graficos comparativos
+    ) else (
+        echo Graficos comparativos generados exitosamente
+    )
 )
 
 echo.
