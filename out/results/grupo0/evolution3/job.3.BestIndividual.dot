@@ -1,0 +1,45 @@
+// Individual=1627428162{909156762} Fitness=0.11836446 Hits=0 Size=21 Depth=5
+digraph g {
+node [shape=rectangle];
+n[label = "Equal"];
+n0[label = "And"];
+n00[label = "If_Then"];
+n000[label = "FarthestNeighbor"];
+n00 -> n000;
+n001[label = "NearestFirstNode"];
+n00 -> n001;
+n0 -> n00;
+n01[label = "Or"];
+n010[label = "Equal"];
+n0100[label = "NearestNeighbor"];
+n010 -> n0100;
+n0101[label = "FarthestFirstNode"];
+n010 -> n0101;
+n01 -> n010;
+n011[label = "NearestNeighbor"];
+n01 -> n011;
+n0 -> n01;
+n -> n0;
+n1[label = "If_Then"];
+n10[label = "Equal"];
+n100[label = "If_Then"];
+n1000[label = "FarthestNeighbor"];
+n100 -> n1000;
+n1001[label = "NearestNeighbor"];
+n100 -> n1001;
+n10 -> n100;
+n101[label = "While"];
+n1010[label = "NearestInsertion"];
+n101 -> n1010;
+n1011[label = "NearestInsertion"];
+n101 -> n1011;
+n10 -> n101;
+n1 -> n10;
+n11[label = "While"];
+n110[label = "NearestInsertion"];
+n11 -> n110;
+n111[label = "NearestInsertion"];
+n11 -> n111;
+n1 -> n11;
+n -> n1;
+}
