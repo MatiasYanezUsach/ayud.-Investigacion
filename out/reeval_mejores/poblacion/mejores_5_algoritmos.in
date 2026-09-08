@@ -1,0 +1,32 @@
+Number of Subpopulations: i1|
+Subpopulation Number: i0|
+Number of Individuals: i5|
+Individual Number: i0|
+Evaluated: F
+Fitness: f1004696179|0.006910616|i3|
+Tree 0:
+ (If_Then (If_Then_Else (Or (If_Then NearestInsertion CplexTerminal) (While NearestInsertion NearestInsertion)) (Equal (While NearestInsertion FarthestNeighbor) (Equal NearestNeighbor FarthestFirstNode)) (Equal (If_Then_Else CplexTerminal BestMove FarthestFirstNode) (While FarthestInsertion NearestInsertion))) (While (If_Then_Else (And FarthestFirstNode NearestNeighbor) (If_Then NearestInsertion CplexTerminal) (If_Then_Else FarthestInsertion FarthestInsertion FarthestFirstNode)) (Equal (While BestMove NearestNeighbor) (If_Then_Else BestMove BestMove CplexTerminal))))
+
+Individual Number: i1|
+Evaluated: F
+Fitness: f1000184700|0.004809795|i4|
+Tree 0:
+ (If_Then (While (If_Then_Else (Equal FarthestInsertion BestMove) (While CplexTerminal NearestNeighbor) NearestNeighbor) (If_Then_Else BestMove NearestNeighbor (Equal NearestFirstNode NearestInsertion))) (While (Equal FarthestInsertion BestMove) (If_Then_Else BestMove (And FarthestNeighbor NearestInsertion) BestMove)))
+
+Individual Number: i2|
+Evaluated: F
+Fitness: f994821543|0.0031093152|i5|
+Tree 0:
+ (Equal (Equal (While (If_Then_Else FarthestInsertion FarthestNeighbor NearestFirstNode) (And CplexTerminal BestMove)) (If_Then (If_Then_Else NearestFirstNode FarthestNeighbor FarthestNeighbor) FarthestNeighbor)) (While (If_Then_Else FarthestInsertion FarthestNeighbor NearestFirstNode) (And CplexTerminal BestMove)))
+
+Individual Number: i3|
+Evaluated: F
+Fitness: f982308148|0.0010744692|i6|
+Tree 0:
+ (Or (While (If_Then_Else (If_Then FarthestFirstNode FarthestFirstNode) (If_Then_Else NearestFirstNode NearestFirstNode NearestNeighbor) (Or FarthestNeighbor CplexTerminal)) (If_Then_Else (If_Then NearestFirstNode NearestInsertion) (And NearestFirstNode CplexTerminal) (If_Then_Else CplexTerminal BestMove FarthestFirstNode))) (And (Or (Equal CplexTerminal FarthestInsertion) (If_Then_Else NearestInsertion WorstMove FarthestNeighbor)) (Or (If_Then_Else FarthestNeighbor NearestNeighbor NearestInsertion) (If_Then FarthestFirstNode NearestInsertion))))
+
+Individual Number: i4|
+Evaluated: F
+Fitness: f0|0.0|i8|
+Tree 0:
+ (Equal (If_Then_Else (While (Or NearestFirstNode CplexTerminal) (Equal NearestFirstNode FarthestNeighbor)) (And (Equal NearestNeighbor NearestFirstNode) (If_Then_Else FarthestInsertion NearestNeighbor FarthestInsertion)) NearestNeighbor) (If_Then_Else (While (Or NearestFirstNode CplexTerminal) (Equal FarthestFirstNode FarthestNeighbor)) (And (Equal NearestNeighbor NearestFirstNode) (If_Then_Else FarthestInsertion NearestNeighbor FarthestInsertion)) (Equal FarthestInsertion NearestNeighbor)))

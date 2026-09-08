@@ -26,21 +26,23 @@ por instancia). Cada condición: 5 ejecuciones independientes, 100 generaciones,
 ├── data/
 │   ├── evolution/          36 instancias; el experimento usa las primeras 8 (experiment.max.instances=8)
 │   ├── evaluation/         10 instancias de evaluación
+│   ├── results.txt         Óptimos conocidos por instancia (los lee FileIO.readOptimals al cargar cada instancia). NO MOVER.
 │   └── legacy/             Instancias y resultados de proyectos anteriores (MISP, Dethloff, Salhi-Nagy, ...). No se usan.
 ├── out/                    RESULTADOS CRUDOS DEL EXPERIMENTO (no regenerables)
 │   ├── baseline/           Tiempo de CPLEX puro por instancia (T_base)
 │   ├── results/grupoN/evolutionM/   Salida ECJ de cada ejecución (ver docs/GUIA_EXPERIMENTO_COMPLETA.md)
 │   ├── results/mejores_arboles/     Mejor árbol de cada grupo (.dot + .png)
-│   └── prueba_poblacion/   Prueba previa de tamaño de población (10 vs 100)
+│   ├── prueba_poblacion/   Prueba previa de tamaño de población (10 vs 100)
+│   └── reeval_mejores/     Re-evaluación de los 5 mejores algoritmos (poblacion/*.in + salida por condición)
 ├── reportes/               Excel derivados de out/ y gráficos
 │   ├── RESULTADOS_EXPERIMENTO_GRUPO0..5.xlsx, RESULTADOS_EXPERIMENTO_CONSOLIDADO.xlsx
 │   ├── TIEMPO_CPLEX_MEJOR_ALGORITMO_POR_GRUPO.xlsx, reporte_prueba_poblacion.xlsx
 │   └── graficos/{grupo0..5, comparativos, convergencia}/
 ├── scripts/
-│   ├── windows/            .bat: run_experiment, run_baseline, run_prueba_poblacion, compile, test_*, convert_dots_to_png, load_env
+│   ├── windows/            .bat: run_experiment, run_baseline, run_prueba_poblacion, run_reeval_mejores, compile, test_*, convert_dots_to_png, load_env
 │   ├── linux/              .sh equivalentes
-│   └── analisis/           Python: generate_excel_report, generate_charts, generate_comparative_charts,
-│                           generate_consolidated_report, generate_best_algorithm_time_report, curva_convergencia*
+│   └── analisis/           Python: generate_excel_report, generate_charts, generate_comparative_charts, generate_consolidated_report,
+│                           generate_best_algorithm_time_report, generate_reeval_mejores_report, curva_convergencia*
 ├── docs/                   Guías del experimento y notas históricas
 ├── tools/graphviz-2.38/    Graphviz portable (render de árboles .dot)
 ├── .env                    Rutas locales de CPLEX (CPLEX_LIB_PATH, CPLEX_JAR_PATH)
@@ -65,6 +67,23 @@ scripts\windows\convert_dots_to_png.bat         :: .dot -> .png en out/results/
 ```
 
 Linux: los mismos comandos con `scripts/linux/*.sh`.
+
+### Re-evaluación de los 5 mejores algoritmos (pedido de Parada, 2026-09-08)
+
+```bat
+scripts\windowsun_reeval_mejores.bat          :: los 5 algoritmos, uno tras otro
+scripts\windowsun_reeval_mejores.bat B50      :: solo uno
+```
+
+Carga cada mejor individuo (`out/reeval_mejores/poblacion/Bxx_*.in`) como población fija de ECJ
+(`pop.file`, `generations=1`, `pop.subpop.0.size=1`), lo evalúa con su propio presupuesto sobre las
+8 instancias, con `evalthreads=1` y una JVM por algoritmo (sin el estado compartido que el Cap. 5
+declara como limitación). Salida cruda en `out/reeval_mejores/Bxx/evolution0/`; el reporte
+`reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx` lo genera
+`scripts/analisis/generate_reeval_mejores_report.py` (tiempo de CPLEX y tiempo de pared por
+instancia y por algoritmo, total de los 5, comparación con el experimento original).
+`out/reeval_mejores/poblacion/mejores_5_algoritmos.in` trae los 5 en un solo archivo por si se
+quiere evaluarlos juntos bajo un mismo presupuesto (`pop.subpop.0.size=5`).
 
 Reportes (leen `out/`, escriben en `reportes/`):
 

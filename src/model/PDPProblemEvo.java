@@ -40,7 +40,7 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
     public static String Outputpath = "out/results/evolution"; // Se actualiza en prepareToEvaluate
     public static int EXPERIMENT_GROUP = -1; // Número de grupo del experimento
     public static String Instacespath =  "data/evolution";
-    public static String dotexepath = "graphviz-2.38/bin/dot.exe";
+    public static String dotexepath = "tools/graphviz-2.38/bin/dot.exe";
     public static String statfile = "Statistics.out";
     public static String statfileCSV = "BestFitness.csv";
 

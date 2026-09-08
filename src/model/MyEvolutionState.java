@@ -33,7 +33,14 @@ public class MyEvolutionState  extends SimpleEvolutionState {
 				parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evolution" + jobNum + "/Statistics.out");
 			}
 		}else{
-			parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evaluation/Statistics.out");
+			// Modo evaluacion (generations = 1). Si se indica experiment.output.dir, el log de ECJ
+			// va al mismo directorio que el resto de la salida (re-evaluacion de individuos fijos);
+			// si no, se conserva la ruta historica.
+			if(outputDir != null && !outputDir.isEmpty()) {
+				parameters.set(new ec.util.Parameter("stat.file"), "$" + outputDir + "/evolution" + jobNum + "/Statistics.out");
+			} else {
+				parameters.set(new ec.util.Parameter("stat.file"), "$out/results/evaluation/Statistics.out");
+			}
 		}
 		// call super.startFresh() here at the end. It'll call setup() from the parameters
 		super.startFresh();
