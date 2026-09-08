@@ -310,7 +310,7 @@ ayud.-Investigacion/
 │   └── terminals/
 │       └── CplexTerminal.java            ← MODIFICADO
 ├── data/
-│   ├── evolution/        (36 instancias)
+│   ├── evolution/        (36 archivos; el experimento usa las primeras 8: experiment.max.instances=8)
 │   └── evaluation/       (10 instancias)
 ├── out/
 │   ├── baseline/         ← FASE 1 resultados

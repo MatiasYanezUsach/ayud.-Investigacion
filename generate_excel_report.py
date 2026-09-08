@@ -151,12 +151,23 @@ def parse_instance_name(instance_name):
     return {'tipo': 'Desconocido', 'info': name}
 
 def count_instances():
-    """Cuenta las instancias en data/evolution"""
+    """Cuenta las instancias que realmente usa el experimento.
+
+    data/evolution contiene 36 archivos, pero run_experiment.sh limita la evolución
+    con -p experiment.max.instances=N (PDPProblemEvo toma las primeras N). Se lee ese
+    valor para no reportar el tamaño de la carpeta como si fuera el del protocolo.
+    """
     evolution_path = "data/evolution"
+    available = 0
     if os.path.exists(evolution_path):
-        files = [f for f in os.listdir(evolution_path) if f.endswith('.txt')]
-        return len(files)
-    return 0
+        available = len([f for f in os.listdir(evolution_path) if f.endswith('.txt')])
+    if os.path.exists("run_experiment.sh"):
+        with open("run_experiment.sh") as f:
+            m = re.search(r'experiment\.max\.instances=(\d+)', f.read())
+        if m:
+            max_instances = int(m.group(1))
+            return min(max_instances, available) if available else max_instances
+    return available
 
 def read_baseline():
     """Lee el archivo de baseline por instancia"""
@@ -383,7 +394,7 @@ def generate_excel(group_num=None):
     row += 1
     ws_config.cell(row, 1).value = "Número de Instancias:"
     ws_config.cell(row, 2).value = f"{num_instances} instancias"
-    ws_config.cell(row, 3).value = "(Cada individuo se evalúa con todas las instancias)"
+    ws_config.cell(row, 3).value = "(Las primeras N de data/evolution según experiment.max.instances; cada individuo se evalúa con todas ellas)"
     row += 2
     
     # Fitness
