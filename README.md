@@ -1,56 +1,92 @@
-ECJ_PDP
+# Presupuesto de CPLEX en algoritmos híbridos generados por programación genética (VRPSPD)
 
-java -classpath "/home/nicolas_romero_f/ECJ_PDP/ecj:/home/nicolas_romero_f/ECJ_PDP/bin:/opt/ibm/ILOG/CPLEX_Studio201/cplex/lib/cplex.jar:./commons-math3-3.6.1.jar" -Djava.library.path="/opt/ibm/ILOG/CPLEX_Studio201/cplex/bin/x86-64_linux/" ec.Evolve -file src/model/params/pdp.params
+Código, datos, resultados crudos y reportes del experimento del trabajo de graduación de
+Matías Yáñez (Magíster en Ingeniería Informática, USACH; profesor guía: Víctor Parada).
 
-* Poner en -Djava.library.path= la ruta absoluta donde se ecuentra cplex studio instalado
+Pregunta: cómo influye el presupuesto de tiempo asignado a un componente exacto (IBM ILOG CPLEX),
+usado como terminal de un árbol de programación genética (ECJ), en la calidad y el costo de los
+algoritmos generados para el VRPSPD (ruteo con recogida y entrega simultáneas).
 
-Requisitos:
-- JAVA 11
-- JDK 11 (Kit de desarrollo java)
-- ECJ v21 (Plataforma basa en PG)
+Seis condiciones experimentales: `grupo0` = B0 (sin CPLEX), `grupo1` = B10, `grupo2` = B25,
+`grupo3` = B50, `grupo4` = B75, `grupo5` = B100 (porcentaje del tiempo base de resolución exacta
+por instancia). Cada condición: 5 ejecuciones independientes, 100 generaciones, población 50,
+8 instancias de la familia `3C_20` (Rieck y Zimmermann, 2013).
 
-Opcionales:
-- Graphviz 2.38 (Graficar arboles de texto en imagen)
-- IntelliJ IDEA(IDE para java)
+## Mapa del repositorio
 
+```
+.
+├── src/                    Código Java (ECJ): funciones, terminales, modelo VRPSPD, logger de CPLEX
+│   ├── functions/          Nodos de control del árbol (And, Or, IfThenElse, DoWhile, ...)
+│   ├── terminals/          Heurísticas y CplexTerminal
+│   └── model/              Problema, instancia, MILP (PDPInstance), CplexUsageLogger, params/
+├── ecj/                    Biblioteca ECJ (clases compiladas; va en el classpath)
+├── bin/                    Clases compiladas de src/ (salida de javac)
+├── lib/                    cplex.jar, cplex_2211.jar, commons-math3-3.6.1.jar
+├── data/
+│   ├── evolution/          36 instancias; el experimento usa las primeras 8 (experiment.max.instances=8)
+│   ├── evaluation/         10 instancias de evaluación
+│   └── legacy/             Instancias y resultados de proyectos anteriores (MISP, Dethloff, Salhi-Nagy, ...). No se usan.
+├── out/                    RESULTADOS CRUDOS DEL EXPERIMENTO (no regenerables)
+│   ├── baseline/           Tiempo de CPLEX puro por instancia (T_base)
+│   ├── results/grupoN/evolutionM/   Salida ECJ de cada ejecución (ver docs/GUIA_EXPERIMENTO_COMPLETA.md)
+│   ├── results/mejores_arboles/     Mejor árbol de cada grupo (.dot + .png)
+│   └── prueba_poblacion/   Prueba previa de tamaño de población (10 vs 100)
+├── reportes/               Excel derivados de out/ y gráficos
+│   ├── RESULTADOS_EXPERIMENTO_GRUPO0..5.xlsx, RESULTADOS_EXPERIMENTO_CONSOLIDADO.xlsx
+│   ├── TIEMPO_CPLEX_MEJOR_ALGORITMO_POR_GRUPO.xlsx, reporte_prueba_poblacion.xlsx
+│   └── graficos/{grupo0..5, comparativos, convergencia}/
+├── scripts/
+│   ├── windows/            .bat: run_experiment, run_baseline, run_prueba_poblacion, compile, test_*, convert_dots_to_png, load_env
+│   ├── linux/              .sh equivalentes
+│   └── analisis/           Python: generate_excel_report, generate_charts, generate_comparative_charts,
+│                           generate_consolidated_report, generate_best_algorithm_time_report, curva_convergencia*
+├── docs/                   Guías del experimento y notas históricas
+├── tools/graphviz-2.38/    Graphviz portable (render de árboles .dot)
+├── .env                    Rutas locales de CPLEX (CPLEX_LIB_PATH, CPLEX_JAR_PATH)
+└── requirements.txt        Dependencias Python
+```
 
+## Cómo ejecutar
 
-Configuración de ejecución:
-- Evolución:	java ec.Evolve -file src/model/params/misp.params
-- Evaluación:	java ec.Evolve -file src/model/params/misp.params -p eval.problem=model.PDPProblemEva -p pop.subpop.0.size=1 -p pop.subpop.0.extra-behavior=truncate -p pop.file=$out/results/evaluation/evaluatedjobs/ListBestIndividual.in -p jobs=1 -p generations=1
+Todos los scripts se invocan desde cualquier directorio: cada uno hace `cd` a la raíz del
+repositorio antes de trabajar, porque el código Java y los scripts Python usan rutas relativas
+a la raíz (`data/evolution`, `out/results`, `reportes/`).
 
-Otros:
-- Para cambiar la ubicación de los archivos de lectura (instancias) editar la ruta definida:
-Para evolución: en "src/model/MISProblemEvo.java:36", que por defecto: "Instacespath =  'data/evolution'"
-Para evolución: en "src/model/MISProblemEva.java:26", que por defecto: "Instacespath =  'data/evaluation'"		
-- El parámetro de evaluación "pop.subpop.0.size" debe ser de la cantidad exacta de individuos incluidos en el archivo "data/evaluation/BestIndividual.in"
-- Para modificar otros parámetros editar alguno de los archivos en "src/model/params/"
-- Para cambiar la ubicación de los archivos de salida (estadísticas) editar la ruta definida:
-Para evolución: en "src/model/MISProblemEvo.java:35", que por defecto: "Outputpath =  'out/results/evolution'"
-Para evolución: en "src/model/MISProblemEva.java:25", que por defecto: "Outputpath = 'out/results/evaluation/'"
+Requisitos: JDK 11, CPLEX Studio (22.1.x) con `.env` apuntando a su `cplex.jar` y a su carpeta
+de binarios nativos, Python 3 con `pip install -r requirements.txt`.
 
-	- Resultados o achivos de la estadísticas, por cada ejecución(donde se realicen mas de una ejecución,sea X un número de ejecución):
-		Proceso de Evolución, en la carpeta:[out/evolutionX/]
-			job.X.BestFitness.csv:			Hoja de calculo con el mejor fitness de cada genereación
-			job.X.BestIndividual.dot:		Arbol sintactico en formato dot del mejor individuo de la ejecucion.
-			job.X.BestIndividual.in:		Arbol sintáctico en formato in del mejor individuo de la ejecución
-			job.X.BestIndividual.png:		Arbol sintáctico en formato png del mejor individuo de la ejecución
-			job.X.Estadistica_Todos.csv:	Estadísticas(mejor fitness,fitness promedio,peor fitness,tamaño promedio, mayor tamaño, menor tamaño, altura promedio y mayor altura) de cada generación
-			job.X.EstadisticaProm&Mej.csv:	Estadísticas(Promedio: tamaño, ERL,ERP, fitness. Del mejor: tamaño, ERL, ERP, fitness) de cada generación
-			job.X.MISPResults.out:			Log de la ejecución con toda la información de la evolución
-			job.X.Semillas.csv:				Intento de guardar la semilla, sin éxito
-			job.X.Statistics.out:			Lista de arboles sintácticos en formato dot, de los mejores individuos de cada generación
-		
-		Proceso de Evaluación, en la carpeta:[out/evaluation/]
-			evaluatedjobs/:				Subcarpeta, contiene los arboles en formato dot y png, y estadísticas de todas las ejecuciones con sus generaciones sobre: ERP, ERL, fitness y tamaño.
-			ListBestIndividual.in:		Lista de los arboles sintácticos en formato in de los mejores individuos de todas las ejecuciones
-			BestIndividual.dot:			Arbol sintáctico en formato dot del mejor individuo de todas las ejecuciones
-			BestIndividual.in:			Arbol sintáctico en formato in del mejor individuo de todas las ejecuciones
-			BestIndividual.png:			Arbol sintáctico en formato png del mejor individuo de todas las ejecuciones
-			Estadistica_ResumenEva.csv:	Estadísticas(ERL,ERP,fitness evolución,fitness evaluación, número de nodos, profundidad,hits=optimos obtenidos,id de ejecución, tiempo de ejecución promedio) de todos los individuos evaluados
-			MISPResults.out:			Log de la ejecución de evaluación, con toda la información de la evaluación
-			Statistics.out:				Arbol sintáctico en formato dot del mejor individuo de todas las ejecuciones
-			
-			
-			
-			 -Djava.library.path=C:\Program Files\IBM\ILOG\CPLEX_Studio1271\cplex\bin\x64_win64\ -p eval.problem=model.PDPProblemEva -p pop.subpop.0.size=1 -p pop.subpop.0.extra-behavior=truncate -p pop.file=$out/results/evaluation/evaluatedjobs/ListBestIndividual.in -p jobs=1 -p generations=1
+```bat
+scripts\windows\compile.bat                     :: compila src/ en bin/
+scripts\windows\run_baseline.bat                :: FASE 1: T_base por instancia -> out/baseline/
+scripts\windows\run_experiment.bat 1 5          :: FASE 2: grupo 1 (B10), 5 ejecuciones -> out/results/grupo1/
+scripts\windows\run_experiment.bat all 5
+scripts\windows\convert_dots_to_png.bat         :: .dot -> .png en out/results/
+```
+
+Linux: los mismos comandos con `scripts/linux/*.sh`.
+
+Reportes (leen `out/`, escriben en `reportes/`):
+
+```bash
+python scripts/analisis/generate_excel_report.py 1          # Excel del grupo 1
+python scripts/analisis/generate_consolidated_report.py     # consolidado de los 6 grupos
+python scripts/analisis/generate_charts.py 1                # 8 gráficos del grupo 1
+python scripts/analisis/generate_comparative_charts.py      # 8 gráficos comparativos
+python scripts/analisis/generate_best_algorithm_time_report.py   # tiempos del mejor algoritmo por grupo
+python scripts/analisis/curva_convergencia_poblacion.py     # prueba de población
+```
+
+## Advertencias
+
+- `out/` es la evidencia primaria. No borrar ni regenerar: las semillas fueron `seed = time`, las corridas no se repiten.
+- La hoja `Configuración` de los Excel por grupo registra la máquina donde se ejecuta el script,
+  no la del experimento. Regenerarlos en otro equipo sobrescribe esos datos (la máquina real fue
+  Windows 10, AMD Ryzen 7 3700X, 32 GB). Los valores numéricos no cambian.
+- Cifras "por corrida" de CPLEX: usar siempre `job.M.CplexUsage.detailed.csv` (filas = llamadas,
+  suma de `TimeUsed` = tiempo). `job.M.CplexUsage.statistics.txt` acumula entre jobs de la misma JVM.
+- Numeración de generaciones: los Excel y la tesis van de 1 a 100; los archivos crudos de 0 a 99.
+- El experimento evaluó con `evalthreads = 6`; `CplexTerminal` y `CplexUsageLogger` usan estado
+  estático compartido. Limitación documentada en el Capítulo 5 del trabajo de graduación.
+
+Detalle de archivos de salida, fases y parámetros: `docs/GUIA_EXPERIMENTO_COMPLETA.md`.

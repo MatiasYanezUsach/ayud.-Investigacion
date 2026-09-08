@@ -1,5 +1,17 @@
-
+# IDE
 .idea/
-
-
 .settings/
+.atl/
+.github/java-upgrade/
+
+# Python
+__pycache__/
+*.pyc
+
+# JVM crash dumps
+hs_err_pid*.log
+replay_pid*.log
+
+# Salidas de prueba (test_rapido / test_evolution)
+out/test/
+out/test_evo/
