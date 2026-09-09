@@ -99,11 +99,11 @@ python scripts/analisis/curva_convergencia_poblacion.py     # prueba de poblaci�
 ## Advertencias
 
 - `out/` es la evidencia primaria. No borrar ni regenerar: las semillas fueron `seed = time`, las corridas no se repiten.
-- La hoja `Configuración` de los Excel por grupo registra la máquina donde se ejecuta el script,
-  no la del experimento. Regenerarlos en otro equipo sobrescribe esos datos (la máquina real fue
-  Windows 10, AMD Ryzen 7 3700X, 32 GB). Los valores numéricos no cambian.
+- La hoja `Configuración` de los Excel lleva la máquina del experimento fija en el script
+  (`EXPERIMENT_MACHINE`: Windows 10, AMD Ryzen 7 3700X, 32 GB). Regenerarlos en otro equipo es seguro.
 - Cifras "por corrida" de CPLEX: usar siempre `job.M.CplexUsage.detailed.csv` (filas = llamadas,
   suma de `TimeUsed` = tiempo). `job.M.CplexUsage.statistics.txt` acumula entre jobs de la misma JVM.
+  Los Excel de `reportes/` usan `detailed.csv` desde 2026-09-08; versiones anteriores traían valores inflados.
 - Numeración de generaciones: los Excel y la tesis van de 1 a 100; los archivos crudos de 0 a 99.
 - El experimento evaluó con `evalthreads = 6`; `CplexTerminal` y `CplexUsageLogger` usan estado
   estático compartido. Limitación documentada en el Capítulo 5 del trabajo de graduación.
