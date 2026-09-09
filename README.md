@@ -71,8 +71,8 @@ Linux: los mismos comandos con `scripts/linux/*.sh`.
 ### Re-evaluación de los 5 mejores algoritmos (pedido de Parada, 2026-09-08)
 
 ```bat
-scripts\windowsun_reeval_mejores.bat          :: los 5 algoritmos, uno tras otro
-scripts\windowsun_reeval_mejores.bat B50      :: solo uno
+scripts\windows\run_reeval_mejores.bat          :: los 5 algoritmos, uno tras otro
+scripts\windows\run_reeval_mejores.bat B50      :: solo uno
 ```
 
 Carga cada mejor individuo (`out/reeval_mejores/poblacion/Bxx_*.in`) como población fija de ECJ
