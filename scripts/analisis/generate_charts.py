@@ -170,11 +170,13 @@ def generate_charts(group_num=None):
     print("\n6. Creando gráfico: Distribución de Individuos Evaluados...")
     try:
         plt.figure(figsize=(12, 6))
-        plt.bar(df_stats['Ejecución'], df_stats['Individuos Evaluados'], 
-               color='steelblue', alpha=0.7)
+        # 'Individuos Evaluados' es constante (generaciones x poblacion); lo informativo es
+        # cuantos individuos invocaron el terminal exacto en cada ejecucion.
+        col = 'Individuos con llamadas CPLEX' if 'Individuos con llamadas CPLEX' in df_stats.columns else 'Individuos Evaluados'
+        plt.bar(df_stats['Ejecución'], df_stats[col], color='steelblue', alpha=0.7)
         plt.xlabel('Ejecución', fontsize=12)
-        plt.ylabel('Individuos Evaluados', fontsize=12)
-        plt.title('Distribución de Individuos Evaluados por Ejecución', fontsize=14, fontweight='bold')
+        plt.ylabel(col, fontsize=12)
+        plt.title(f'{col} por Ejecución', fontsize=14, fontweight='bold')
         plt.grid(axis='y', alpha=0.3)
         plt.tight_layout()
         plt.savefig(f"{output_dir}/06_individuos_evaluados.png", dpi=300, bbox_inches='tight')

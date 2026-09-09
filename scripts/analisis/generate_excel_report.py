@@ -17,6 +17,17 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, PatternFill
 from openpyxl.utils import get_column_letter
 
+# Maquina donde se ejecuto el experimento (fija; documentada en la tesis, Cap. 3).
+# Antes se detectaba la maquina donde corre ESTE script, lo que sobrescribia la hoja
+# Configuracion cada vez que se regeneraba el Excel en otro equipo.
+EXPERIMENT_MACHINE = {
+    "Sistema Operativo:": "Windows 10",
+    "Arquitectura:": "AMD64",
+    "Procesador:": "AMD Ryzen 7 3700X, 8 nucleos, 3,6 GHz (AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD)",
+    "Memoria RAM:": "32 GB",
+}
+EXPERIMENT_MACHINE_NOTE = "Datos de la maquina del experimento (fijos). No se detecta el equipo donde corre el script."
+
 def get_ram_info():
     """Obtiene información de RAM del sistema"""
     try:
@@ -173,6 +184,25 @@ def count_instances():
             return min(max_instances, available) if available else max_instances
     return available
 
+def protocol_instances(baseline, results_base_dir=None, executions=()):
+    """Nombres (con .txt) de las instancias realmente usadas por el protocolo.
+
+    Se toman de los registros de CPLEX de la primera ejecucion disponible; si no hay
+    (Grupo 0), las primeras N de data/evolution en orden alfabetico, con N = count_instances().
+    """
+    if results_base_dir:
+        for exec_num in executions:
+            summ = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.CplexUsage.summary.csv"
+            if os.path.exists(summ):
+                with open(summ, "r", encoding="utf-8") as f:
+                    names = sorted({r.get("Instance", "").strip() for r in csv.DictReader(f)} - {"", "null"})
+                if names:
+                    return [n for n in names if n in baseline]
+    n = count_instances()
+    names = sorted(f for f in os.listdir("data/evolution") if f.endswith(".txt"))[:n] if os.path.exists("data/evolution") else []
+    return [x for x in names if x in baseline]
+
+
 def read_baseline():
     """Lee el archivo de baseline por instancia"""
     baseline_file = "out/baseline/cplex_baseline_per_instance.csv"
@@ -202,8 +232,63 @@ def read_baseline():
     
     return baseline
 
+POP_SIZE = 50  # pop.subpop.0.size del protocolo (run_experiment)
+
+
+def compute_run_stats(results_base_dir, exec_num):
+    """Estadisticas de CPLEX de UNA ejecucion, calculadas desde los registros crudos.
+
+    No se usa job.M.CplexUsage.statistics.txt: sus contadores viven en un singleton que
+    NO se reinicia entre los jobs de la misma JVM, por lo que el job M acumula los jobs
+    0..M (valores ~3x inflados en promedio). Fuente valida: job.M.CplexUsage.detailed.csv
+    (una fila por llamada; TimeUsed = segundos de CPU de CPLEX).
+
+    individuos      = individuos evaluados en la corrida = generaciones x POP_SIZE
+                      (mismo criterio que el Grupo 0, que no tiene registros de CPLEX)
+    indiv_cplex     = individuos (generacion, id) con al menos una llamada a CPLEX
+    llamadas        = filas de detailed.csv
+    tiempo_total    = suma de TimeUsed (s, CPU)
+    prom_*_indiv    = llamadas o tiempo dividido por individuos evaluados
+    """
+    d = f"{results_base_dir}/evolution{exec_num}"
+    det = f"{d}/job.{exec_num}.CplexUsage.detailed.csv"
+    if not os.path.exists(det):
+        return None
+    llamadas = 0
+    tiempo = 0.0
+    inds = set()
+    with open(det, "r", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            llamadas += 1
+            tiempo += parse_float(r.get("TimeUsed", "0"))
+            inds.add((r.get("Generation"), r.get("Individual")))
+    gens = 0
+    pm = f"{d}/job.{exec_num}.EstadisticaProm&Mej.csv"
+    if os.path.exists(pm):
+        with open(pm, "r", encoding="latin-1") as f:
+            gens = sum(1 for _ in csv.DictReader(f, delimiter=";"))
+    individuos = gens * POP_SIZE if gens else 0
+    pct = 0.0
+    summ = f"{d}/job.{exec_num}.CplexUsage.summary.csv"
+    if os.path.exists(summ):
+        with open(summ, "r", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                pct = parse_float(r.get("BudgetPercentage", "0")) * 100.0
+                break
+    return {
+        "individuos": individuos,
+        "indiv_cplex": len(inds),
+        "llamadas": llamadas,
+        "tiempo_total": round(tiempo, 3),
+        "porcentaje": pct,
+        "prom_llamadas_indiv": round(llamadas / individuos, 3) if individuos else 0.0,
+        "prom_tiempo_indiv": round(tiempo / individuos, 3) if individuos else 0.0,
+    }
+
+
 def parse_statistics_file(stats_file):
-    """Parsea el archivo de estadísticas de CPLEX"""
+    """OBSOLETO: statistics.txt acumula entre jobs de la misma JVM. Se conserva solo por
+    compatibilidad; usar compute_run_stats()."""
     if not os.path.exists(stats_file):
         return None
     
@@ -353,17 +438,12 @@ def generate_excel(group_num=None):
     ws_config.cell(row, 1).value = "INFORMACIÓN DE LA MÁQUINA"
     ws_config.cell(row, 1).font = Font(bold=True)
     row += 1
-    ws_config.cell(row, 1).value = "Sistema Operativo:"
-    ws_config.cell(row, 2).value = platform.system() + " " + platform.release()
-    row += 1
-    ws_config.cell(row, 1).value = "Arquitectura:"
-    ws_config.cell(row, 2).value = platform.machine()
-    row += 1
-    ws_config.cell(row, 1).value = "Procesador:"
-    ws_config.cell(row, 2).value = platform.processor() if platform.processor() else "N/A"
-    row += 1
-    ws_config.cell(row, 1).value = "Memoria RAM:"
-    ws_config.cell(row, 2).value = get_ram_info()
+    for k, v in EXPERIMENT_MACHINE.items():
+        ws_config.cell(row, 1).value = k
+        ws_config.cell(row, 2).value = v
+        row += 1
+    ws_config.cell(row, 1).value = EXPERIMENT_MACHINE_NOTE
+    ws_config.cell(row, 1).font = Font(italic=True, color="666666")
     row += 2
     
     # Parámetros del algoritmo evolutivo
@@ -468,7 +548,14 @@ def generate_excel(group_num=None):
     row += 1
     
     if baseline:
-        times = list(baseline.values())
+        protocol = protocol_instances(baseline, results_base_dir, executions)
+        times = [baseline[i] for i in protocol] if protocol else list(baseline.values())
+        ws_summary.cell(row, 1).value = f"(sobre las {len(times)} instancias del protocolo)" if protocol else "(sobre todas las instancias del CSV)"
+        ws_summary.cell(row, 1).font = Font(italic=True, color="666666")
+        row += 1
+        ws_summary.cell(row, 1).value = "Total:"
+        ws_summary.cell(row, 2).value = f"{sum(times):.3f} segundos"
+        row += 1
         ws_summary.cell(row, 1).value = "Promedio:"
         ws_summary.cell(row, 2).value = f"{sum(times)/len(times):.3f} segundos"
         row += 1
@@ -494,8 +581,7 @@ def generate_excel(group_num=None):
     # Recopilar estadísticas de todas las ejecuciones
     all_stats = []
     for exec_num in executions:
-        stats_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
-        stats = parse_statistics_file(stats_file)
+        stats = compute_run_stats(results_base_dir, exec_num)
         if stats:
             all_stats.append(stats)
     
@@ -546,13 +632,19 @@ def generate_excel(group_num=None):
         row += 1
         ws_summary.cell(row, 1).value = "Total Individuos Evaluados:"
         ws_summary.cell(row, 2).value = total_indiv
-        ws_summary.cell(row, 3).value = "(Suma de todos los individuos evaluados en todas las ejecuciones)"
+        ws_summary.cell(row, 3).value = "(generaciones x poblacion, sumado sobre las ejecuciones)"
+        row += 1
+        ws_summary.cell(row, 1).value = "Individuos con llamadas a CPLEX:"
+        ws_summary.cell(row, 2).value = sum(s['indiv_cplex'] for s in all_stats)
+        ws_summary.cell(row, 3).value = "(individuos que invocaron el terminal exacto al menos una vez)"
         row += 1
         ws_summary.cell(row, 1).value = "Total Llamadas CPLEX:"
         ws_summary.cell(row, 2).value = total_calls
+        ws_summary.cell(row, 3).value = "(suma de las ejecuciones; fuente: CplexUsage.detailed.csv)"
         row += 1
         ws_summary.cell(row, 1).value = "Tiempo Total CPLEX:"
         ws_summary.cell(row, 2).value = f"{total_time:.2f} segundos"
+        ws_summary.cell(row, 3).value = "(CPU del solver, suma de las ejecuciones)"
         row += 1
         ws_summary.cell(row, 1).value = "Presupuesto CPLEX:"
         
@@ -660,7 +752,8 @@ def generate_excel(group_num=None):
     ws_baseline.cell(1, 1).font = Font(italic=True, color="0000FF")
     ws_baseline.cell(1, 1).alignment = Alignment(wrap_text=True)
     
-    headers = ["Instancia", "Tiempo Baseline (s)", "Tipo", "Clientes/Nodos", "Capacidad/Variante"]
+    headers = ["Instancia", "Tiempo Baseline (s)", "Tipo", "Clientes/Nodos", "Capacidad/Variante", "Usada en el protocolo"]
+    protocol_set = set(protocol_instances(baseline, results_base_dir, executions))
     for col, header in enumerate(headers, 1):
         cell = ws_baseline.cell(2, col)
         cell.value = header
@@ -673,6 +766,7 @@ def generate_excel(group_num=None):
     row = 3
     for instance, time in sorted_baseline:
         ws_baseline.cell(row, 1).value = instance
+        ws_baseline.cell(row, 6).value = "Si" if instance in protocol_set else "No"
         cell_time = ws_baseline.cell(row, 2)
         cell_time.value = float(time)  # Asegurar que sea float
         cell_time.number_format = '0.000000'  # Formato con 6 decimales
@@ -708,13 +802,17 @@ def generate_excel(group_num=None):
     ws_stats = wb.create_sheet("Estadísticas por Ejecución")
     
     # Nota explicativa
-    ws_stats.cell(1, 1).value = "NOTA IMPORTANTE: 'Individuos Evaluados' = Total acumulado de individuos evaluados durante TODA la ejecución (100 generaciones). NO es el tamaño de población (que es 50). 'Llamadas CPLEX' = Total de llamadas a CPLEX durante toda la ejecución. 'Tiempo Total' = Tiempo total en segundos usado por CPLEX en toda la ejecución."
-    ws_stats.merge_cells(f'A1:F1')
+    ws_stats.cell(1, 1).value = ("NOTA: valores POR EJECUCION calculados desde job.M.CplexUsage.detailed.csv (una fila por llamada). "
+                                 "'Individuos Evaluados' = generaciones x poblacion (100 x 50 = 5000). 'Individuos con llamadas CPLEX' = individuos que invocaron el terminal exacto al menos una vez. "
+                                 "'Llamadas CPLEX (Total)' = filas del registro. 'Tiempo Total CPLEX (s)' = suma de TimeUsed (CPU del solver, ClockType=1, Threads=2). "
+                                 "Los promedios por individuo dividen por los individuos evaluados. "
+                                 "NO se usa job.M.CplexUsage.statistics.txt: acumula entre los jobs de la misma JVM (valores inflados en versiones anteriores de este Excel).")
+    ws_stats.merge_cells(f'A1:G1')
     ws_stats.cell(1, 1).font = Font(italic=True, color="0000FF")
     ws_stats.cell(1, 1).alignment = Alignment(wrap_text=True)
     
-    headers = ["Ejecución", "Individuos Evaluados", "Llamadas CPLEX (Total)", "Tiempo Total CPLEX (s)", 
-               "Prom. Llamadas/Indiv", "Prom. Tiempo/Indiv (s)"]
+    headers = ["Ejecución", "Individuos Evaluados", "Llamadas CPLEX (Total)", "Tiempo Total CPLEX (s)",
+               "Prom. Llamadas/Indiv", "Prom. Tiempo/Indiv (s)", "Individuos con llamadas CPLEX"]
     for col, header in enumerate(headers, 1):
         cell = ws_stats.cell(2, col)
         cell.value = header
@@ -723,8 +821,7 @@ def generate_excel(group_num=None):
     
     row = 3
     for exec_num in executions:
-        stats_file = f"{results_base_dir}/evolution{exec_num}/job.{exec_num}.CplexUsage.statistics.txt"
-        stats = parse_statistics_file(stats_file)
+        stats = compute_run_stats(results_base_dir, exec_num)
         if stats:
             ws_stats.cell(row, 1).value = exec_num
             ws_stats.cell(row, 2).value = stats['individuos']
@@ -732,6 +829,7 @@ def generate_excel(group_num=None):
             ws_stats.cell(row, 4).value = stats['tiempo_total']
             ws_stats.cell(row, 5).value = stats['prom_llamadas_indiv']
             ws_stats.cell(row, 6).value = stats['prom_tiempo_indiv']
+            ws_stats.cell(row, 7).value = stats['indiv_cplex']
             row += 1
     
     for col in range(1, len(headers) + 1):

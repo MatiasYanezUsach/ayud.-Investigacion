@@ -9,6 +9,17 @@ os.chdir(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__))
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
+
+# Maquina donde se ejecuto el experimento (fija; documentada en la tesis, Cap. 3).
+# Antes se detectaba la maquina donde corre ESTE script, lo que sobrescribia la hoja
+# Configuracion cada vez que se regeneraba el Excel en otro equipo.
+EXPERIMENT_MACHINE = {
+    "Sistema Operativo:": "Windows 10",
+    "Arquitectura:": "AMD64",
+    "Procesador:": "AMD Ryzen 7 3700X, 8 nucleos, 3,6 GHz (AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD)",
+    "Memoria RAM:": "32 GB",
+}
+EXPERIMENT_MACHINE_NOTE = "Datos de la maquina del experimento (fijos). No se detecta el equipo donde corre el script."
 import os
 import platform
 
@@ -202,17 +213,12 @@ def generate_consolidated_excel():
     ws_config.cell(row, 1).value = "INFORMACIÓN DE LA MÁQUINA"
     ws_config.cell(row, 1).font = Font(bold=True)
     row += 1
-    ws_config.cell(row, 1).value = "Sistema Operativo:"
-    ws_config.cell(row, 2).value = platform.system() + " " + platform.release()
-    row += 1
-    ws_config.cell(row, 1).value = "Arquitectura:"
-    ws_config.cell(row, 2).value = platform.machine()
-    row += 1
-    ws_config.cell(row, 1).value = "Procesador:"
-    ws_config.cell(row, 2).value = platform.processor() if platform.processor() else "N/A"
-    row += 1
-    ws_config.cell(row, 1).value = "Memoria RAM:"
-    ws_config.cell(row, 2).value = get_ram_info()
+    for k, v in EXPERIMENT_MACHINE.items():
+        ws_config.cell(row, 1).value = k
+        ws_config.cell(row, 2).value = v
+        row += 1
+    ws_config.cell(row, 1).value = EXPERIMENT_MACHINE_NOTE
+    ws_config.cell(row, 1).font = Font(italic=True, color="666666")
     row += 2
     
     ws_config.cell(row, 1).value = "GRUPOS EXPERIMENTALES"
