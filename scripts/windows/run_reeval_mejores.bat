@@ -38,12 +38,21 @@ REM   evaluacion  data/evaluation, offset 0, las 10 instancias reservadas, que
 REM               nunca entraron en la evolucion.
 REM               Baseline total de CPLEX: 10.977,6 s (3,05 h).
 REM               Salida: out\reeval_mejores\evaluacion\[Bxx]\
+REM   todas       data/evolution, offset 0, sin tope: las 36 instancias de la
+REM               carpeta de evolucion, o sea protocolo mas restantes juntos.
+REM               Baseline total de CPLEX: 42.931,5 s (11,93 h). Es casi el
+REM               mismo que el de restantes porque las 8 del protocolo aportan
+REM               solo 581,7 s; el costo lo dominan SCA3-5 y CON3-0.
+REM               Salida: out\reeval_mejores\todas\[Bxx]\
 REM
 REM ADVERTENCIA DE COSTO: el conjunto protocolo son unos 10 minutos para los 5
-REM algoritmos. Con restantes, el algoritmo B100 gasta el 100 % del tiempo base
-REM de cada instancia, asi que su peor caso es del orden de esas 11,8 horas de
-REM CPU en CPLEX, dominadas por SCA3-5 y CON3-0. Convienen corridas de un solo
-REM algoritmo (primer argumento) antes que los 5 de una vez.
+REM algoritmos. Con restantes o con todas, el algoritmo B100 gasta el 100 % del
+REM tiempo base de cada instancia, asi que su peor caso es del orden de esas
+REM 11,8 o 11,9 horas de CPU en CPLEX, dominadas por SCA3-5 y CON3-0. Si ademas
+REM se corren los 5 algoritmos de una vez, los presupuestos se suman
+REM (0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base): sobre todas
+REM el peor caso llega a unos 111.600 s, cerca de 31 horas. Convienen corridas
+REM de un solo algoritmo (primer argumento) antes que los 5 de una vez.
 REM
 REM Salida cruda (en la carpeta del conjunto):
 REM   MISPResults.out               tiempo de pared (ms) por instancia, costo, ERP, hits
@@ -55,6 +64,11 @@ REM Uso:  scripts\windows\run_reeval_mejores.bat                  (los 5, protoc
 REM       scripts\windows\run_reeval_mejores.bat B50              (solo uno, protocolo)
 REM       scripts\windows\run_reeval_mejores.bat B100 restantes   (uno, otro conjunto)
 REM       scripts\windows\run_reeval_mejores.bat "" evaluacion    (los 5, otro conjunto)
+REM       scripts\windows\run_reeval_mejores.bat "" todas         (los 5, las 36)
+REM
+REM El primer argumento solo admite B10, B25, B50, B75 o B100, o vacio para los
+REM 5. B0 no es una etiqueta valida: el grupo 0 es la condicion sin CPLEX, no
+REM tiene arbol re-evaluable ni presupuesto que medir.
 REM ================================================================
 
 call "%~dp0load_env.bat"
@@ -67,6 +81,21 @@ set "ONLY=%~1"
 set "CONJUNTO=%~2"
 if not defined CONJUNTO set "CONJUNTO=%REEVAL_CONJUNTO%"
 if not defined CONJUNTO set "CONJUNTO=protocolo"
+
+REM Validacion temprana de la etiqueta de algoritmo. Sin esto, una etiqueta que
+REM no existe hace que los 5 call :run salgan en silencio por el filtro y el
+REM script anuncie COMPLETADO sin haber evaluado nada.
+set "ETIQUETA_OK="
+if not defined ONLY set "ETIQUETA_OK=1"
+for %%E in (B10 B25 B50 B75 B100) do if /I "%ONLY%"=="%%E" set "ETIQUETA_OK=1"
+if not defined ETIQUETA_OK (
+    echo ERROR: etiqueta de algoritmo desconocida "%ONLY%".
+    echo Etiquetas validas: B10, B25, B50, B75, B100.
+    echo B0 no aplica: el grupo 0 es la condicion sin CPLEX, no tiene arbol
+    echo   re-evaluable ni presupuesto que medir.
+    echo Para correr los 5, deje el primer argumento vacio: "" seguido del conjunto.
+    exit /b 1
+)
 
 REM Traduccion del conjunto a parametros de ECJ y a carpeta de salida.
 REM El conjunto protocolo conserva la ruta out\reeval_mejores\[Bxx] porque
@@ -96,9 +125,17 @@ if /I "%CONJUNTO%"=="evaluacion" (
     set "OUTDIR=out/reeval_mejores/evaluacion"
     set "REPORTE=0"
 )
+if /I "%CONJUNTO%"=="todas" (
+    set "INST_PATH=data/evolution"
+    set "INST_OFFSET=0"
+    set "INST_MAX=-1"
+    set "OUT=out\reeval_mejores\todas"
+    set "OUTDIR=out/reeval_mejores/todas"
+    set "REPORTE=0"
+)
 if not defined INST_PATH (
     echo ERROR: conjunto desconocido "%CONJUNTO%".
-    echo Conjuntos validos: protocolo, restantes, evaluacion.
+    echo Conjuntos validos: protocolo, restantes, evaluacion, todas.
     exit /b 1
 )
 
@@ -119,9 +156,31 @@ echo RE-EVALUACION DE LOS MEJORES ALGORITMOS POR CONDICION
 echo Conjunto: %CONJUNTO%  (%INST_PATH%, offset %INST_OFFSET%, max %INST_MAX%)
 echo Salida:   %OUT%\[Bxx]\evolution0\
 echo ================================================================
+REM Advertencia de costo para los conjuntos que incluyen las instancias grandes.
+REM Con los 5 algoritmos los presupuestos se suman: 0,10 + 0,25 + 0,50 + 0,75 +
+REM 1,00 = 2,60 veces el tiempo base de CPLEX.
+set "AVISO="
+set "AVISO5="
 if /I "%CONJUNTO%"=="restantes" (
-    echo ADVERTENCIA: 28 instancias, baseline total 42.349,9 s (11,76 h^).
-    echo   Con B100 el peor caso es de ese orden. SCA3-5 y CON3-0 son 9,4 h.
+    set "AVISO=28 instancias, baseline total de CPLEX 42.349,9 s, o sea 11,76 h"
+    set "AVISO5=110.100 s, unas 30,6 horas"
+)
+if /I "%CONJUNTO%"=="todas" (
+    set "AVISO=36 instancias, baseline total de CPLEX 42.931,5 s, o sea 11,93 h"
+    set "AVISO5=111.600 s, unas 31 horas"
+)
+if defined AVISO (
+    echo ADVERTENCIA: %AVISO%.
+    echo   Lo dominan SCA3-5 con 23.971,8 s (6,7 h^) y CON3-0 con 9.757,1 s (2,7 h^).
+    if defined ONLY (
+        echo   Con un solo algoritmo el peor caso es B100, que dispone del 100 %% del
+        echo   tiempo base de cada instancia: del orden de ese mismo total.
+    ) else (
+        echo   Se van a correr los 5 algoritmos y los presupuestos se suman
+        echo   (0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base^), asi que
+        echo   el peor caso es del orden de %AVISO5% de CPU en CPLEX.
+        echo   Conviene correr un algoritmo a la vez.
+    )
 )
 
 call :run B10  0.10 B10_grupo1_ejec2_gen16
