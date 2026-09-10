@@ -2,8 +2,19 @@
 # Ejecutar siempre desde la raiz del repositorio (dos niveles arriba de scripts/linux)
 cd "$(dirname "$0")/../.." || exit 1
 # ================================================================
-# RE-EVALUACION DE LOS 5 MEJORES ALGORITMOS (uno por condicion hibrida)
+# RE-EVALUACION DE LOS 6 MEJORES ALGORITMOS (uno por condicion experimental)
 # Ver la cabecera de scripts/windows/run_reeval_mejores.bat para el diseno.
+#
+# Se cubren las seis condiciones del experimento: B0 (grupo 0, control sin
+# CPLEX) mas las cinco hibridas B10, B25, B50, B75 y B100.
+#
+# B0 es la condicion de control: su arbol se re-evalua igual que los otros,
+# pero con presupuesto 0,00, o sea sin componente exacto. Sirve de linea base
+# en ERP y hits contra la cual se comparan las cinco hibridas. Como el
+# presupuesto es cero, PDPProblemEvo no inicializa el CplexUsageLogger, asi
+# que la corrida de B0 NO genera CplexUsage.detailed.csv ni
+# CplexUsage.summary.csv: solo MISPResults.out. Eso es lo esperado, no una
+# falla.
 #
 # CONJUNTOS DE INSTANCIAS (segundo argumento, o la variable REEVAL_CONJUNTO):
 #   protocolo   DEFECTO. data/evolution, offset 0, 8 instancias: la familia
@@ -27,23 +38,24 @@ cd "$(dirname "$0")/../.." || exit 1
 #               solo 581,7 s; el costo lo dominan SCA3-5 y CON3-0.
 #               Salida: out/reeval_mejores/todas/[Bxx]/
 #
-# ADVERTENCIA DE COSTO: el conjunto protocolo son unos 10 minutos para los 5
+# ADVERTENCIA DE COSTO: el conjunto protocolo son unos 10 minutos para los 6
 # algoritmos. Con restantes o con todas, el algoritmo B100 gasta el 100 % del
 # tiempo base de cada instancia, asi que su peor caso es del orden de esas
 # 11,8 o 11,9 horas de CPU en CPLEX, dominadas por SCA3-5 y CON3-0. Si ademas
-# se corren los 5 algoritmos de una vez, los presupuestos se suman
-# (0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base): sobre todas
-# el peor caso llega a unos 111.600 s, cerca de 31 horas. Convienen corridas
-# de un solo algoritmo (primer argumento) antes que los 5 de una vez.
+# se corren los 6 algoritmos de una vez, los presupuestos se suman
+# (0,00 + 0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base; B0
+# aporta 0 porque no usa CPLEX): sobre todas el peor caso llega a unos
+# 111.600 s, cerca de 31 horas, el mismo total de antes de agregar B0.
+# Convienen corridas de un solo algoritmo (primer argumento) antes que los 6
+# de una vez.
 #
 # El reporte Excel (reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx) solo cubre
 # el conjunto protocolo; para los otros quedan los crudos.
 #
-# El primer argumento solo admite B10, B25, B50, B75 o B100, o vacio para los
-# 5. B0 no es una etiqueta valida: el grupo 0 es la condicion sin CPLEX, no
-# tiene arbol re-evaluable ni presupuesto que medir.
+# El primer argumento solo admite B0, B10, B25, B50, B75 o B100, o vacio para
+# los 6.
 #
-# Uso: ./scripts/linux/run_reeval_mejores.sh [B10|B25|B50|B75|B100] [conjunto]
+# Uso: ./scripts/linux/run_reeval_mejores.sh [B0|B10|B25|B50|B75|B100] [conjunto]
 #      ./scripts/linux/run_reeval_mejores.sh "" restantes
 #      ./scripts/linux/run_reeval_mejores.sh "" todas
 # ================================================================
@@ -56,16 +68,14 @@ ONLY="$1"
 CONJUNTO="${2:-${REEVAL_CONJUNTO:-protocolo}}"
 
 # Validacion temprana de la etiqueta de algoritmo. Sin esto, una etiqueta que
-# no existe hace que las 5 llamadas a run salgan en silencio por el filtro y el
+# no existe hace que las 6 llamadas a run salgan en silencio por el filtro y el
 # script termine sin haber evaluado nada.
 case "$ONLY" in
-    ""|B10|B25|B50|B75|B100) ;;
+    ""|B0|B10|B25|B50|B75|B100) ;;
     *)
         echo "ERROR: etiqueta de algoritmo desconocida \"$ONLY\"."
-        echo "Etiquetas validas: B10, B25, B50, B75, B100."
-        echo "B0 no aplica: el grupo 0 es la condicion sin CPLEX, no tiene arbol"
-        echo "  re-evaluable ni presupuesto que medir."
-        echo "Para correr los 5, deje el primer argumento vacio: \"\" seguido del conjunto."
+        echo "Etiquetas validas: B0, B10, B25, B50, B75, B100."
+        echo "Para correr los 6, deje el primer argumento vacio: \"\" seguido del conjunto."
         exit 1
         ;;
 esac
@@ -105,8 +115,9 @@ echo
 echo "Conjunto: $CONJUNTO ($INST_PATH, offset $INST_OFFSET, max $INST_MAX)"
 echo "Salida:   $OUT/[Bxx]/evolution0/"
 # Advertencia de costo para los conjuntos que incluyen las instancias grandes.
-# Con los 5 algoritmos los presupuestos se suman: 0,10 + 0,25 + 0,50 + 0,75 +
-# 1,00 = 2,60 veces el tiempo base de CPLEX.
+# Con los 6 algoritmos los presupuestos se suman: 0,10 + 0,25 + 0,50 + 0,75 +
+# 1,00 = 2,60 veces el tiempo base de CPLEX. B0 no entra en esa suma porque
+# corre sin componente exacto, asi que agregarlo no cambia las cifras.
 AVISO=""
 AVISO5=""
 case "$CONJUNTO" in
@@ -125,8 +136,11 @@ if [ -n "$AVISO" ]; then
     if [ -n "$ONLY" ]; then
         echo "  Con un solo algoritmo el peor caso es B100, que dispone del 100 % del"
         echo "  tiempo base de cada instancia: del orden de ese mismo total."
+        echo "  B0 es la excepcion: si el elegido es B0, no usa CPLEX y no suma"
+        echo "  tiempo de solver."
     else
-        echo "  Se van a correr los 5 algoritmos y los presupuestos se suman"
+        echo "  Se van a correr los 6 algoritmos, pero solo 5 tienen presupuesto: B0"
+        echo "  corre sin CPLEX y aporta 0. Los presupuestos se suman"
         echo "  (0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base), asi que"
         echo "  el peor caso es del orden de $AVISO5 de CPU en CPLEX."
         echo "  Conviene correr un algoritmo a la vez."
@@ -157,6 +171,8 @@ run() {
         || echo "ERROR: fallo la evaluacion de $LABEL"
 }
 
+# B0 es el control: presupuesto 0,00, sin CPLEX. Solo deja MISPResults.out.
+run B0   0.00 B0_grupo0_ejec1_gen50
 run B10  0.10 B10_grupo1_ejec2_gen16
 run B25  0.25 B25_grupo2_ejec1_gen48
 run B50  0.50 B50_grupo3_ejec4_gen53

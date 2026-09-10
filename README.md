@@ -33,7 +33,7 @@ por instancia). Cada condición: 5 ejecuciones independientes, 100 generaciones,
 │   ├── results/grupoN/evolutionM/   Salida ECJ de cada ejecución (ver docs/GUIA_EXPERIMENTO_COMPLETA.md)
 │   ├── results/mejores_arboles/     Mejor árbol de cada grupo (.dot + .png)
 │   ├── prueba_poblacion/   Prueba previa de tamaño de población (10 vs 100)
-│   └── reeval_mejores/     Re-evaluación de los 5 mejores algoritmos (poblacion/*.in + salida por condición)
+│   └── reeval_mejores/     Re-evaluación de los 6 mejores algoritmos (poblacion/*.in + salida por condición)
 ├── reportes/               Excel derivados de out/ y gráficos
 │   ├── RESULTADOS_EXPERIMENTO_GRUPO0..5.xlsx, RESULTADOS_EXPERIMENTO_CONSOLIDADO.xlsx
 │   ├── TIEMPO_CPLEX_MEJOR_ALGORITMO_POR_GRUPO.xlsx, reporte_prueba_poblacion.xlsx
@@ -68,14 +68,15 @@ scripts\windows\convert_dots_to_png.bat         :: .dot -> .png en out/results/
 
 Linux: los mismos comandos con `scripts/linux/*.sh`.
 
-### Re-evaluación de los 5 mejores algoritmos (pedido de Parada, 2026-09-08)
+### Re-evaluación de los 6 mejores algoritmos (pedido de Parada, 2026-09-08)
 
 ```bat
-scripts\windows\run_reeval_mejores.bat                  :: los 5 algoritmos, conjunto protocolo
+scripts\windows\run_reeval_mejores.bat                  :: los 6 algoritmos, conjunto protocolo
+scripts\windows\run_reeval_mejores.bat B0               :: solo el control, conjunto protocolo
 scripts\windows\run_reeval_mejores.bat B50              :: solo uno, conjunto protocolo
 scripts\windows\run_reeval_mejores.bat B100 restantes   :: un algoritmo, otro conjunto
-scripts\windows\run_reeval_mejores.bat "" evaluacion    :: los 5, otro conjunto
-scripts\windows\run_reeval_mejores.bat "" todas         :: los 5, las 36 de evolution
+scripts\windows\run_reeval_mejores.bat "" evaluacion    :: los 6, otro conjunto
+scripts\windows\run_reeval_mejores.bat "" todas         :: los 6, las 36 de evolution
 ```
 
 Carga cada mejor individuo (`out/reeval_mejores/poblacion/Bxx_*.in`) como población fija de ECJ
@@ -83,9 +84,28 @@ Carga cada mejor individuo (`out/reeval_mejores/poblacion/Bxx_*.in`) como poblac
 `evalthreads=1` y una JVM por algoritmo (sin el estado compartido que el Cap. 5 declara como
 limitación). El reporte `reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx` lo genera
 `scripts/analisis/generate_reeval_mejores_report.py` (tiempo de CPLEX y tiempo de pared por
-instancia y por algoritmo, total de los 5, comparación con el experimento original).
-`out/reeval_mejores/poblacion/mejores_5_algoritmos.in` trae los 5 en un solo archivo por si se
-quiere evaluarlos juntos bajo un mismo presupuesto (`pop.subpop.0.size=5`).
+instancia y por algoritmo, total de los 5 híbridos, comparación con el experimento original).
+`out/reeval_mejores/poblacion/mejores_5_algoritmos.in` trae los 5 híbridos en un solo archivo por si
+se quiere evaluarlos juntos bajo un mismo presupuesto (`pop.subpop.0.size=5`); no incluye B0.
+
+**B0, la condición de control.** `out/reeval_mejores/poblacion/B0_grupo0_ejec1_gen50.in` es el mejor
+árbol del grupo 0, copiado de `out/results/grupo0/evolution0/job.0.BestIndividual.in`. El grupo 0 sí
+tiene árbol re-evaluable; lo que no tiene es tiempo de CPLEX que medir, porque su presupuesto es
+cero por definición. Su fitness es 0,021640042 con 0 hits, empatado entre `evolution0` y
+`evolution4`; el empate se resuelve por criterio determinista quedándose con la primera ejecución,
+`evolution0`, o sea `ejec1`. El `gen50` sale de `job.0.EstadisticaProm&Mej.csv`: es la primera
+generación en que el mejor fitness llega a ese valor (generación 49 en la numeración de 0 a 99 de
+`BestFitness.csv` y de `Statistics.out`), la misma convención que usan los otros cinco nombres. El
+árbol no contiene ningún `CplexTerminal`, como corresponde a la condición sin componente exacto.
+
+Corre con `gp.fs.0.func.6.cplex-budget=0.00`. Con presupuesto cero, `PDPProblemEvo` no inicializa el
+`CplexUsageLogger`, así que la corrida de B0 **no genera** `CplexUsage.detailed.csv` ni
+`CplexUsage.summary.csv`: deja solo `MISPResults.out`. Eso es lo esperado, no una falla. B0 tampoco
+consume tiempo de solver, así que agregarlo no cambia las cifras de costo de más abajo.
+
+Sirve como línea base: es el algoritmo sin componente exacto contra el cual se comparan en ERP y en
+hits las cinco condiciones híbridas, y permite separar cuánto del desempeño viene de las heurísticas
+generadas y cuánto del presupuesto de CPLEX.
 
 **Conjuntos de instancias.** El segundo argumento (o la variable `REEVAL_CONJUNTO`) elige contra
 qué instancias se re-evalúa. En Linux es igual: `./scripts/linux/run_reeval_mejores.sh B100 restantes`.
@@ -101,20 +121,20 @@ qué instancias se re-evalúa. En Linux es igual: `./scripts/linux/run_reeval_me
 `generate_reeval_mejores_report.py` la lee tal cual; los otros tres escriben en subcarpetas propias
 para no pisar esos crudos y hoy no entran en el Excel.
 
-El primer argumento solo admite `B10`, `B25`, `B50`, `B75` o `B100`, o vacío para correr los cinco;
-cualquier otra cosa corta con código 1. `B0` no es una etiqueta válida: el grupo 0 es la condición
-sin CPLEX, no tiene árbol re-evaluable ni presupuesto que medir.
+El primer argumento solo admite `B0`, `B10`, `B25`, `B50`, `B75` o `B100`, o vacío para correr los
+seis; cualquier otra cosa corta con código 1.
 
-**Costo.** El baseline total de CPLEX del conjunto `protocolo` es 581,7 s: los 5 algoritmos toman
+**Costo.** El baseline total de CPLEX del conjunto `protocolo` es 581,7 s: los 6 algoritmos toman
 unos 10 minutos. El de `restantes` es 42.349,9 s (11,76 h), y dos instancias concentran el gasto:
 `SCA3-5` con 23.971,8 s (6,7 h) y `CON3-0` con 9.757,1 s (2,7 h), 9,4 de las 11,8 horas entre las
 dos. El de `evaluacion` es 10.977,6 s (3,05 h). El de `todas` es 42.931,5 s (11,93 h), casi el mismo
 que el de `restantes` porque las 8 del protocolo aportan solo 581,7 s. Como B100 dispone del 100 %
 del tiempo base de cada instancia, su peor caso sobre `restantes` o sobre `todas` es de ese orden de
-magnitud en CPU de CPLEX. Con los cinco algoritmos los presupuestos se suman
-(0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base), así que `todas` con los cinco llega
-a unos 111.600 s, cerca de 31 horas; conviene correr un algoritmo a la vez. Los scripts avisan por
-consola antes de empezar y distinguen el caso de un solo algoritmo del de los cinco.
+magnitud en CPU de CPLEX. Con los seis algoritmos los presupuestos se suman
+(0,10 + 0,25 + 0,50 + 0,75 + 1,00 = 2,60 veces el tiempo base; B0 aporta 0 porque no usa CPLEX), así
+que `todas` con los seis llega a unos 111.600 s, cerca de 31 horas, el mismo total de antes de
+agregar B0; conviene correr un algoritmo a la vez. Los scripts avisan por consola antes de empezar y
+distinguen el caso de un solo algoritmo del de los seis.
 
 **Parámetros nuevos** (los lee `PDPProblemEvo.setup()`; sirven para cualquier corrida, no solo la
 re-evaluación):
