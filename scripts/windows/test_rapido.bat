@@ -6,9 +6,9 @@ echo    PRUEBA RAPIDA DEL EXPERIMENTO
 echo ========================================
 echo.
 
-REM Configurar rutas (AJUSTAR SEGUN TU INSTALACION)
-set CPLEX_LIB_PATH=C:\Program Files\IBM\ILOG\CPLEX_Studio_Community2212\cplex\bin\x64_win64
-set CPLEX_JAR_PATH=C:\Program Files\IBM\ILOG\CPLEX_Studio_Community2212\cplex\lib\cplex.jar
+REM Configurar rutas desde .env (igual que el resto de los scripts)
+call "%~dp0load_env.bat"
+set "CPLEX_JAR_PATH=%CPLEX_JAR%"
 
 echo [1/4] Verificando rutas de CPLEX...
 if not exist "%CPLEX_LIB_PATH%" (

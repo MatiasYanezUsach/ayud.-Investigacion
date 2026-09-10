@@ -8,6 +8,7 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -25,7 +26,17 @@ public class FileIO {
 
 	public static void readInstances(ArrayList<PDPData> data, String path_folder) throws IOException {//Metodo que lee todas las instancias de una carpeta
 		final File folder = new File(path_folder);
-		for (final File fileEntry : folder.listFiles()) {//recorre los files de la carpeta folder
+		final File[] entries = folder.listFiles();
+		if (entries == null) {//la carpeta no existe, no es carpeta o no se puede leer
+			throw new IOException("No se pudo listar la carpeta de instancias: " + folder.getAbsolutePath()
+					+ " (no existe, no es una carpeta o no hay permisos de lectura)");
+		}
+		//File.listFiles() no garantiza ningun orden: en Windows sale alfabetico de facto y ese fue el
+		//orden con que se corrio el experimento publicado (las 8 primeras de data/evolution). Ordenar
+		//por nombre no cambia esa seleccion; la vuelve reproducible en cualquier sistema de archivos
+		//y le da un significado estable a experiment.instances.offset.
+		Arrays.sort(entries, Comparator.comparing(File::getName));
+		for (final File fileEntry : entries) {//recorre los files de la carpeta folder
 			if (fileEntry.isDirectory()) {
 				readInstances(data, fileEntry.getPath());
 			} else {

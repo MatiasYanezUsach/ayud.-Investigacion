@@ -88,26 +88,61 @@ public class PDPProblemEvo extends GPProblem implements SimpleProblemForm {
             Outputpath = "out/results/evolution";
         }
 
+        // Conjunto de instancias: carpeta, cuántas se saltan y cuántas se usan.
+        // Sin estos parámetros el comportamiento es el del experimento publicado
+        // (data/evolution, offset 0), así que las corridas antiguas no cambian.
+        String instancesPath = state.parameters.getStringWithDefault(
+            new Parameter("experiment.instances.path"), null, Instacespath);
+        if (instancesPath != null && !instancesPath.trim().isEmpty()) {
+            Instacespath = instancesPath.trim();
+        }
+        int instancesOffset = state.parameters.getIntWithDefault(
+            new Parameter("experiment.instances.offset"), null, 0);
+        // experiment.max.instances se conserva, pero ahora cuenta a partir del offset
+        int maxInst = state.parameters.getIntWithDefault(
+            new Parameter("experiment.max.instances"), null, -1);
+
         //Se Lee la instancia desde archivo
         System.out.println("Obteniendo instancias de prueba...");
+        System.out.println("Carpeta de instancias: " + Instacespath
+            + " (offset=" + instancesOffset
+            + ", max=" + (maxInst > 0 ? String.valueOf(maxInst) : "todas") + ")");
+        data = new ArrayList<PDPData>();//DATA
         try {
             File evofolder = new File(Outputpath+PDPProblemEvo.JOB_NUMBER+"/");//carpeta de archivos de la evolución
             evofolder.mkdirs(); // Crear directorios padres si no existen
             RESULTS_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/"+RESULTS_namefile);
             DOT_FILE = FileIO.newLog(state.output, Outputpath+PDPProblemEvo.JOB_NUMBER+"/job."+PDPProblemEvo.JOB_NUMBER+"."+DOT_namefile);
-            data = new ArrayList<PDPData>();//DATA
             FileIO.readInstances(data, Instacespath);
-            // Limitar número de instancias si se especifica experiment.max.instances
-            int maxInst = state.parameters.getIntWithDefault(new Parameter("experiment.max.instances"), null, -1);
-            if (maxInst > 0 && data.size() > maxInst) {
-                data = new ArrayList<PDPData>(data.subList(0, maxInst));
-            }
         } catch (Exception e) {	e.printStackTrace();}
-        if (data != null) {
-            System.out.println("Lectura de los "+ data.size() +" archivo terminada con éxito!");
-        } else {
-            System.err.println("ERROR: No se pudieron leer las instancias. data es null.");
+
+        // Ventana de selección. El offset se aplica sobre el orden alfabético que garantiza
+        // FileIO.readInstances; fuera del try porque un conjunto mal especificado debe detener
+        // la corrida, no evaluar en silencio con las instancias equivocadas.
+        int totalLeido = data.size();
+        if (instancesOffset < 0 || instancesOffset > totalLeido) {
+            state.output.fatal("experiment.instances.offset=" + instancesOffset
+                + " está fuera de rango: se leyeron " + totalLeido
+                + " instancias en " + Instacespath,
+                new Parameter("experiment.instances.offset"));
         }
+        int from = Math.max(0, Math.min(instancesOffset, totalLeido));
+        int to = (maxInst > 0) ? Math.min(from + maxInst, totalLeido) : totalLeido;
+        data = new ArrayList<PDPData>(data.subList(from, to));
+        if (data.isEmpty()) {
+            state.output.fatal("La selección de instancias quedó vacía: carpeta=" + Instacespath
+                + ", experiment.instances.offset=" + instancesOffset
+                + ", experiment.max.instances=" + maxInst
+                + ", instancias leídas=" + totalLeido,
+                new Parameter("experiment.instances.offset"));
+        }
+        // Evidencia de qué se corrió: queda en el log de consola de cada JVM
+        System.out.println("Instancias seleccionadas: " + data.size() + " de " + totalLeido
+            + " leídas en " + Instacespath + " (offset " + from + ")");
+        for (PDPData seleccionada : data) {
+            System.out.println("  - " + seleccionada.getInstance().getName());
+        }
+        System.out.println("Lectura de los "+ data.size() +" archivo terminada con éxito!");
         //Se actualiza y setea el resto de las variables
         System.out.println("Actualizando estructuras variables y fijas......");
         Setear_Instancias();

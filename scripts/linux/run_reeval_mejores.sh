@@ -4,24 +4,82 @@ cd "$(dirname "$0")/../.." || exit 1
 # ================================================================
 # RE-EVALUACION DE LOS 5 MEJORES ALGORITMOS (uno por condicion hibrida)
 # Ver la cabecera de scripts/windows/run_reeval_mejores.bat para el diseno.
-# Uso: ./scripts/linux/run_reeval_mejores.sh [B10|B25|B50|B75|B100]
+#
+# CONJUNTOS DE INSTANCIAS (segundo argumento, o la variable REEVAL_CONJUNTO):
+#   protocolo   DEFECTO. data/evolution, offset 0, 8 instancias: la familia
+#               3C_20 con que se corrio el experimento publicado.
+#               Baseline total de CPLEX: 581,7 s.
+#               Salida: out/reeval_mejores/[Bxx]/
+#   restantes   data/evolution, offset 8, sin tope: las 28 instancias que el
+#               experimento NO uso, de 3C_40_66-01 a SCA3-5.
+#               Baseline total de CPLEX: 42.349,9 s (11,76 h). Dos instancias
+#               concentran el costo: SCA3-5 con 23.971,8 s (6,7 h) y CON3-0
+#               con 9.757,1 s (2,7 h); entre las dos, 9,4 de las 11,8 horas.
+#               Salida: out/reeval_mejores/restantes/[Bxx]/
+#   evaluacion  data/evaluation, offset 0, las 10 instancias reservadas, que
+#               nunca entraron en la evolucion.
+#               Baseline total de CPLEX: 10.977,6 s (3,05 h).
+#               Salida: out/reeval_mejores/evaluacion/[Bxx]/
+#
+# ADVERTENCIA DE COSTO: el conjunto protocolo son unos 10 minutos para los 5
+# algoritmos. Con restantes, el algoritmo B100 gasta el 100 % del tiempo base
+# de cada instancia, asi que su peor caso es del orden de esas 11,8 horas de
+# CPU en CPLEX, dominadas por SCA3-5 y CON3-0. Convienen corridas de un solo
+# algoritmo (primer argumento) antes que los 5 de una vez.
+#
+# El reporte Excel (reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx) solo cubre
+# el conjunto protocolo; para los otros quedan los crudos.
+#
+# Uso: ./scripts/linux/run_reeval_mejores.sh [B10|B25|B50|B75|B100] [conjunto]
+#      ./scripts/linux/run_reeval_mejores.sh "" restantes
 # ================================================================
 
 CLASSPATH="bin:ecj:lib/cplex.jar:lib/commons-math3-3.6.1.jar"
 CPLEX_LIB_PATH="${CPLEX_LIB_PATH:-/opt/ibm/ILOG/CPLEX_Studio2211/cplex/bin/x86-64_linux}"
-OUT="out/reeval_mejores"
 POP="out/reeval_mejores/poblacion"
 SEED=20260908
 ONLY="$1"
+CONJUNTO="${2:-${REEVAL_CONJUNTO:-protocolo}}"
+
+# Traduccion del conjunto a parametros de ECJ y a carpeta de salida.
+# El conjunto protocolo conserva la ruta out/reeval_mejores/[Bxx] porque
+# scripts/analisis/generate_reeval_mejores_report.py la lee tal cual.
+case "$CONJUNTO" in
+    protocolo)
+        INST_PATH="data/evolution"; INST_OFFSET=0; INST_MAX=8
+        OUT="out/reeval_mejores"; REPORTE=1
+        ;;
+    restantes)
+        INST_PATH="data/evolution"; INST_OFFSET=8; INST_MAX=-1
+        OUT="out/reeval_mejores/restantes"; REPORTE=0
+        ;;
+    evaluacion)
+        INST_PATH="data/evaluation"; INST_OFFSET=0; INST_MAX=-1
+        OUT="out/reeval_mejores/evaluacion"; REPORTE=0
+        ;;
+    *)
+        echo "ERROR: conjunto desconocido \"$CONJUNTO\"."
+        echo "Conjuntos validos: protocolo, restantes, evaluacion."
+        exit 1
+        ;;
+esac
 
 echo "Compilando codigo fuente..."
 javac -encoding UTF-8 -d bin -cp "$CLASSPATH" src/model/*.java src/terminals/*.java src/functions/*.java || { echo "ERROR: fallo la compilacion"; exit 1; }
 mkdir -p out/results/evaluation
 
+echo
+echo "Conjunto: $CONJUNTO ($INST_PATH, offset $INST_OFFSET, max $INST_MAX)"
+echo "Salida:   $OUT/[Bxx]/evolution0/"
+if [ "$CONJUNTO" = "restantes" ]; then
+    echo "ADVERTENCIA: 28 instancias, baseline total 42.349,9 s (11,76 h)."
+    echo "  Con B100 el peor caso es de ese orden. SCA3-5 y CON3-0 son 9,4 h."
+fi
+
 run() {
     local LABEL=$1 BUDGET=$2 TREE=$3
     if [ -n "$ONLY" ] && [ "$ONLY" != "$LABEL" ]; then return 0; fi
-    echo; echo "--- $LABEL  presupuesto=$BUDGET  individuo=$TREE ---"
+    echo; echo "--- $LABEL  presupuesto=$BUDGET  individuo=$TREE  conjunto=$CONJUNTO ---"
     rm -rf "$OUT/$LABEL"
     java -cp "$CLASSPATH" -Djava.library.path="$CPLEX_LIB_PATH" ec.Evolve \
         -file src/model/params/pdp_group1_10pct.params \
@@ -35,7 +93,9 @@ run() {
         -p pop.file="\$$POP/$TREE.in" \
         -p breed.elite.0=0 \
         -p gp.fs.0.func.6.cplex-budget=$BUDGET \
-        -p experiment.max.instances=8 \
+        -p experiment.instances.path=$INST_PATH \
+        -p experiment.instances.offset=$INST_OFFSET \
+        -p experiment.max.instances=$INST_MAX \
         -p experiment.output.dir=$OUT/$LABEL \
         || echo "ERROR: fallo la evaluacion de $LABEL"
 }
@@ -46,5 +106,13 @@ run B50  0.50 B50_grupo3_ejec4_gen53
 run B75  0.75 B75_grupo4_ejec2_gen9
 run B100 1.00 B100_grupo5_ejec2_gen49
 
-echo; echo "Generando reporte Excel..."
-python3 scripts/analisis/generate_reeval_mejores_report.py && echo "Reporte listo: reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx"
+if [ "$REPORTE" = "1" ]; then
+    echo; echo "Generando reporte Excel..."
+    python3 scripts/analisis/generate_reeval_mejores_report.py && echo "Reporte listo: reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx"
+else
+    echo
+    echo "Crudos del conjunto $CONJUNTO en: $OUT/[Bxx]/evolution0/"
+    echo "ADVERTENCIA: generate_reeval_mejores_report.py solo cubre el conjunto"
+    echo "  protocolo; el Excel todavia no incluye $CONJUNTO. Los crudos quedan"
+    echo "  para analizarlos a mano."
+fi

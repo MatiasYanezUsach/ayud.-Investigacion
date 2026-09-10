@@ -24,7 +24,7 @@ por instancia). Cada condición: 5 ejecuciones independientes, 100 generaciones,
 ├── bin/                    Clases compiladas de src/ (salida de javac)
 ├── lib/                    cplex.jar, cplex_2211.jar, commons-math3-3.6.1.jar
 ├── data/
-│   ├── evolution/          36 instancias; el experimento usa las primeras 8 (experiment.max.instances=8)
+│   ├── evolution/          36 instancias en orden alfabético; el experimento usa las primeras 8 (experiment.max.instances=8)
 │   ├── evaluation/         10 instancias de evaluación
 │   ├── results.txt         Óptimos conocidos por instancia (los lee FileIO.readOptimals al cargar cada instancia). NO MOVER.
 │   └── legacy/             Instancias y resultados de proyectos anteriores (MISP, Dethloff, Salhi-Nagy, ...). No se usan.
@@ -71,19 +71,57 @@ Linux: los mismos comandos con `scripts/linux/*.sh`.
 ### Re-evaluación de los 5 mejores algoritmos (pedido de Parada, 2026-09-08)
 
 ```bat
-scripts\windows\run_reeval_mejores.bat          :: los 5 algoritmos, uno tras otro
-scripts\windows\run_reeval_mejores.bat B50      :: solo uno
+scripts\windows\run_reeval_mejores.bat                  :: los 5 algoritmos, conjunto protocolo
+scripts\windows\run_reeval_mejores.bat B50              :: solo uno, conjunto protocolo
+scripts\windows\run_reeval_mejores.bat B100 restantes   :: un algoritmo, otro conjunto
+scripts\windows\run_reeval_mejores.bat "" evaluacion    :: los 5, otro conjunto
 ```
 
 Carga cada mejor individuo (`out/reeval_mejores/poblacion/Bxx_*.in`) como población fija de ECJ
-(`pop.file`, `generations=1`, `pop.subpop.0.size=1`), lo evalúa con su propio presupuesto sobre las
-8 instancias, con `evalthreads=1` y una JVM por algoritmo (sin el estado compartido que el Cap. 5
-declara como limitación). Salida cruda en `out/reeval_mejores/Bxx/evolution0/`; el reporte
-`reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx` lo genera
+(`pop.file`, `generations=1`, `pop.subpop.0.size=1`), lo evalúa con su propio presupuesto, con
+`evalthreads=1` y una JVM por algoritmo (sin el estado compartido que el Cap. 5 declara como
+limitación). El reporte `reportes/REEVALUACION_MEJORES_ALGORITMOS.xlsx` lo genera
 `scripts/analisis/generate_reeval_mejores_report.py` (tiempo de CPLEX y tiempo de pared por
 instancia y por algoritmo, total de los 5, comparación con el experimento original).
 `out/reeval_mejores/poblacion/mejores_5_algoritmos.in` trae los 5 en un solo archivo por si se
 quiere evaluarlos juntos bajo un mismo presupuesto (`pop.subpop.0.size=5`).
+
+**Conjuntos de instancias.** El segundo argumento (o la variable `REEVAL_CONJUNTO`) elige contra
+qué instancias se re-evalúa. En Linux es igual: `./scripts/linux/run_reeval_mejores.sh B100 restantes`.
+
+| Conjunto | Carpeta | Offset | Cantidad | Salida cruda | Reporte Excel |
+|---|---|---|---|---|---|
+| `protocolo` (defecto) | `data/evolution` | 0 | 8 (familia `3C_20`) | `out/reeval_mejores/Bxx/evolution0/` | sí |
+| `restantes` | `data/evolution` | 8 | 28 (`3C_40_66-01` … `SCA3-5`) | `out/reeval_mejores/restantes/Bxx/evolution0/` | no |
+| `evaluacion` | `data/evaluation` | 0 | 10 | `out/reeval_mejores/evaluacion/Bxx/evolution0/` | no |
+
+`protocolo` es el conjunto del experimento publicado y conserva la ruta de salida original porque
+`generate_reeval_mejores_report.py` la lee tal cual; los otros dos escriben en subcarpetas propias
+para no pisar esos crudos y hoy no entran en el Excel.
+
+**Costo.** El baseline total de CPLEX del conjunto `protocolo` es 581,7 s: los 5 algoritmos toman
+unos 10 minutos. El de `restantes` es 42.349,9 s (11,76 h), y dos instancias concentran el gasto:
+`SCA3-5` con 23.971,8 s (6,7 h) y `CON3-0` con 9.757,1 s (2,7 h), 9,4 de las 11,8 horas entre las
+dos. El de `evaluacion` es 10.977,6 s (3,05 h). Como B100 dispone del 100 % del tiempo base de cada
+instancia, su peor caso sobre `restantes` es de ese orden de magnitud en CPU de CPLEX; conviene
+correr un algoritmo a la vez.
+
+**Parámetros nuevos** (los lee `PDPProblemEvo.setup()`; sirven para cualquier corrida, no solo la
+re-evaluación):
+
+| Parámetro | Defecto | Qué hace |
+|---|---|---|
+| `experiment.instances.path` | `data/evolution` | Carpeta desde la que se leen las instancias |
+| `experiment.instances.offset` | `0` | Cuántas instancias se saltan desde el principio |
+| `experiment.max.instances` | `-1` (todas) | Cuántas se usan **a partir del offset** |
+
+La selección es `[offset, offset + max)` acotada al total leído; con `max` ausente o `-1` va del
+offset hasta el final. Sin ninguno de los tres, el comportamiento es el del experimento publicado.
+Un offset fuera de rango o una selección vacía detienen la corrida con `state.output.fatal`, y la
+consola lista la carpeta, el offset, el total leído y el nombre de cada instancia seleccionada.
+`FileIO.readInstances` ordena las entradas por nombre antes de leerlas: `File.listFiles()` no
+garantiza orden alguno (en Windows salía alfabético de facto, que es el orden del experimento
+publicado), así que ordenar no cambia qué instancias se usaron y vuelve el offset reproducible.
 
 Reportes (leen `out/`, escriben en `reportes/`):
 
