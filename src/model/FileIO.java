@@ -372,6 +372,16 @@ public class FileIO {
 	public static void Stat_a_csv(String path, String infile,String outfile) throws IOException {
 		String fileInputPath =	path+infile;
 		File file = new File(fileInputPath);
+		// Con jobs=1 ECJ no antepone "job.N." a sus archivos de salida, asi que el
+		// Statistics.out queda sin ese prefijo y la ruta armada en PDPProblemEvo no
+		// lo encuentra. Se prueba la variante sin prefijo antes de fallar, para que
+		// las corridas de una sola ejecucion (re-evaluacion) tambien generen el CSV.
+		if (!file.exists()) {
+			File sinPrefijo = new File(path.replaceFirst("job\\.\\d+\\.$", "") + infile);
+			if (sinPrefijo.exists()) {
+				file = sinPrefijo;
+			}
+		}
 		//Lee el archivo
 		Scanner s = new Scanner(file); String temp;
 		ArrayList<Individuo> listEstadisticas = new ArrayList<Individuo>();
